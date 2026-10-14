@@ -1,0 +1,105 @@
+---
+title: "השוואת מודלים"
+course-week: "שבוע 11"
+---
+
+## השוואת מודלים
+
+::: {.nbox}
+<p class="nh">שבוע 11 · חומר הלימוד</p>
+
+השבוע נלמד כיצד לייצר נתונים מלאכותיים, ולבצע עליהם השוואת מודלים בתוך המדגם ומחוצה לו.
+
+נתנסה במדדי טיב התאמה ובמדדי ביצועי ניבוי, כדי להבין את המתח בין התאמה לנתונים לבין הכללה לנתונים חדשים — ואת תופעת התאמת היתר (overfitting).
+:::
+
+## יצירת נתונים מלאכותיים
+
+::: {.tb}
+::: {.tbox}
+<p class="th">מודלים וניתוחים סטטיסטיים</p>
+<p>יצירת נתונים מלאכותיים</p>
+:::
+
+::: {.board}
+```r
+#### SIMULATE DATA ####
+
+n = 200
+study_time  = rnorm(n, mean = 10, sd = 2)
+screen_time = rnorm(n, mean = 6, sd = 2)  # no effect
+noise       = rnorm(n, mean = 0, sd = 5)
+
+# the true model: b0 = 40, b1 = 3
+exam_score = 40 + 3 * study_time + noise
+
+df = data.frame(exam_score, study_time, screen_time)
+```
+:::
+:::
+
+## טיב התאמה בתוך המדגם
+
+::: {.tb}
+::: {.tbox}
+<p class="th">מודלים וניתוחים סטטיסטיים</p>
+<p>השוואת טיב התאמה (In-sample)</p>
+<p><span class="ltr">R²</span>, <span class="ltr">adjusted R²</span>, <span class="ltr">AIC</span></p>
+:::
+
+::: {.board}
+```r
+#### IN-SAMPLE FIT ####
+
+model_1 = lm(exam_score ~ study_time, data = df)
+model_2 = lm(exam_score ~ study_time + screen_time,
+             data = df)
+
+summary(model_1)$r.squared
+summary(model_2)$r.squared      # always a little higher
+summary(model_2)$adj.r.squared
+AIC(model_1, model_2)
+```
+:::
+:::
+
+## ניבוי מחוץ למדגם
+
+::: {.tb}
+::: {.tbox}
+<p class="th">מודלים וניתוחים סטטיסטיים</p>
+<p>חלוקה ל-Train / Test והערכת ניבוי (Out-of-sample)</p>
+:::
+
+::: {.board}
+```r
+#### OUT-OF-SAMPLE PREDICTION ####
+
+rows = sample(1:n, size = 0.8 * n)
+df_train = df[rows, ]
+df_test  = df[-rows, ]
+
+model = lm(exam_score ~ study_time, data = df_train)
+predicted = predict(model, newdata = df_test)
+
+sse = sum((predicted - df_test$exam_score)^2)
+mse = mean((predicted - df_test$exam_score)^2)
+```
+:::
+:::
+
+## מטלה שבועית
+
+::: {.hwbox}
+**המטלה השבועית (שבוע 11)** — הנתונים נוצרים בקוד, כחלק מהמטלה.
+
+**חלק א:** 200 נבדקים: שלושה משתנים שמשפיעים על ציון הבחינה (זמן הכנה, חרדת בחינות, איכות שינה), שלושה שאינם משפיעים (יד דומיננטית, העדפה מוזיקלית, זמן מסך), ורעש נורמלי. **חלק ב:** שלושה מודלים — בסיסי, רלוונטי ומורחב.
+
+**חלק ג:** R², adjusted R² ו-AIC לכל מודל, עם גרף עמודות לכל מדד. **חלק ד:** חלוקה 80/20, התאמה מחדש על סט האימון, וסכום השגיאות הריבועיות על סט הבדיקה — בגרף עמודות.
+
+<p class="due">להגשה עד יום ראשון, 10.1.2027, בשעה 12:00</p>
+:::
+
+## בהצלחה! {.closing}
+
+<p class="closing-text">בהצלחה!</p>

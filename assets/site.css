@@ -38,6 +38,11 @@ a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var
 .now{font-size:12px;color:var(--acc);font-weight:700;display:block}
 .wk.exam .c{border:4px double #b5bfc4;font-size:11px}
 a.wk:hover{background:#f2f5f6;color:var(--ink)}
+.wd{display:block;font-size:12px;color:#8a979d;font-weight:400;font-variant-numeric:tabular-nums}
+.wk.sel .wd{color:var(--mut)}
+.wk .empty{color:#b5bfc4}
+.wk.brk{color:#8a979d;font-size:13.5px}
+.wk.brk .c{border:none;background:transparent;color:#b5bfc4;font-size:13px}
 .mweeks{display:none}
 
 /* week sheet */
@@ -91,9 +96,35 @@ a.row:hover .rt{color:var(--acc)}
 .hw ol{margin:12px 0 12px;padding:0 22px 0 0;font-size:16px;color:#33434b}
 .hw ol li{margin-bottom:4px}
 .hw p{margin:4px 0 0;font-size:15px;color:var(--mut)}
+.hwb,.hw .ctx{overflow-wrap:anywhere}
+.layout>main{min-width:0}
+.hwb ol,.hwb ul{margin:8px 0;padding:0 22px 0 0;font-size:16px;color:#33434b}
+.hwb li{margin-bottom:4px}
+.hwb li ul,.hwb li ol{margin:4px 0}
+.hwb p{margin:10px 0 2px;font-size:16px;color:#33434b}
+.hwb p.hp{font-weight:700;color:var(--ink);margin-top:16px}
+.hw .ctx{margin:10px 0 0;padding:10px 14px;background:var(--ut);border-radius:12px;font-size:15px;color:#23465f}
+.hw .ctx p{margin:2px 0;font-size:15px;color:#23465f}
+.hw .ctx ol{margin:4px 0;padding:0 20px 0 0}
+.hw p.sm{font-size:14.5px}
+.hw p.none{margin:0;font-size:16px;color:var(--mut)}
+.dfiles{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:12px 0 0!important;font-size:14.5px}
+.dfile{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--u);direction:ltr}
+.dfile svg{width:15px;height:15px}
+.dfile:hover{border-color:var(--u)}
 .due{display:flex;align-items:center;gap:8px;margin-top:14px!important;padding-top:12px;border-top:1px dashed #dde3e5;color:var(--ink)!important;font-weight:700}
 .due svg{width:18px;height:18px;color:var(--u)}
 .due.tbd{color:var(--mut)!important;font-weight:600}
+/* solution (staff site only) */
+.sol{margin-top:14px;border:1.5px dashed #c9b49c;border-radius:16px;background:#fdfaf6}
+.sol summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:52px;padding:6px 18px;font-weight:700;color:var(--g)}
+.sol summary::-webkit-details-marker{display:none}
+.sol summary svg{width:18px;height:18px}
+.sol summary span{font-weight:400;font-size:13.5px;color:var(--mut)}
+.solb{padding:0 18px 16px}
+.solb p{margin:8px 0;font-size:15px;color:#33434b}
+.solcode{margin:8px 0;padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow-x:auto;text-align:left;font-family:'JetBrains Mono',monospace;font-size:13.5px;line-height:1.55;color:#0f3d5c}
+.solcode code{font-family:inherit}
 /* week navigation */
 .nav{display:flex;justify-content:space-between;gap:10px;padding:12px 24px;background:#f5f7f7;border-top:1px solid #e9edee;border-radius:0 0 22px 22px}
 .nav a,.nav span{min-height:52px;display:flex;align-items:center;padding:0 18px;border-radius:14px;font-size:15px}
@@ -133,6 +164,8 @@ a.row:hover .rt{color:var(--acc)}
 .links li{font-size:15px}
 .links a{color:var(--u);text-decoration:underline;text-decoration-color:#b9cddb;text-underline-offset:3px;overflow-wrap:anywhere}
 .links .pend{color:var(--mut)}
+.books{margin-top:14px}
+.books .links{flex-direction:row;flex-wrap:wrap;gap:4px 18px}
 .bnav{padding:6px 0}
 .bnav a{display:flex;gap:10px;align-items:center;padding:6px 8px;border-radius:12px;font-size:14.5px;line-height:1.25;color:var(--mut)}
 .bnav a:hover{background:#f2f5f6;color:var(--ink)}

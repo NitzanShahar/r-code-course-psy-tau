@@ -1,0 +1,112 @@
+---
+title: "הצגה גרפית"
+course-week: "שבוע 8"
+---
+
+## הצגה גרפית
+
+::: {.nbox}
+<p class="nh">שבוע 8 · חומר הלימוד</p>
+
+השבוע נתמקד בהצגה גרפית.
+
+נתנסה ביצירת גרפים מסכמים, הוספת הערות, חלוקה למספר תרשימים באותו פיגר, ושמירה.
+:::
+
+## התפלגויות וצבע
+
+::: {.tb}
+::: {.tbox}
+<p class="th">גרפיקה</p>
+<p>צבע וניראות כללית</p>
+<p>היכרות עם ggdist</p>
+<p>שימוש ב-ggdist עם stat_</p>
+<p>הוספת משתנה קבוצה ב-ggdist</p>
+<p>המערך הפקטוריאלי</p>
+:::
+
+::: {.board}
+```r
+#### DISTRIBUTIONS ####
+
+library(ggplot2)
+library(ggdist)
+
+df = read.csv('titanic.csv')
+df$Pclass = factor(df$Pclass)
+
+ggplot(df, aes(x = Pclass, y = Age, fill = Sex)) +
+  stat_halfeye(position = position_dodge(width = 0.8),
+               alpha = 0.6) +
+  scale_fill_manual(values = c('#b3541e', '#1f5f8b')) +
+  theme_minimal()
+```
+:::
+:::
+
+## גרף מסכם והערות
+
+::: {.tb}
+::: {.tbox}
+<p class="th">גרפיקה</p>
+<p>שימוש בחבילת ggpubr</p>
+<p>הוספת Annotations לגרף</p>
+:::
+
+::: {.board}
+```r
+#### SUMMARY PLOT ####
+
+library(ggpubr)
+
+# 1. Means and standard errors
+p1 = ggbarplot(df, x = 'Pclass', y = 'Survived',
+               fill = 'Sex', add = 'mean_se',
+               position = position_dodge(0.8))
+
+# 2. An annotation
+p1 = p1 + annotate('text', x = 1, y = 1.05,
+                   label = 'first class')
+```
+:::
+:::
+
+## פאנלים ושמירה
+
+::: {.tb}
+::: {.tbox}
+<p class="th">גרפיקה</p>
+<p>שילוב מספר פאנלים בתרשים אחד (Faceting / Subplots)</p>
+<p>שמירת הגרפים</p>
+:::
+
+::: {.board}
+```r
+#### PANELS & SAVE ####
+
+p2 = ggboxplot(df, x = 'Pclass', y = 'Age', fill = 'Sex')
+
+figure = ggarrange(p1, p2, ncol = 2, labels = c('A', 'B'))
+figure = annotate_figure(figure, top = 'Titanic')
+
+ggsave('titanic.png', figure, width = 10, height = 5)
+ggsave('titanic.pdf', figure, width = 10, height = 5)
+```
+:::
+:::
+
+## מטלה שבועית
+
+::: {.hwbox}
+**המטלה השבועית (שבוע 8)** — קובץ הנתונים: titanic.csv (באתר הקורס).
+
+**חלק א:** גרף ממוצעים לסיכויי ההישרדות לפי מחלקה ומגדר, עם טעויות תקן; הגיל לפי מחלקה ומגדר (box plot / violin plot); שרטוט נוסף לבחירתכם; Annotations באחד הגרפים לפחות.
+
+**חלק ב:** כל הגרפים בתרשים אחד עם כמה פאנלים, פריסה ופרופורציות מתאימות וכותרת ראשית. **חלק ג:** שמירה כ-PNG וכ-PDF באיכות גבוהה, עם שמות ברורים ותיעוד בקוד.
+
+<p class="due">להגשה עד יום ראשון, 20.12.2026, בשעה 12:00</p>
+:::
+
+## בהצלחה! {.closing}
+
+<p class="closing-text">בהצלחה!</p>

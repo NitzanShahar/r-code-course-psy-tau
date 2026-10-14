@@ -1,0 +1,113 @@
+{
+ "n": 4,
+ "title": "שבוע 4: עבודה עם מבנה נתונים ג",
+ "intro": [],
+ "deck": [],
+ "topics": [
+  "",
+  "רשימת חומרי הלימוד",
+  "",
+  "אובייקטים בסיסיים, מבנה נתונים וסטטיסטיקה תיאורית",
+  "הזנת ערך חסר למספר תאים בטבלה",
+  "ספירת מספר הערכים החסרים",
+  "חישוב והצגת סטטיסטיקה תיאורית בנוכחות נתונים חסרים",
+  "יצירת משתנה לוגי אשר יקודד את קיומם של ערכים חסרים",
+  "",
+  "רגרסיה",
+  "חישוב רגרסיה פשוטה לא מתוקננת",
+  "חישוב מתאם פירסון",
+  "",
+  "גרפיקה",
+  "יצירת תרשים פיזור (Scatter plot) בין שני משתנים נומריים רציפים במבנה הנתונים",
+  ""
+ ],
+ "r_units": [
+  {
+   "group": "וקטורים ומטריצות",
+   "units": [
+    "ערכים חסרים"
+   ]
+  },
+  {
+   "group": "מבנה נתונים וסטטיסטיקה תיאורית",
+   "units": [
+    "סטטיסטיקה תיאורית עם חבילת base (ערכים חסרים)",
+    "חבילת dplyr ד (!is.na)"
+   ]
+  },
+  {
+   "group": "מודלים וניתוחים סטטיסטיים",
+   "units": [
+    "קשר בין שני רציפים"
+   ]
+  },
+  {
+   "group": "גרפיקה",
+   "units": [
+    "תאור קשר בין שני רציפים"
+   ]
+  }
+ ],
+ "hw": [
+  "",
+  "המטלה השבועית (שבוע 4)",
+  "",
+  "חלק א - עדכון מבנה הנתונים עם ערכים חסרים:",
+  "1. טענו את קובץ CSV שיצרתם בשבוע הקודם",
+  "1. הכניסו באופן אקראי חמישה ערכים חסרים בעמודת age ושני ערכים בעמודת iq.",
+  "1. הדפיסו את מספר הערכים החסרים בכל אחת משתי העמודות הללו.",
+  "",
+  "חלק ב - סטטיסטיקה תיאורית",
+  "1. חשבו והציגו את הממוצע, סטיית התקן, החציון, המינימום והמקסימום של המשתנה age תוך התעלמות מנתונים חסרים.",
+  "",
+  "חלק ג - רגרסיה לינארית",
+  "1. הוציאו את התצפיות שכוללות ערכים חסרים",
+  "1. חשבו את המקדם הרגרסיה הלא מתוקננת שבה גיל מנבא iq",
+  "1. חשבו את מתאם פירסון עבור אותם משתנים",
+  "",
+  "חלק ד - הצגה גרפית",
+  "1. צרו תרשים פיזור (Scatter plot) בין age ל-iq.",
+  "  כתבו כותרות צירים, וכותרת לגרף.",
+  "  ביחרו טווח לכל ציר שישקף את טווח המשתנה כולו",
+  "1. הוסיפו את קו הרגרסיה (ללא טעות התקן) באופן ידני תוך שימוש בערכי הרגרסיה שחישבתם בסעיף קודם",
+  "1. הוסיפו את קו הרגרסיה (ללא טעות התקן) באופן אוטומטי באמצעות שימוש בפקודה / חבילה.*\n\n* שימו לב שסעיף 3 הוא בונוס בלבד במטלת הפייתון, אבל חלק בלתי נפרד ממטלת הR והmatlab.",
+  "  ",
+  "  ",
+  "",
+  "",
+  "הוראות הגשה:",
+  "כותרות הקוד: השתמשו בפורמט הכותרות שלנו על מנת לכתוב בתחילת המסמך את שם הקורס, השבוע, מספר תעודת זהות שלכם ושם. :",
+  "",
+  "פורמט ההגשה: קובץ pdf עם הקוד שנכתב",
+  "",
+  "תאריך אחרון להגשה: 23 לנובמבר בשעה 12.00",
+  ""
+ ],
+ "solutions": [
+  {
+   "id": "238dccfe-d059-80a3-8da7-c04566d88e91",
+   "title": "שבוע 4 - פתרונות"
+  }
+ ],
+ "files": [
+  {
+   "name": "תיאור משתנים בטבלת נתונים.mp4",
+   "id": "26fdccfe-d059-80cf-b4b8-c4610404ed8d",
+   "type": "file"
+  }
+ ],
+ "other": [
+  "",
+  "ברוכים הבאים לשבוע הרביעי של הקורס! 🔍",
+  "השבוע נתחיל לעסוק באחד האתגרים הנפוצים ביותר בניתוח נתונים – ערכים חסרים, ונוסיף לכך גם היכרות ראשונית עם רגרסיה וגרפיקה מתקדמת יותר.\nנלמד איך להזין ערכים חסרים בטבלת נתונים, איך לספור כמה ערכים חסרים יש, ואיך ליצור משתנה שמתעד נוכחות של ערכים חסרים בכל שורה או עמודה. לאחר מכן נבין איך לייצר סטטיסטיקה תיאורית גם כשיש ערכים חסרים בטבלת הנתונים, ונתנסה ביצירת משתנה לוגי שיאפשר סינון של ערכים חסרים.\nמשם נתקדם לטעימה ראשונה מניתוח סטטיסטי של רגרסיה לא מתוקננת ומתאם פירסון בין שני משתנים רציפים ונציג את הקשר הזה בין שני המשתנים הרציפים גם בצורה גרפית.\nהשבוע הזה יספק לכם כלים חשובים להתמודדות עם \"החיים האמיתיים של דאטה\" – כשלא הכל מושלם, אבל אפשר להוציא ממנו תובנות משמעותיות.",
+  "בהצלחה! 🌟\n[מצגת שבועית](https://docs.google.com/presentation/d/1xkItxY8NTXn1UjKzWDkgn8Wc1SnDL5PQ1r5OOvdkdVc/edit?usp=sharing)",
+  "[מצגת שבועיתמצגת שבועית](https://docs.google.com/presentation/d/1xkItxY8NTXn1UjKzWDkgn8Wc1SnDL5PQ1r5OOvdkdVc/edit?usp=sharing)",
+  "",
+  "",
+  "",
+  ""
+ ],
+ "solution_r": [
+  "# R course for beginners\n# Week 4\n# Assignment by <First Name> <Last Name>, ID <123456789>\n\n\n#### UPDATE DATA WITH MISSING VALUES ####\n\n# 1. Load data\ndf <- read.csv(\"subjects_data.csv\")  \n\n# 2. Add missing values\ndf$age[c(12, 19, 25, 70, 92)] <- NA\ndf$iq[c(44, 71)] <- NA\n\n# 3. Count missing values\nprint(sum(is.na(df$age)))\nprint(sum(is.na(df$iq)))\n\n\n\n#### DESCRIPTIVE STATISTICS ####\n\n# 1. Age statistics\nsummary(df$age)  \n\nmean(df$age, na.rm = TRUE)\n\n# Alternative:\n# mean(df$age[!is.na(df$age)])\n\n\n\n#### LINEAR REGRESSION ####\n# 1. Removing rows with NA in either age or iq\nlibrary(dplyr)\ndf  = df |>  filter(!is.na(age), !is.na(iq))\n\n# alternative:\n# df  = df[!is.na(df$age) & !is.na(df$iq), ]\n\n# 2. Unstandardized regression (with intercept)\nmodel <- lm(iq ~ age, data = df)\nsummary(model)  \ncoef(model)\n\n# 3. Pearson correlation\ncor(df$iq, df$age)\n\n\n#### DATA SUMMARY ####\nlibrary(ggplot2)\n\n#1. Scatter for Age vs IQ\np = ggplot(clean_df, aes(x = age, y = iq)) +\n  geom_point(color = \"blue\", size = 2, alpha = 0.7) +\n  labs(\n    title = \"Age Predicts IQ: Linear Regression\",\n    x     = \"Age\",\n    y     = \"IQ\"\n  ) +\n  xlim(range(clean_df$age)) +\n  ylim(range(clean_df$iq)) +\n  theme_minimal(base_size = 13) +\n  theme(\n    plot.title  = element_text(hjust = 0.5, face = \"bold\"),\n    axis.title  = element_text(face = \"bold\")\n  )\n\n\n# 2. Add line with manually defined intercept and slope\np + geom_abline(intercept = 80, slope = 0.5, color = \"red\", linewidth = 1.2)\n\n\n# 3. Add line fitted from a linear model\np + geom_smooth(method = \"lm\", se = TRUE, color = \"red\", fill = \"pink\", linewidth = 1.2)\n"
+ ]
+}

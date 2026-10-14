@@ -1,0 +1,104 @@
+subject_id,treatment,gender,time_studying,exam_score,anxiety_rating
+1,mindfullness ,Male,4,40,86.298
+2,mindfullness ,Female,11,65,88.716
+3,mindfullness ,Male,27,80,70.178
+4,mindfullness ,Male,53,80,61.312
+5,mindfullness ,Male,4,40,89.522
+6,mindfullness ,Female,22,70,60.506
+7,mindfullness ,Female,16,20,81.462
+8,mindfullness ,Female,21,55,75.82
+9,mindfullness ,Female,25,50,69.372
+10,mindfullness ,Female,18,40,82.268
+11,mindfullness ,Male,18,45,79.044
+12,mindfullness ,Male,16,85,80.656
+13,mindfullness ,Male,13,70,70.178
+14,mindfullness ,Female,18,50,75.014
+15,mindfullness ,Male,98,95,34.714
+16,mindfullness ,Male,1,70,95.164
+17,mindfullness ,Male,14,95,75.82
+18,mindfullness ,Female,29,95,79.044
+19,mindfullness ,Female,4,50,91.134
+20,mindfullness ,Male,23,60,64.536
+21,mindfullness ,Male,14,80,80.656
+22,mindfullness ,Male,12,75,77.432
+23,mindfullness ,Female,22,85,65.342
+24,mindfullness ,Female,84,90,0.056
+25,mindfullness ,Female,23,30,71.79
+26,mindfullness ,Female,26,60,81.462
+27,mindfullness ,Male,24,75,63.73
+28,mindfullness ,Female,72,75,27.46
+29,mindfullness ,Female,37,27,73.402
+30,mindfullness ,Male,10,20,89.522
+31,mindfullness ,Female,3,75,89.522
+32,mindfullness ,Female,36,90,75.014
+33,mindfullness ,Male,43,60,43.58
+34,mindfullness ,Male,19,30,82.268
+35,mindfullness ,Male,12,80,79.044
+36,mindfullness ,Female,9,10,79.044
+37,mindfullness ,Male,72,85,37.132
+38,mindfullness ,Male,10,7,81.462
+39,mindfullness ,Female,12,5,83.074
+40,mindfullness ,Male,30,85,50.834
+41,mindfullness ,Male,15,20,82.268
+42,mindfullness ,Female,8,45,78.238
+43,mindfullness ,Male,34,60,72.596
+44,mindfullness ,Female,22,70,74.208
+45,mindfullness ,Female,21,50,75.82
+46,mindfullness ,Male,27,25,70.984
+47,mindfullness ,Male,6,50,97.582
+48,mindfullness ,Male,18,40,67.76
+49,mindfullness ,Male,8,80,75.014
+50,mindfullness ,Female,19,50,73.402
+51,placebo,Female,0,35,93.552
+52,placebo,Female,52,80,58.894
+53,placebo,Female,38,50,53.252
+54,placebo,Male,19,49,84.686
+55,placebo,Female,23,75,89.522
+56,placebo,Female,11,25,71.79
+57,placebo,Male,27,65,82.268
+58,placebo,Male,17,80,69.372
+59,placebo,Male,13,50,62.118
+60,placebo,Female,42,70,68.566
+61,placebo,Male,4,40,93.552
+62,placebo,Female,8,80,84.686
+63,placebo,Male,6,10,82.268
+64,placebo,Female,11,20,81.462
+65,placebo,Male,7,40,82.268
+66,placebo,Male,15,40,91.134
+67,placebo,Female,4,70,91.94
+68,placebo,Female,28,52,86.298
+69,placebo,Male,22,50,72.596
+70,placebo,Female,29,60,63.73
+71,placebo,Male,2,80,63.73
+72,placebo,Female,16,60,71.79
+73,placebo,Male,59,65,57.282
+74,placebo,Female,10,15,84.686
+75,placebo,Male,13,85,84.686
+76,placebo,Female,8,20,77.432
+77,placebo,Female,5,80,82.268
+78,placebo,Male,2,100,10
+79,placebo,Female,38,100,50.834
+80,placebo,Male,4,80,87.91
+81,placebo,Male,10,10,83.88
+82,placebo,Female,6,70,84.686
+83,placebo,Female,68,100,20.206
+84,placebo,Male,8,70,87.104
+85,placebo,Female,1,70,83.88
+86,placebo,Male,14,65,67.76
+87,placebo,Female,42,75,95.97
+88,placebo,Female,13,85,62.118
+89,placebo,Male,1,30,84.686
+90,placebo,Male,3,5,92.746
+91,placebo,Female,5,10,84.686
+92,placebo,Female,12,90,83.074
+93,placebo,Male,19,70,73.402
+94,placebo,Female,2,20,87.91
+95,placebo,Male,19,85,71.79
+96,placebo,Male,11,35,86.298
+97,placebo,Female,15,30,84.686
+98,placebo,Male,23,70,75.82
+99,placebo,Female,13,55,70.984
+100,placebo,Female,14,75,78.238
+101,placebo,Male,1,2,82.268
+102,placebo,Male,9,40,79.044
+103,placebo,Female,20,50,91.134

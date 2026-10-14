@@ -4,7 +4,7 @@ project:
   render:
     - "W*.qmd"
 
-author: "פרופ' ניצן שחר"
+author: "פרופ׳ ניצן שחר · קורס R למתחילים · תשפ״ז"
 
 format:
   revealjs:
@@ -15,7 +15,7 @@ format:
     navigation-mode: vertical
     include-after-body:
       - theme/rtl-navigation.html
-    embed-resources: true
+    embed-resources: false  # tools/build_decks.py keeps one shared copy of the libraries in decks/_libs
     # "##" starts a slide; "###" is a heading inside a card
     slide-level: 2
     slide-number: true
@@ -29,3 +29,4 @@ format:
     width: 1280
     height: 720
     highlight-style: github
+    code-line-numbers: false

@@ -1,0 +1,62 @@
+{
+ "n": 8,
+ "title": "שבוע 8: הצגה גרפית",
+ "intro": [
+  "",
+  "שבוע   - חומר הלימוד\n\nהשבוע נתמקד בהצגה גרפית. נתנסה ביצירת גרפים מסכמים, הוספת הערות, חלוקה למספר תרשימים באותו פיגר, ושמירה.",
+  "",
+  ""
+ ],
+ "deck": [],
+ "topics": [],
+ "r_units": [
+  {
+   "group": "",
+   "units": [
+    "צבע וניראות כללית",
+    "היכרות עם ggdist",
+    "שימוש בggdist עם stat_",
+    "הוספת משתנה קבוצה בggdist",
+    "המערך הפקטוריאלי",
+    "שימוש בחבילת ggpubr",
+    "הוספת Annotations לגרף",
+    "שילוב מספר פאנלים בתרשים אחד  (Faceting / Subplots)",
+    "שמירת הגרפים"
+   ]
+  }
+ ],
+ "hw": [],
+ "solutions": [
+  {
+   "id": "23ddccfe-d059-80a9-917e-d721d792e246",
+   "title": "שבוע 8 - הצגה גרפית מתקדמת"
+  }
+ ],
+ "files": [],
+ "other": [
+  "",
+  "המטלה השבועית (שבוע 8)",
+  "",
+  "[[FILE titanic.csv|2c9dccfe-d059-8085-b7f5-db6a1ef2c0b7]]",
+  "חלק א - הצגה גרפית בסיסית:",
+  "1. העלו את קובץ הטיטניק",
+  "1. צרו גרף ממוצעים לסיכויי ההשרדות לפי מחלקה ומגדר. הוסיפו טעויות תקן.",
+  "1. שרטטו  את הגיל לפי מחלקה ומגדר באמצעות Box plot  / Violin plot",
+  "1. הוסיפו שירטוט נוסף לבחירתכם כדי להדגים את הנתונים",
+  "1. הוסיפו Annotations (למשל: חיצים, טקסט) לפחות באחד הגרפים כדי להדגיש או להסביר מידע חשוב (לדוגמה: ממוצעים או הבדלים משמעותיים בין קבוצות).",
+  "",
+  "חלק ב - שילוב מספר פאנלים בתרשים אחד (Faceting / Subplots):",
+  "1. ארגנו את הגרפים שיצרתם בשלב הקודם לתרשים אחד עם מספר פאנלים.",
+  "1. התאימו את הפריסה (מספר השורות והעמודות) ואת הפרופורציות בין הפאנלים להצגה נוחה של הנתונים, והוסיפו כותרת ראשית לתרשים כולו.",
+  "",
+  "חלק ג - שמירת הגרפים:",
+  "1. שמרו את כל הלוח המשולב בפורמטים הבאים:",
+  "  - קובץ תמונה (PNG)",
+  "  - קובץ PDF באיכות גבוהה",
+  "הקפידו על שמות ברורים לקבצים, וכן על תיעוד בקוד המפרט כל שלב ביצירת הגרפים.",
+  ""
+ ],
+ "solution_r": [
+  "#### PART A - BASIC GRAPHICAL PRESENTATION ----\n\n# 1. Load libraries and Titanic data\nlibrary(tidyverse)\nlibrary(ggdist)\nlibrary(patchwork)\n\ndf = read_csv(\"titanic.csv\")\n\n# 2. Clean relevant variables\ndf = df |>\n  drop_na(Age, Sex, Pclass, Survived, Embarked)\n\n# 3. Average survival by class and sex with standard error\nplot1 = df |>\n  group_by(Pclass, Sex) |>\n  summarise(\n    mean_surv = mean(Survived),\n    se_surv   = sd(Survived) / sqrt(n()),\n    .groups   = \"drop\"\n  ) |>\n  ggplot(aes(x = factor(Pclass), y = mean_surv, fill = Sex)) +\n  geom_col(position = position_dodge(width = 0.8)) +\n  geom_errorbar(aes(ymin = mean_surv - se_surv,\n                    ymax = mean_surv + se_surv),\n                position = position_dodge(width = 0.8),\n                width = 0.2) +\n  labs(x = \"Class\", y = \"Average Survival\",\n       title = \"Average Survival by Class and Sex\") +\n  annotate(\"text\", x = 1, y = 0.9,\n           label = \"Females in 1st class\\nhad higher survival\",\n           color = \"red\", fontface = \"bold\")\n\n# 4. Age distribution by class and sex (Boxplot)\nplot2 = ggplot(df, aes(x = factor(Pclass), y = Age, fill = Sex)) +\n  geom_boxplot() +\n  labs(x = \"Class\", y = \"Age\",\n       title = \"Age Distribution by Class and Sex\")\n\n# 5. Age distribution by survival and sex (Violin using ggdist)\nplot3 = ggplot(df, aes(x = factor(Survived), y = Age, fill = Sex)) +\n  stat_halfeye(position = position_dodge(width = 0.8)) +\n  labs(x = \"Survival (0=No, 1=Yes)\", y = \"Age\",\n       title = \"Age and Survival by Sex (Violin)\")\n\n# 6. Additional plot: Histogram of Age by Sex\nplot4 = ggplot(df, aes(x = Age, fill = Sex)) +\n  geom_histogram(alpha = 0.6, position = \"identity\", bins = 30) +\n  labs(x = \"Age\", y = \"Count\",\n       title = \"Histogram of Age by Sex\")\n\n\n#### PART B - FACETING / SUBPLOTS ----\n\n# 1. Arrange plots in a grid\ncombined_plot = (plot1 | plot2) /\n                (plot3 | plot4) +\n  plot_annotation(\n    title = \"Titanic Data Visualizations\",\n    theme = theme(plot.title = element_text(size = 16, face = \"bold\"))\n  ) &\n  theme_minimal()\n\n\n#### PART C - SAVING THE COMBINED PLOTS ----\n\n# 1. Save in PNG format\nggsave(\"titanic_visualizations.png\", combined_plot,\n       width = 12, height = 10, dpi = 300)\n\n# 2. Save in high-quality PDF format\nggsave(\"titanic_visualizations.pdf\", combined_plot,\n       width = 12, height = 10)\n\n"
+ ]
+}

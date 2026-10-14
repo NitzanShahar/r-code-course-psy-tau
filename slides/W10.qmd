@@ -1,0 +1,102 @@
+---
+title: "רגרסיה לינארית"
+course-week: "שבוע 10"
+---
+
+## רגרסיה לינארית
+
+::: {.nbox}
+<p class="nh">שבוע 10 · חומר הלימוד</p>
+
+השבוע נתאמן בשימוש במודל רגרסיה לינארית, ובפרט כזה עם מנבאים קטגוריאליים — כלומר, המקבילה למבחני t או מבחני ANOVA.
+
+קובץ הנתונים כולל זמן הכנה לבחינה, סוג טיפול לחרדה (מיינדפולנס מול פלצבו), מגדר, ציון המבחן ודירוג החרדה.
+:::
+
+## הבדל בין שתי קבוצות
+
+::: {.tb}
+::: {.tbox}
+<p class="th">מודלים וניתוחים סטטיסטיים</p>
+<p>הבדל בין שתי קבוצות בלתי תלויות</p>
+:::
+
+::: {.board}
+```r
+#### TWO GROUPS ####
+
+df = read.csv('Exam Anxiety.csv')
+df$gender = factor(df$gender)
+df$treatment = factor(trimws(df$treatment))
+
+model = lm(anxiety_rating ~ gender, data = df)
+summary(model)
+model$coef
+```
+:::
+:::
+
+## המערך הפקטוריאלי
+
+::: {.tb}
+::: {.tbox}
+<p class="th">מודלים וניתוחים סטטיסטיים</p>
+<p>המערך הפקטוריאלי</p>
+<p>שליטה במשתנה רציף</p>
+:::
+
+::: {.board}
+```r
+#### FACTORIAL DESIGN ####
+
+# 1. Two factors and their interaction
+contrasts(df$treatment)
+model = lm(anxiety_rating ~ gender * treatment, data = df)
+summary(model)$coef
+
+# 2. Treatment, controlling for study time
+model = lm(anxiety_rating ~ treatment + time_studying,
+           data = df)
+summary(model)$coef
+```
+:::
+:::
+
+## ניבוי
+
+::: {.tb}
+::: {.tbox}
+<p class="th">מודלים וניתוחים סטטיסטיים</p>
+<p>ניבוי נתונים ממודל רגרסיה לינארית</p>
+:::
+
+::: {.board}
+```r
+#### PREDICT ####
+
+model = lm(exam_score ~ time_studying, data = df[1:90, ])
+
+df$prediction = predict(model, newdata = df)
+
+new_rows = 91:nrow(df)
+plot(df$exam_score[new_rows], df$prediction[new_rows],
+     xlab = 'observed', ylab = 'predicted')
+```
+:::
+:::
+
+## מטלה שבועית
+
+::: {.hwbox}
+**המטלה השבועית (שבוע 10)** — קובץ הנתונים: Exam Anxiety.csv (באתר הקורס).
+
+**חלק א:** תרשים אחד עם שני פאנלים לפיזור ציוני החרדה וציוני המבחן, וסטטיסטיקה תיאורית מילולית. **חלק ב:** אפקט המגדר על החרדה; מודל פקטוריאלי (מגדר × קבוצת טיפול); אפקט הטיפול תוך שליטה בזמן ההכנה. בונוס: emmeans עם ggplot.
+
+**חלק ג:** מודל שמנבא את ציון הבחינה מזמן ההכנה לנבדקים 1–90, עמודת ניבוי לנבדקים 91 ואילך, ותרשים של הציון המנובא מול המתוצפת.
+
+<p class="due">להגשה עד יום ראשון, 3.1.2027, בשעה 12:00</p>
+:::
+
+## בהצלחה! {.closing}
+
+<p class="closing-text">בהצלחה!</p>

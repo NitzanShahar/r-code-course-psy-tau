@@ -1,0 +1,33 @@
+{
+ "n": 7,
+ "title": "שבוע 7: ניהול גרסאות",
+ "intro": [
+  "",
+  "שבוע   - חומר הלימוד\nהשבוע נלמד כיצד לנהל גרסאות בזמן כתיבת קוד. ניהול גרסאות הוא כלי אשר מאפשר לצמצם את הטעויות שמצטברות בזמן כתיבת קוד, מאפשר שיתוף יעיל יותר של הקוד עם הסביבה שלנו, ומאפשר להתקדם בכתיבה בצורה מקבילה ולא בהכרח סידרתית.",
+  "",
+  "[https://docs.google.com/presentation/d/14xsj2tL8uRL1qjofvRQKs-QGWH-hHKHR39hR9I1qqQw/edit?usp=sharingמצגת שבועית](https://docs.google.com/presentation/d/14xsj2tL8uRL1qjofvRQKs-QGWH-hHKHR39hR9I1qqQw/edit?usp=sharing)",
+  "",
+  ""
+ ],
+ "deck": [
+  "https://docs.google.com/presentation/d/14xsj2tL8uRL1qjofvRQKs-QGWH-hHKHR39hR9I1qqQw/edit?usp=sharingמצגת",
+  "https://docs.google.com/presentation/d/14xsj2tL8uRL1qjofvRQKs-QGWH-hHKHR39hR9I1qqQw/edit?usp=sharing"
+ ],
+ "topics": [],
+ "r_units": [],
+ "hw": [],
+ "solutions": [],
+ "files": [],
+ "other": [
+  "",
+  "רשימת יחידות הלימוד",
+  "עבודה בממשק",
+  "ניהול גרסאות (Version control) – עקרונות בסיסיים ויתרונות",
+  "עבודה עם Git או מערכות ניהול גרסאות אחרות",
+  "הכרות עם סביבת פיתוח משולבת (IDE)",
+  "שימוש נכון בAI לכתיבת קוד",
+  "קוד review",
+  ""
+ ],
+ "solution_r": []
+}

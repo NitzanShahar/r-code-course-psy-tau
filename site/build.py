@@ -53,6 +53,20 @@ def load_book():
     return book
 
 
+def load_files():
+    f = SRC / "content" / "files.json"
+    return json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
+
+
+FILES = load_files()
+DEPTH = [0]  # depth of the page being built (for links to files/)
+
+
+def short_date(d):
+    """'18.10.2026' -> '18.10'"""
+    return ".".join(d.split(".")[:2]) if d else ""
+
+
 def load_weeks():
     out = {}
     for w in CFG["weeks"]:
@@ -116,12 +130,56 @@ def link_lines(s):
         line = line.strip().lstrip("-").strip()
         if not line:
             continue
-        m = re.match(r"\[\[FILE (.+)\]\]$", line)
+        m = re.match(r"\[\[FILE (.*?)(?:\|([0-9a-f-]+))?\]\]$", line)
         if m:
-            items.append(f'<span class="pend">{esc(m.group(1))} — קובץ וידאו מהקורס הקודם, יועלה בהמשך</span>')
+            name, fid = m.group(1).strip(), m.group(2)
+            path = FILES.get(fid or "", {}).get("path")
+            label = FILES.get(fid or "", {}).get("label") or re.sub(r"\.(mp4|mov|pdf)$", "", name) or "סרטון"
+            if path:
+                items.append(f'<a href="{"../" * DEPTH[0]}{esc(path)}" target="_blank" rel="noopener">{esc(label)}</a>')
+            elif name:
+                items.append(f'<span class="pend">{esc(name)} — יועלה בהמשך</span>')
         else:
             items.append(inline(line))
     return items
+
+
+def md_lines(lines):
+    """Notion-style lines -> HTML: "1. " numbered, "- " bulleted, two spaces of indent per level, else a paragraph."""
+    out, stack = [], []  # open lists: (indent, tag)
+
+    def close():
+        out.append(f"</li></{stack.pop()[1]}>")
+
+    for raw in lines:
+        for line in raw.split("\n"):
+            if not line.strip():
+                continue
+            ind = (len(line) - len(line.lstrip(" "))) // 2
+            t = line.strip()
+            m = re.match(r"^(\d+\.|[-•])\s*(.*)$", t)
+            if not m:
+                if stack and ind > 0:  # an indented line inside a list item
+                    out.append(f"<br>{inline(t)}")
+                    continue
+                while stack:
+                    close()
+                cls = ' class="hp"' if re.match(r"^(חלק|בונוס)", t) else ""
+                out.append(f"<p{cls}>{inline(t)}</p>")
+                continue
+            tag = "ol" if m.group(1)[0].isdigit() else "ul"
+            while stack and stack[-1][0] > ind:
+                close()
+            if stack and stack[-1][0] == ind:
+                if stack[-1][1] == tag:
+                    out.append(f"</li><li>{inline(m.group(2))}")
+                    continue
+                close()
+            out.append(f"<{tag}><li>{inline(m.group(2))}")
+            stack.append((ind, tag))
+    while stack:
+        close()
+    return "".join(out)
 
 
 def week_label(w):
@@ -207,11 +265,15 @@ def rail_weeks(avail, sel):
         if w["n"] == CFG.get("current"):
             cls += " cur"
         now = '<span class="now">השבוע</span>' if w["n"] == CFG.get("current") else ""
-        inner = f'<span class="c">{w["n"]}</span><span>{esc(w["title"])}{now}</span>'
+        name = esc(w["title"]) if w["title"] else '<span class="empty">—</span>'
+        inner = f'<span class="c">{w["n"]}</span><span>{name}<small class="wd">{short_date(w.get("date", ""))}</small>{now}</span>'
         if w["n"] in avail:
             items.append(f'<a href="week-{w["n"]}.html" class="{cls}">{inner}</a>')
         else:
             items.append(f'<div class="{cls} fut" title="בהכנה">{inner}</div>')
+        for b in CFG.get("breaks", []):
+            if b["after"] == w["n"]:
+                items.append(f'<div class="wk brk"><span class="c">✦</span><span>{esc(b["label"])}<small class="wd">{short_date(b["date"])}</small></span></div>')
     items.append(f'<div class="wk fut exam"><span class="c">✱</span><span>{esc(CFG["exam"])}</span></div>')
     return "".join(items)
 
@@ -223,8 +285,9 @@ def href(url, depth):
     return f'href="{"../" * depth}{esc(url)}"'
 
 
-def week_page(w, c, avail, book, depth):
+def week_page(w, c, avail, book, depth, staff):
     n = w["n"]
+    DEPTH[0] = depth
     weeks = rail_weeks(avail, n)
     rail = f'<aside class="rail card"><h3>שבועות הקורס</h3>{weeks}</aside>'
     mob = (f'<details class="mweeks card"><summary><span class="c" style="background:var(--ink);color:#fff;border-color:var(--ink)">{n}</span>'
@@ -256,11 +319,20 @@ def week_page(w, c, avail, book, depth):
                       f'<span><span class="rt ltr" style="display:block;text-align:right">{esc(r["title"])}</span><span class="rs">{esc(r.get("note", ""))}</span></span></a>'
                       for r in c.get("reading", []))
 
-    hw = c["hw"]
-    due = (f'<p class="due">{ICON["clock"]}להגשה עד {esc(hw["due"])}</p>' if hw.get("due")
-           else f'<p class="due tbd">{ICON["clock"]}תאריך ההגשה יפורסם בהמשך</p>')
-    hw_html = (f'<div class="hw"><b class="ht">{esc(hw["title"])}</b><ol>{"".join(f"<li>{esc(s)}</li>" for s in hw["steps"])}</ol>'
-               + "".join(f"<p>{esc(p)}</p>" for p in hw.get("submit", [])) + due + "</div>")
+    hw = c.get("hw") or {}
+    if not hw.get("title"):
+        hw_html = '<div class="hw"><p class="none">אין מטלה להגשה השבוע.</p></div>'
+    else:
+        due = (f'<p class="due">{ICON["clock"]}להגשה עד {esc(hw["due"])}</p>' if hw.get("due")
+               else f'<p class="due tbd">{ICON["clock"]}תאריך ההגשה יפורסם בהמשך</p>')
+        body = md_lines(hw["lines"]) if "lines" in hw else f'<ol>{"".join(f"<li>{esc(s)}</li>" for s in hw["steps"])}</ol>'
+        ctx = f'<div class="ctx">{md_lines(hw["context"])}</div>' if hw.get("context") else ""
+        dl = "".join(
+            f'<a class="dfile" href="{"../" * depth}{esc(FILES[fid]["path"])}" download>{ICON["link"]}{esc(Path(FILES[fid]["path"]).name.split("-", 1)[-1] if "-" in Path(FILES[fid]["path"]).name else FILES[fid]["label"])}</a>'
+            for fid in hw.get("files", []) if fid in FILES)
+        dl = f'<p class="dfiles">קובצי נתונים: {dl}</p>' if dl else ""
+        hw_html = (f'<div class="hw"><b class="ht">{esc(hw["title"])}</b>{ctx}{dl}<div class="hwb">{body}</div>'
+                   + "".join(f'<p class="sm">{esc(p)}</p>' for p in hw.get("submit", [])) + due + "</div>")
 
     prev_n = next((m for m in sorted(avail, reverse=True) if m < n), None)
     next_n = next((m for m in sorted(avail) if m > n), None)
@@ -269,14 +341,29 @@ def week_page(w, c, avail, book, depth):
     nxt = (f'<a href="week-{next_n}.html">שבוע {next_n}: {esc(title_of[next_n])} ←</a>' if next_n else "<span>השבוע הבא בהכנה ←</span>")
 
     main = f"""<main class="card">
-<section class="hero"><p class="eyebrow">שבוע {n}</p><h1>{esc(w['title'])}</h1><p class="intro">{esc(c['intro'])}</p></section>
+<section class="hero"><p class="eyebrow">שבוע {n} · יום ראשון {w.get('date', '')}</p><h1>{esc(w['title'])}</h1>{''.join(f'<p class="intro">{inline(p)}</p>' for p in c['intro'].split(chr(10) + chr(10)) if p.strip())}</section>
 <section class="sec"><div class="ch"><h2>מצגת וסרטונים</h2></div><div class="media">{''.join(media)}</div></section>
 <section class="sec"><div class="ch"><h2>מה לומדים השבוע</h2><span>יחידות מספר היחידות · לחצו על יחידה כדי לפתוח אותה</span></div>{''.join(units)}
-<p class="sub">קריאה מומלצת</p>{reading}</section>
-<section class="sec"><div class="ch"><h2>המטלה השבועית</h2></div>{hw_html}</section>
+{('<p class="sub">קריאה מומלצת</p>' + reading) if reading else ''}</section>
+<section class="sec"><div class="ch"><h2>המטלה השבועית</h2></div>{hw_html}{solution_html(c, staff)}</section>
 <nav class="nav">{prev}{nxt}</nav>
 </main>"""
     return f'{mob}<div class="layout">{rail}{main}</div>'
+
+
+def solution_html(c, staff):
+    """Staff site only: the solution, after the assignment (released to students later)."""
+    sol = c.get("solution")
+    if not staff or not sol:
+        return ""
+    parts = []
+    for blk in sol:
+        if blk.get("code") is not None:
+            parts.append(f'<pre class="solcode ltr"><code>{esc(blk["code"])}</code></pre>')
+        else:
+            parts.append(f'<p>{inline(blk["text"])}</p>')
+    return (f'<details class="sol"><summary>{ICON["spark"]}פתרון <span>(באתר המתרגלים בלבד · ישוחרר לסטודנטים אחרי מועד ההגשה)</span></summary>'
+            f'<div class="solb">{"".join(parts)}</div></details>')
 
 
 # ---------- book of units ----------
@@ -309,10 +396,19 @@ def book_page(book, weeks):
     main = f"""<main class="card">
 <section class="bhero"><p class="eyebrow">ספר היחידות</p><h1>ספר היחידות של הקורס</h1>
 <p class="intro">כל יחידה היא שיחה קצרה עם מתרגל AI: מעתיקים את ההנחיה, מדביקים אותה בצ׳אט, ומתקדמים איתו שלב אחר שלב. ליד כל יחידה יש גם סרטונים וקישורים להעמקה.</p>
-<div class="howto">{ICON["spark"]}<span>לחצו על „העתקה״, הדביקו בצ׳אט של מתרגל ה-AI, וענו לו כשהוא עוצר ושואל. אם נתקעים — אפשר לבקש ממנו רמז, ורק בסוף את הפתרון.</span></div></section>
+<div class="howto">{ICON["spark"]}<span>לחצו על „העתקה״, הדביקו בצ׳אט של מתרגל ה-AI, וענו לו כשהוא עוצר ושואל. אם נתקעים — אפשר לבקש ממנו רמז, ורק בסוף את הפתרון.</span></div>
+{books_html()}</section>
 {''.join(body)}
 </main>"""
     return f'{mob}<div class="layout">{rail}{main}</div>'
+
+
+def books_html():
+    books = CFG.get("books", [])
+    if not books:
+        return ""
+    items = "".join(f'<li><a href="{esc(u)}" target="_blank" rel="noopener" class="ltr">{esc(t)}</a></li>' for t, u in books)
+    return f'<div class="books"><p class="lbl">{ICON["book"]}ספרים מומלצים</p><ul class="links">{items}</ul></div>'
 
 
 def book_section(ch, k, s, wks, in_week=False):
@@ -378,12 +474,13 @@ def build_site(prefix, staff, avail, weeks, book):
     depth = 1 if prefix else 0
     title_of = {w["n"]: w for w in CFG["weeks"]}
     for n in avail:
-        body = header(depth, staff, "weeks") + week_page(title_of[n], weeks[n], avail, book, depth) + footer(depth, staff)
+        body = header(depth, staff, "weeks") + week_page(title_of[n], weeks[n], avail, book, depth, staff) + footer(depth, staff)
         html_ = page(f"שבוע {n} · {CFG['title']}", body, depth, staff, COPY_JS + "\n" + GATE_JS)
         write(f"{prefix}week-{n}.html", html_)
     home = CFG.get("current") if CFG.get("current") in avail else min(avail)
-    body = header(depth, staff, "weeks") + week_page(title_of[home], weeks[home], avail, book, depth) + footer(depth, staff)
+    body = header(depth, staff, "weeks") + week_page(title_of[home], weeks[home], avail, book, depth, staff) + footer(depth, staff)
     write(f"{prefix}index.html", page(CFG["title"], body, depth, staff, COPY_JS + "\n" + GATE_JS))
+    DEPTH[0] = depth
     body = header(depth, staff, "book") + book_page(book, {n: weeks[n] for n in avail}) + footer(depth, staff)
     write(f"{prefix}book.html", page(f"ספר היחידות · {CFG['title']}", body, depth, staff, BOOK_JS + "\n" + GATE_JS))
 

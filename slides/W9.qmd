@@ -1,0 +1,113 @@
+---
+title: "רגרסיה לוגיסטית ועקומת ROC"
+course-week: "שבוע 9"
+---
+
+## רגרסיה לוגיסטית
+
+::: {.nbox}
+<p class="nh">שבוע 9 · חומר הלימוד</p>
+
+השבוע נתנסה באימון מודל שחוזה אירועים דיכוטומיים (כן / לא) באמצעות רגרסיה לוגיסטית.
+
+נלמד איך לאמן רגרסיה לוגיסטית על חלק אחד של הנתונים, ולהשתמש במודל כדי לחזות את התוצאה בחלק אחר.
+:::
+
+## קובץ הנתונים: מחלת לב
+
+::: {.tb}
+::: {.tbox}
+<p class="th">נתונים אמיתיים על חולי לב</p>
+<p><span class="ltr">age</span> — גיל הנבדק</p>
+<p><span class="ltr">sex</span> — מין הנבדק</p>
+<p><span class="ltr">restbps</span> — לחץ דם במנוחה</p>
+<p><span class="ltr">chol</span> — כולסטרול בדם</p>
+<p><span class="ltr">bs</span> — רמת סוכר בדם</p>
+<p><span class="ltr">maxhr</span> — הדופק הגבוה ביותר שנמדד</p>
+<p><span class="ltr">target</span> — האם אירע אירוע לבבי</p>
+:::
+
+::: {.board}
+```r
+#### TRAINING & TEST ####
+
+df = read.csv('heart.csv')
+
+n = nrow(df)
+rows = sample(1:n, size = round(0.7 * n))
+df_training = df[rows, ]
+df_test = df[-rows, ]
+
+nrow(df_training) / n
+```
+:::
+:::
+
+## התאמת המודל
+
+::: {.tb}
+::: {.tbox}
+<p class="th">מודלים וניתוחים סטטיסטיים</p>
+<p>התאמת רגרסיה לוגיסטית</p>
+<p>ניבוי נתונים ממודל רגרסיה לוגיסטית</p>
+:::
+
+::: {.board}
+```r
+#### FIT & PREDICT ####
+
+# 1. Fit on the training set
+model = glm(target ~ age + chol + maxhr,
+            data = df_training, family = binomial)
+summary(model)
+
+# 2. Predict the test set
+p = predict(model, newdata = df_test, type = 'response')
+predicted = ifelse(p > 0.5, 1, 0)
+
+# 3. Confusion matrix
+table(predicted = predicted, observed = df_test$target)
+```
+:::
+:::
+
+## עקומת ROC
+
+::: {.tb}
+::: {.tbox}
+<p class="th">מודלים וניתוחים סטטיסטיים</p>
+<p>עקומת ROC</p>
+:::
+
+::: {.board}
+```r
+library(pROC)
+roc_curve = roc(df_test$target, p)
+auc(roc_curve)
+plot(roc_curve)
+```
+
+<svg width="300" height="230" viewBox="0 0 300 230" aria-label="ROC curve">
+<line x1="40" y1="200" x2="280" y2="200" stroke="#56656d"/><line x1="40" y1="20" x2="40" y2="200" stroke="#56656d"/>
+<line x1="40" y1="200" x2="280" y2="20" stroke="#b5bfc4" stroke-dasharray="5 5"/>
+<path d="M40 200 C 50 90, 120 40, 280 20" fill="none" stroke="#1f5f8b" stroke-width="3"/>
+<text x="160" y="222" text-anchor="middle" font-size="12" fill="#56656d" font-family="JetBrains Mono">False Positive Rate</text>
+</svg>
+:::
+:::
+
+## מטלה שבועית
+
+::: {.hwbox}
+**המטלה השבועית (שבוע 9)** — קובץ הנתונים: heart.csv (באתר הקורס).
+
+**חלק א:** טעינה וחקירת הנתונים; משתנה בינארי לרמת סוכר ≥ 120; חלוקה ל-df_training (כ-70%) ול-df_test (כ-30%), ובדיקת הגודל של כל אחד.
+
+**חלק ב:** רגרסיה לוגיסטית על df_training, עם אירוע לבבי כמשתנה התלוי. **חלק ג:** הסתברויות חזויות ל-df_test, סיווג לפי סף 0.5, ו-Confusion Matrix. **בונוס:** מקדמי הרגרסיה, AUC, רגישות וסגוליות, ותרשים ROC.
+
+<p class="due">להגשה עד יום ראשון, 27.12.2026, בשעה 12:00</p>
+:::
+
+## בהצלחה! {.closing}
+
+<p class="closing-text">בהצלחה!</p>

@@ -82,8 +82,8 @@ def text(i):
         t, ty = rich(b.get("properties", {}).get("title")), b["type"]
         if ty == "code":
             lines.append("```\n" + t + "\n```")
-        elif ty in ("file", "video"):
-            lines.append(f"[[FILE {t}]]")
+        elif ty in ("file", "video", "pdf"):
+            lines.append(f"[[FILE {t}|{j}]]")
         elif ty == "bookmark":
             link = b.get("properties", {}).get("link", [[""]])[0][0]
             lines.append(f"[{t or link}]({link})" if t and t != link else link)

@@ -1,0 +1,62 @@
+{
+ "_הסבר": "תוכן שבוע 10, לפי Notion של תשפ״ו (המקור הגולמי: site/content/notion/week-10.json). units: פרק בספר והיחידות מתוכו (בשמן המדויק בספר). topics: רשימת חומרי הלימוד (למצגת). hw.lines: שורות המטלה (\"1. \" ממוספר, \"- \" תבליט, שני רווחים לכל רמה). hw.files: קבצי נתונים (מזהי Notion, ראו files.json). solution: הפתרון ב-R — מוצג רק באתר המתרגלים.",
+ "intro": "השבוע נתאמן בשימוש במודל רגרסיה לינארית, ובפרט כזה עם מנבאים קטגוריאליים (כלומר, המקבילה למבחני t או מבחני anova).",
+ "topics": [],
+ "deck": {
+  "title": "מצגת שבוע 10",
+  "note": "7 שקפים · נפתחת בדפדפן",
+  "url": "decks/W10.html"
+ },
+ "videos": [
+  {
+   "title": "הסבר שיעור 10",
+   "note": "7 דקות",
+   "url": "files/notion/2dedccfe-הסבר-שיעור-10.mp4"
+  }
+ ],
+ "units": [
+  {
+   "ch": 8,
+   "secs": [
+    "הבדל בין שתי קבוצות בלתי תלויות",
+    "המערך הפאקטורילי",
+    "ניבוי נתונים ממודל רגרסיה לינארית"
+   ]
+  }
+ ],
+ "hw": {
+  "title": "המטלה השבועית (שבוע 10) – רגרסיה לינארית, משתנים פקטוריאליים ורציפים, וניבוי",
+  "context": [
+   "קובץ הנתונים כולל את המשתנים:",
+   "זמן הכנה לבחינה, סוג טיפול לחרדה (מיינדפולנס מול פלאסבו), מגדר, ציון המבחן, ודירוג החרדה.",
+   "מטרת המטלה היא לתרגל ניתוח נתונים באמצעות רגרסיה לינארית, כולל תיאור נתונים, בדיקת אפקטים של משתנים קטגוריאליים, עבודה עם מודל פאקטוריאלי, ושימוש במודל לצורך ניבוי."
+  ],
+  "lines": [
+   "חלק א – תיאור התפלגות החרדה והציונים",
+   "1. עשו שימוש ביכולות הגרפיות של R על מנת להציג את פיזור ציוני החרדה, ציוני המבחן. נסו להקפיד על תרשים אחד עם שני פאנלים, כותרות, טווח צירים, שימוש נכון בצבעים, התצפיות עצמן וסטטיסטיקה גרפית מסכמת",
+   "1. הוסיפו סטטיסטיקה תאורית מילולית על מנת לתאר את ההתפלגויות הללו.",
+   "חלק ב – אפקט המגדר",
+   "1. חשבו באמצעות רגרסיה את מקדם אפקט המגדר על ציוני החרדה ודווחו על גודלו.",
+   "1. חשבו באמצעות מודל רגרסיה חדש את האפקט הפאקטוריאלי של מגדר, קבוצת טיפול, והאינטראקציה בניהם ודווחו על המקדמים. הסבירו במילים שלכם את משמעות המקדמים.",
+   "1. כעת חשבו באמצעות מודל רגרסיה חדש, את האפקט של קבוצת הטיפול על דירוגי החרדה, כאשר אתם שולטים בזמן ההכנה לבחינה. שימו לב לעשות שימוש בשני אפקטים עיקריים, ללא אינטראקציה בניהם. דווחו על אפקט הטיפול לאחר שלמעשה שלטתם בזמן ההכנה לבחינה.",
+   "1. בונוס (רשות ולא לבחינה): לימדו בכוחות עצמכם כיצד ניתן לתאר באמצעות שילוב בין חבילת emmeans לבין חבילת ggplot בצורה גרפית את התוצאות",
+   "חלק ג - ניבוי",
+   "1. כעת צרו מודל רגרסיה נוסף ואחרון שבו אתם מנבאים את ציון הבחינה רק כפונקציה של זמן ההכנה עבור נבדק 1 עד 90.",
+   "1. עשו שימוש במודל זה כדי להוסיף עמודת “ניבוי” שבה יש ציון מנובא עבור נבדק 91 עד האחרון.",
+   "1. צרו תרשים שבו בציר האנכי הציון המנובא ובציר האופקי הציון המתוצפת של כל נבדק ממספר 91 עד האחרון."
+  ],
+  "files": [
+   "2dedccfe-d059-80cf-92e1-ed4e214b4b69"
+  ],
+  "submit": [
+   "כותרות הקוד: השתמשו בפורמט הכותרות של הקורס, וכתבו בתחילת הקובץ את שם הקורס, השבוע, מספר תעודת הזהות שלכם ושמכם.",
+   "פורמט ההגשה: קובץ PDF עם הקוד שכתבתם."
+  ],
+  "due": "יום ראשון, 3.1.2027, בשעה 12:00"
+ },
+ "solution": [
+  {
+   "code": "# ============================================================\n# שבוע 10\n# ============================================================\n\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(readr)\n\n# ============================================================\n# חלק א – תיאור התפלגות החרדה והציונים\n# ============================================================\n\ndf <- read_csv(\"data/week10_exam_anxiety.csv\")\n\n# הצצה מהירה\nhead(df)\nstr(df)\ndim(df)\nsummary(df)\n\n# הנחות על שמות עמודות נפוצים\n# anxiety = דירוג חרדה\n# exam_score = ציון מבחן\n# gender = מגדר\n# treatment = קבוצת טיפול\n# study_time = זמן הכנה\n#\n# אם אצלך השמות שונים, פשוט תחליף כאן למטה בכל הקוד.\n\n# 1. תרשים אחד עם שני פאנלים: חרדה וציון\ndf_long <- data.frame(\n  value = c(df$anxiety, df$exam_score),\n  measure = c(\n    rep(\"Anxiety\", nrow(df)),\n    rep(\"Exam score\", nrow(df))\n  )\n)\n\nggplot(df_long, aes(x = value)) +\n  geom_histogram(bins = 30) +\n  labs(\n    title = \"Distributions of Anxiety and Exam Scores\",\n    x = \"Value\",\n    y = \"Count\"\n  ) +\n  theme_minimal() +\n  facet_wrap(~measure, scales = \"free_x\")\n\n# תוספת: פיזור נקודות עם סטטיסטיקה גרפית מסכמת\nggplot(df, aes(x = anxiety, y = exam_score)) +\n  geom_point(alpha = 0.6) +\n  geom_smooth(se = FALSE) +\n  labs(\n    title = \"Exam score as a function of anxiety\",\n    x = \"Anxiety\",\n    y = \"Exam score\"\n  ) +\n  theme_minimal() +\n  xlim(range(df$anxiety, na.rm = TRUE)) +\n  ylim(range(df$exam_score, na.rm = TRUE))\n\n# 2. סטטיסטיקה תיאורית מילולית\ndesc <- df |>\n  summarise(\n    anxiety_mean = mean(anxiety, na.rm = TRUE),\n    anxiety_sd   = sd(anxiety, na.rm = TRUE),\n    anxiety_med  = median(anxiety, na.rm = TRUE),\n    anxiety_min  = range(anxiety, na.rm = TRUE)[1],\n    anxiety_max  = range(anxiety, na.rm = TRUE)[2],\n    exam_mean    = mean(exam_score, na.rm = TRUE),\n    exam_sd      = sd(exam_score, na.rm = TRUE),\n    exam_med     = median(exam_score, na.rm = TRUE),\n    exam_min     = range(exam_score, na.rm = TRUE)[1],\n    exam_max     = range(exam_score, na.rm = TRUE)[2]\n  )\n\nprint(desc)\n\ncat(\n  \"Anxiety: mean =\", desc$anxiety_mean,\n  \", SD =\", desc$anxiety_sd,\n  \", median =\", desc$anxiety_med,\n  \", range =\", desc$anxiety_min, \"to\", desc$anxiety_max, \"\\n\"\n)\n\ncat(\n  \"Exam score: mean =\", desc$exam_mean,\n  \", SD =\", desc$exam_sd,\n  \", median =\", desc$exam_med,\n  \", range =\", desc$exam_min, \"to\", desc$exam_max, \"\\n\"\n)\n\n# ============================================================\n# חלק ב – אפקט המגדר\n# ============================================================\n\n# ודאו ש-gender ו-treatment פקטורים\ndf <- df |>\n  mutate(\n    gender = as.factor(gender),\n    treatment = as.factor(treatment)\n  )\n\n# 1. מקדם אפקט המגדר על חרדה\nm_gender_anxiety <- lm(anxiety ~ gender, data = df)\nprint(coef(m_gender_anxiety))\n\ncat(\"Gender effect on anxiety (coefficients):\\n\")\nprint(coef(m_gender_anxiety))\n\n# 2. מודל עם מגדר, טיפול, ואינטראקציה\nm_full <- lm(anxiety ~ gender * treatment, data = df)\nprint(coef(m_full))\n\ncat(\"\\nInterpretation guide:\\n\")\ncat(\"Intercept: mean anxiety in the reference gender and reference treatment group.\\n\")\ncat(\"gender...: difference between the other gender and reference gender within reference treatment.\\n\")\ncat(\"treatment...: difference between the other treatment and reference treatment within reference gender.\\n\")\ncat(\"gender...:treatment...: extra difference beyond adding the two main effects.\\n\")\n\n# 3. אפקט טיפול על חרדה עם שליטה בזמן הכנה (ללא אינטראקציה)\nm_treat_control <- lm(anxiety ~ treatment + study_time, data = df)\nprint(coef(m_treat_control))\n\ncat(\"\\nTreatment effect controlling for study_time (coefficients):\\n\")\nprint(coef(m_treat_control))\n\n# ============================================================\n# חלק ג – ניבוי\n# ============================================================\n\n# 1. מודל עבור נבדקים 1 עד 90: ציון מבחן כפונקציה של זמן הכנה\ndf_train_90 <- df |>\n  filter(subject >= 1) |>\n  filter(subject <= 90)\n\nm_pred <- lm(exam_score ~ study_time, data = df_train_90)\nprint(coef(m_pred))\n\n# 2. הוספת עמודת ניבוי עבור נבדקים 91 עד האחרון\ndf_test_91 <- df |>\n  filter(subject >= 91)\n\npred_91 <- predict(m_pred, newdata = df_test_91)\n\ndf_test_91 <- df_test_91 |>\n  mutate(predicted_score = pred_91)\n\n# 3. תרשים: מנובא בציר Y ומתוצפת בציר X, עבור 91 עד האחרון\nggplot(df_test_91, aes(x = exam_score, y = predicted_score)) +\n  geom_point(alpha = 0.7) +\n  geom_abline() +\n  labs(\n    title = \"Predicted vs Observed Exam Scores (Subjects 91+)\",\n    x = \"Observed exam score\",\n    y = \"Predicted exam score\"\n  ) +\n  theme_minimal()\n"
+  }
+ ]
+}

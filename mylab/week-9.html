@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>שבוע 9 · קורס R למתחילים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="icon" href="../assets/tau-logo.png">
+</head>
+<body>
+<div class="wrap">
+<header class="hdr">
+<img class="logo" src="../assets/tau-logo.png" alt="אוניברסיטת תל אביב">
+<span class="sep"></span>
+<a class="home" href="index.html"><span class="t1">קורס R למתחילים</span><span class="t2">בית הספר למדעי הפסיכולוגיה · אוניברסיטת תל אביב · תשפ״ז</span></a>
+<span class="staffbadge">גרסת מתרגלים</span><nav class="gen"><a href="index.html" class="on">השבועות</a><a href="book.html" class="">ספר היחידות</a></nav>
+</header><details class="mweeks card"><summary><span class="c" style="background:var(--ink);color:#fff;border-color:var(--ink)">9</span><span><b>שבוע 9</b> · רגרסיה לוגיסטית ועקומת ROC</span><span class="more">כל השבועות ▾</span></summary><div class="list"><a href="week-1.html" class="wk"><span class="c">1</span><span>היכרות וקובץ נתונים ראשון<small class="wd">18.10</small></span></a><a href="week-2.html" class="wk"><span class="c">2</span><span>עבודה עם מבנה נתונים א<small class="wd">25.10</small></span></a><a href="week-3.html" class="wk"><span class="c">3</span><span>עבודה עם מבנה נתונים ב<small class="wd">1.11</small></span></a><a href="week-4.html" class="wk"><span class="c">4</span><span>עבודה עם מבנה נתונים ג<small class="wd">8.11</small></span></a><a href="week-5.html" class="wk"><span class="c">5</span><span>מטריצות, וקטורים ומבנים כלליים<small class="wd">15.11</small></span></a><a href="week-6.html" class="wk"><span class="c">6</span><span>בקרת זרימה ופונקציות מובנות<small class="wd">22.11</small></span></a><a href="week-7.html" class="wk"><span class="c">7</span><span>ניהול גרסאות<small class="wd">29.11</small></span></a><div class="wk brk"><span class="c">✦</span><span>חופשת חנוכה<small class="wd">6.12</small></span></div><a href="week-8.html" class="wk"><span class="c">8</span><span>הצגה גרפית<small class="wd">13.12</small></span></a><a href="week-9.html" class="wk sel"><span class="c">9</span><span>רגרסיה לוגיסטית ועקומת ROC<small class="wd">20.12</small></span></a><a href="week-10.html" class="wk"><span class="c">10</span><span>רגרסיה לינארית<small class="wd">27.12</small></span></a><a href="week-11.html" class="wk"><span class="c">11</span><span>השוואת מודלים<small class="wd">3.1</small></span></a><a href="week-12.html" class="wk"><span class="c">12</span><span>חזרה ועבודה אישית<small class="wd">10.1</small></span></a><div class="wk fut" title="בהכנה"><span class="c">13</span><span><span class="empty">—</span><small class="wd">17.1</small></span></div><div class="wk fut exam"><span class="c">✱</span><span>בחינה מסכמת</span></div></div></details><div class="layout"><aside class="rail card"><h3>שבועות הקורס</h3><a href="week-1.html" class="wk"><span class="c">1</span><span>היכרות וקובץ נתונים ראשון<small class="wd">18.10</small></span></a><a href="week-2.html" class="wk"><span class="c">2</span><span>עבודה עם מבנה נתונים א<small class="wd">25.10</small></span></a><a href="week-3.html" class="wk"><span class="c">3</span><span>עבודה עם מבנה נתונים ב<small class="wd">1.11</small></span></a><a href="week-4.html" class="wk"><span class="c">4</span><span>עבודה עם מבנה נתונים ג<small class="wd">8.11</small></span></a><a href="week-5.html" class="wk"><span class="c">5</span><span>מטריצות, וקטורים ומבנים כלליים<small class="wd">15.11</small></span></a><a href="week-6.html" class="wk"><span class="c">6</span><span>בקרת זרימה ופונקציות מובנות<small class="wd">22.11</small></span></a><a href="week-7.html" class="wk"><span class="c">7</span><span>ניהול גרסאות<small class="wd">29.11</small></span></a><div class="wk brk"><span class="c">✦</span><span>חופשת חנוכה<small class="wd">6.12</small></span></div><a href="week-8.html" class="wk"><span class="c">8</span><span>הצגה גרפית<small class="wd">13.12</small></span></a><a href="week-9.html" class="wk sel"><span class="c">9</span><span>רגרסיה לוגיסטית ועקומת ROC<small class="wd">20.12</small></span></a><a href="week-10.html" class="wk"><span class="c">10</span><span>רגרסיה לינארית<small class="wd">27.12</small></span></a><a href="week-11.html" class="wk"><span class="c">11</span><span>השוואת מודלים<small class="wd">3.1</small></span></a><a href="week-12.html" class="wk"><span class="c">12</span><span>חזרה ועבודה אישית<small class="wd">10.1</small></span></a><div class="wk fut" title="בהכנה"><span class="c">13</span><span><span class="empty">—</span><small class="wd">17.1</small></span></div><div class="wk fut exam"><span class="c">✱</span><span>בחינה מסכמת</span></div></aside><main class="card">
+<section class="hero"><p class="eyebrow">שבוע 9 · יום ראשון 20.12.2026</p><h1>רגרסיה לוגיסטית ועקומת ROC</h1><p class="intro">השבוע נתנסה באימון מודל אשר חוזה אירועים דיכוטומיים (כן / לא) באמצעות רגרסיה לוגיסטית.</p><p class="intro">נלמד איך לאמן רגרסיה לוגיסטית על חלק אחד של הנתונים, ולהשתמש במודל כדי לחזות את התוצאה בחלק אחר</p></section>
+<section class="sec"><div class="ch"><h2>מצגת וסרטונים</h2></div><div class="media"><a href="../decks/W9.html" class="deck"><small>מצגת</small><b>מצגת שבוע 9</b><small>7 שקפים · נפתחת בדפדפן</small><code>#### WEEK 9 ----</code></a></div></section>
+<section class="sec"><div class="ch"><h2>מה לומדים השבוע</h2><span>יחידות מספר היחידות · לחצו על יחידה כדי לפתוח אותה</span></div><div class="wch"><span class="num">8</span><b>רגרסיה שכיחותנית</b><a class="tobook" href="book.html?w=9#ch8">הפרק המלא בספר ↗</a></div><div class="wunits"><details class="bs" id="ch8-5"><summary><span class="un">8.5</span>התאמת רגרסיה לוגיסטית</summary><div class="bsb"><p class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>הנחיה למתרגל AI</p><div class="prompt"><button class="copy" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg><span>העתקה</span></button><div class="pt"><div>שימוש ברגרסיה לוגיסטית באמצעות glm</div><div>1. הסבר לי במילים פשוטות מהי רגרסיה לוגיסטית ולמה משתמשים בה (למשל לנבא תוצאה בינארית: הצלחה/כישלון, כן/לא).</div><div>2. הראה בדוגמה קטנה איך יוצרים נתוני סימולציה: משתנה תלוי בינארי (0/1) ומשתנים מסבירים (מספריים או קטגוריים).</div><div>3. הדגם בקצרה באמצעות קוד R כיצד קוד glm אשר יעשה התאמה של רגרסיה לוגיסטית.</div><div>4. הדגם כיצד ניתן לצפות במקדמים של רגרסיה לוגיסטית באמצעות summary </div><div>5. בקש ממני לכתוב שורת קוד שתעשה שימוש ברגרסיה לוגיסטית. בדוק את התשובה שלי ועזור לי להבין אם יש טעות.</div><div>6. כתוב ששלב הלימוד הסתיים</div><div>עשה את השלבים האלו אחד אחד לפי הסדר. עצור בסוף כל שלב לראות שהבנתי והצלחתי, ורק אז המשך לשלב הבא.</div></div><textarea hidden>שימוש ברגרסיה לוגיסטית באמצעות glm
+1. הסבר לי במילים פשוטות מהי רגרסיה לוגיסטית ולמה משתמשים בה (למשל לנבא תוצאה בינארית: הצלחה/כישלון, כן/לא).
+2. הראה בדוגמה קטנה איך יוצרים נתוני סימולציה: משתנה תלוי בינארי (0/1) ומשתנים מסבירים (מספריים או קטגוריים).
+3. הדגם בקצרה באמצעות קוד R כיצד קוד glm אשר יעשה התאמה של רגרסיה לוגיסטית.
+4. הדגם כיצד ניתן לצפות במקדמים של רגרסיה לוגיסטית באמצעות summary 
+5. בקש ממני לכתוב שורת קוד שתעשה שימוש ברגרסיה לוגיסטית. בדוק את התשובה שלי ועזור לי להבין אם יש טעות.
+6. כתוב ששלב הלימוד הסתיים
+עשה את השלבים האלו אחד אחד לפי הסדר. עצור בסוף כל שלב לראות שהבנתי והצלחתי, ורק אז המשך לשלב הבא.</textarea></div><p class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>להעמקה</p><ul class="links"><li><a href="https://www.datacamp.com/tutorial/logistic-regression-R" target="_blank" rel="noopener" class="ltr">https://www.datacamp.com/tutorial/logistic-regression-R</a></li></ul><p class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/></svg>סרטונים</p><ul class="links"><li><a href="https://www.youtube.com/watch?v=C4N3_XJJ-jU" target="_blank" rel="noopener" class="ltr">https://www.youtube.com/watch?v=C4N3_XJJ-jU</a></li></ul><p class="bsfoot">יחידה 8.5 בספר היחידות · <a href="book.html#ch8-5">לראות אותה בתוך הפרק ↗</a></p></div></details><details class="bs" id="ch8-8"><summary><span class="un">8.8</span>ניבוי נתונים ממודל רגרסיה לוגיסטית</summary><div class="bsb"><p class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>הנחיה למתרגל AI</p><div class="prompt"><button class="copy" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg><span>העתקה</span></button><div class="pt"><div>1. כתוב קוד פשוט שבו אתה מראה לי בקצרה איך לעשות מודל רגרסיה לוגיסטית פשוטה עם מנבא x ומנובא y. </div><div>1. כעת בקש ממני לכתוב קוד עם פקודת predict אשר יוסיף לנתונים את הערך המנובא מהרגרסיה הלוגיסטית. לאחר שאתנסה הסבר לי את ארגיומנט הtype ומדוע הוא חשוב כאשר מדובר ברגרסיה לוגיסטית. בודק שהבנתי ועזור במידת הצורך.</div><div>1. הראה לי שניתן לעשות שימוש בifelse כדי לקודד את המשתנבא המנובא שקיבלתי בערכי הסתברות כמשתנה 0/1. למשל:</div><div class="cl">y_predicted = ifelse(prob_predicted&gt;= 0.5, 1, 0)</div><div>1. הסבר לי כיצד ניתן לעשות שימוש בפקודת table עם ארגיומנט הpredicted והactual כדי לקבל confusion matrix</div><div>&nbsp;</div><div>1. כתוב ששלב הלימוד הסתיים</div><div>עשה את השלבים האלו אחד אחד לפי הסדר. עצור בסוף כל שלב לראות שהבנתי והצלחתי, ורק אז המשך לשלב הבא.</div></div><textarea hidden>1. כתוב קוד פשוט שבו אתה מראה לי בקצרה איך לעשות מודל רגרסיה לוגיסטית פשוטה עם מנבא x ומנובא y. 
+1. כעת בקש ממני לכתוב קוד עם פקודת predict אשר יוסיף לנתונים את הערך המנובא מהרגרסיה הלוגיסטית. לאחר שאתנסה הסבר לי את ארגיומנט הtype ומדוע הוא חשוב כאשר מדובר ברגרסיה לוגיסטית. בודק שהבנתי ועזור במידת הצורך.
+1. הראה לי שניתן לעשות שימוש בifelse כדי לקודד את המשתנבא המנובא שקיבלתי בערכי הסתברות כמשתנה 0/1. למשל:
+y_predicted = ifelse(prob_predicted&gt;= 0.5, 1, 0)
+1. הסבר לי כיצד ניתן לעשות שימוש בפקודת table עם ארגיומנט הpredicted והactual כדי לקבל confusion matrix
+
+1. כתוב ששלב הלימוד הסתיים
+עשה את השלבים האלו אחד אחד לפי הסדר. עצור בסוף כל שלב לראות שהבנתי והצלחתי, ורק אז המשך לשלב הבא.</textarea></div><p class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>להעמקה</p><ul class="links"><li><a href="https://www.geeksforgeeks.org/r-machine-learning/predict-function-in-r/" target="_blank" rel="noopener" class="ltr">https://www.geeksforgeeks.org/r-machine-learning/predict-function-in-r/</a></li></ul><p class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/></svg>סרטונים</p><ul class="links"><li><a href="https://www.youtube.com/watch?v=C4N3_XJJ-jU" target="_blank" rel="noopener" class="ltr">https://www.youtube.com/watch?v=C4N3_XJJ-jU</a></li></ul><p class="bsfoot">יחידה 8.8 בספר היחידות · <a href="book.html#ch8-8">לראות אותה בתוך הפרק ↗</a></p></div></details><details class="bs" id="ch8-6"><summary><span class="un">8.6</span>עקומת ROC</summary><div class="bsb"><p class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>הנחיה למתרגל AI</p><div class="prompt"><button class="copy" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg><span>העתקה</span></button><div class="pt"><div>1. הסבר מילולית מהי חבילת pROC</div><div>2. כתוב &quot;נתחיל בחזרה על מודל רגרסיה לוגיסטית&quot; והדפס קוד R אשר יעשה התאמה למודל רגרסיה לוגיסטית עם glm. עשה שימוש בשני וקטורים פשוטים עם 6 תצפיות בלבד.</div><div>3. כתוב קוד בR אשר יאפשר לנו להעריך את הניבוי של y בהנתן המודל הלוגיסטי.</div><div>4. כתוב קוד בR אשר יאפשר לנו להעריך את הAUC.</div><div>5. כתוב קוד בR אשר יאפשר לנו להדפיס את הROC באמצעות plot</div><div>6.  כתוב ששלב הלימוד הסתיים</div><div>עשה את השלבים האלו אחד אחד לפי הסדר. עצור בסוף כל שלב לראות שהבנתי והצלחתי, ורק אז המשך לשלב הבא.</div></div><textarea hidden>1. הסבר מילולית מהי חבילת pROC
+2. כתוב &quot;נתחיל בחזרה על מודל רגרסיה לוגיסטית&quot; והדפס קוד R אשר יעשה התאמה למודל רגרסיה לוגיסטית עם glm. עשה שימוש בשני וקטורים פשוטים עם 6 תצפיות בלבד.
+3. כתוב קוד בR אשר יאפשר לנו להעריך את הניבוי של y בהנתן המודל הלוגיסטי.
+4. כתוב קוד בR אשר יאפשר לנו להעריך את הAUC.
+5. כתוב קוד בR אשר יאפשר לנו להדפיס את הROC באמצעות plot
+6.  כתוב ששלב הלימוד הסתיים
+עשה את השלבים האלו אחד אחד לפי הסדר. עצור בסוף כל שלב לראות שהבנתי והצלחתי, ורק אז המשך לשלב הבא.</textarea></div><p class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>להעמקה</p><ul class="links"><li><a href="https://xrobin.github.io/pROC/" target="_blank" rel="noopener" class="ltr">https://xrobin.github.io/pROC/</a></li></ul><p class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/></svg>סרטונים</p><ul class="links"><li><a href="https://www.youtube.com/watch?v=qcvAqAH60Yw" target="_blank" rel="noopener" class="ltr">https://www.youtube.com/watch?v=qcvAqAH60Yw</a></li></ul><p class="bsfoot">יחידה 8.6 בספר היחידות · <a href="book.html#ch8-6">לראות אותה בתוך הפרק ↗</a></p></div></details></div>
+</section>
+<section class="sec"><div class="ch"><h2>המטלה השבועית</h2></div><div class="hw"><b class="ht">המטלה השבועית (שבוע 9)</b><div class="ctx"><p>קובץ נתונים- מחלת לב</p><p>מידע על סט הנתונים: הקובץ מכיל נתונים אמיתיים על חולי לב.</p><p>משתנים:</p><ol><li>age : גיל הנבדק</li><li>sex : מין הנבדק</li><li>restbps : לחץ הדם של הנבדק במנוחה</li><li>chol : כולסטרול בדם בעת הבדיקה (mg/L)</li><li>bs : רמת סוכר בדם בעת הבדיקה</li><li>maxhr : דופק גבוה ביותר שנמד</li><li>target : האם אירע לנבדק אירוע לבבי</li></ol></div><p class="dfiles">קובצי נתונים: <a class="dfile" href="../files/notion/255dccfe-heart.csv" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>heart.csv</a></p><div class="hwb"><p class="hp">חלק א – הכנת הנתונים</p><ol><li>טענו את קובץ הנתונים וחיקרו את טיבו במספר פקודות</li><li>הגדירו משתנה חדש בינארי  המקבל ערך 1 כאשר רמת הסוכר בדם ≥ 120 ו‑0 אחרת.</li><li>חלקו את המסד לשני מסדי נתונים:</li></ol><p>הראשון יקרא df_training והוא יכיל כ70% מהתצפיות</p><p>השני יקרא df_test והוא יכיל כ30% מהתצפיות</p><ol><li>וודאו את מספר ואחוז התצפיות בכל מבנה נתונים</li></ol><p class="hp">חלק ב – התאמת המודל</p><ol><li>התאימו מודל רגרסיה לוגיסטית על מסד נתוני האימון (df_training) שבו אירוע לבבי  הוא המשתנה התלוי ואילו שאר המשתנים (כולם או חלקם לבחירתך) בקובץ הם המשתנים המנבאים.</li></ol><p class="hp">חלק ג – הערכת ביצועים</p><ol><li>חשבו את ההסתברויות החזויות למדגם הבדיקה (df_test) עבור כל תצפית.</li><li>קודדו משתנה מנובא לסיכוי גבוה / נמוך למחלת לב לפי סף סיכוי של 0.5</li><li>הדפיסו Confusion Matrix</li></ol><p class="hp">בונוס (רשות):</p><ol><li>הוסיפו בחלק ב שורת קוד אשר תדפיס את מקדמי הרגרסיה</li><li>הוסיפו בחלק ג חישוב של AUC, ואחוזי דיוק עבור אלו שחלו (רגישות) ואלו שלא חלו (סגוליות)</li><li>צרו תרשים ROC עבור מדגם הבדיקה. תנו כותרת איור, וכתבו תוויות לצירים: “False Positive Rate” ו‑“True Positive Rate”.</li></ol></div><p class="sm">כותרות הקוד: השתמשו בפורמט הכותרות של הקורס, וכתבו בתחילת הקובץ את שם הקורס, השבוע, מספר תעודת הזהות שלכם ושמכם.</p><p class="sm">פורמט ההגשה: קובץ PDF עם הקוד שכתבתם.</p><p class="due"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>להגשה עד יום ראשון, 27.12.2026, בשעה 12:00</p></div><details class="sol"><summary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>פתרון <span>(באתר המתרגלים בלבד · ישוחרר לסטודנטים אחרי מועד ההגשה)</span></summary><div class="solb"><pre class="solcode ltr"><code>
+#### Part A – Data preparation ---------
+
+# 1. Load the data and basic inspection
+df &lt;- read.csv(&quot;heart.csv&quot;)
+
+head(df)
+str(df)
+summary(df)
+
+# 2. Create a binary variable for blood sugar level
+df$bs_high &lt;- ifelse(df$bs &gt;= 120, 1, 0)
+
+# 3. Split the data into training (70%) and test (30%)
+set.seed(123)
+n &lt;- nrow(df)
+train_index &lt;- sample(1:n, size = 0.7 * n)
+
+df_training &lt;- df[train_index, ]
+df_test     &lt;- df[-train_index, ]
+
+# 4. Check number and proportion of observations
+nrow(df_training)
+nrow(df_test)
+
+nrow(df_training) / n
+nrow(df_test) / n
+
+
+#### Part B – Model fitting ----
+
+# Logistic regression model
+model &lt;- glm(
+  target ~ age + sex + restbps + chol + bs_high + maxhr,
+  data = df_training,
+  family = binomial
+)
+
+# Bonus: print regression coefficients
+summary(model)
+
+
+#### Part C – Model evaluation ----
+
+# 1. Predicted probabilities for the test sample
+df_test$pred_prob &lt;- predict(
+  model,
+  newdata = df_test,
+  type = &quot;response&quot;
+)
+
+# 2. Classify using a 0.5 probability threshold
+df_test$pred_class &lt;- ifelse(df_test$pred_prob &gt;= 0.5, 1, 0)
+
+# 3. Confusion Matrix
+table(
+  Actual = df_test$target,
+  Predicted = df_test$pred_class
+)
+
+
+#### Bonus -----
+
+
+# AUC
+library(pROC)
+
+roc_obj &lt;- roc(df_test$target, df_test$pred_prob)
+auc(roc_obj)
+
+# Sensitivity and specificity
+cm &lt;- table(df_test$target, df_test$pred_class)
+
+sensitivity &lt;- cm[&quot;1&quot;,&quot;1&quot;] / sum(cm[&quot;1&quot;,])
+specificity &lt;- cm[&quot;0&quot;,&quot;0&quot;] / sum(cm[&quot;0&quot;,])
+
+sensitivity
+specificity
+
+# ROC curve
+plot(
+  roc_obj,
+  main = &quot;ROC Curve – Test Sample&quot;,
+  xlab = &quot;False Positive Rate&quot;,
+  ylab = &quot;True Positive Rate&quot;
+)</code></pre><pre class="solcode ltr"><code># ============================================================
+# פתרון נוסף שבוע 9 בR
+# ============================================================
+
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(pROC)
+
+# ============================================================
+# חלק א – הכנת הנתונים
+# ============================================================
+
+# 1. טעינת הנתונים ובדיקת מבנה
+df &lt;- read_csv(&quot;data/heart_data.csv&quot;)
+
+head(df)
+str(df)
+dim(df)
+summary(df)
+
+# 2. יצירת משתנה בינארי לרמת סוכר
+df &lt;- df |&gt;
+  mutate(
+    high_sugar = ifelse(blood_sugar &gt;= 120, 1, 0)
+  )
+
+# 3. חלוקה ל-Training / Test (70% / 30%)
+n &lt;- nrow(df)
+train_index &lt;- sample(1:n, size = 0.7 * n)
+
+df_training &lt;- df |&gt; slice(train_index)
+df_test     &lt;- df |&gt; slice(-train_index)
+
+# 4. בדיקת מספר ואחוז תצפיות
+cat(&quot;Training set:&quot;, nrow(df_training),
+    &quot;(&quot;, nrow(df_training) / n * 100, &quot;% )\n&quot;)
+
+cat(&quot;Test set:&quot;, nrow(df_test),
+    &quot;(&quot;, nrow(df_test) / n * 100, &quot;% )\n&quot;)
+
+# ============================================================
+# חלק ב – התאמת מודל רגרסיה לוגיסטית
+# ============================================================
+
+model &lt;- glm(
+  heart_event ~ age + cholesterol + high_sugar,
+  data = df_training,
+  family = binomial()
+)
+
+# בונוס – הדפסת מקדמים
+print(coef(model))
+
+# ============================================================
+# חלק ג – הערכת ביצועים
+# ============================================================
+
+# 1. חיזוי הסתברויות למדגם הבדיקה
+pred_prob &lt;- predict(
+  model,
+  newdata = df_test,
+  type = &quot;response&quot;
+)
+
+# 2. קידוד מחלקה לפי סף 0.5
+pred_class &lt;- ifelse(pred_prob &gt;= 0.5, 1, 0)
+
+# 3. Confusion Matrix
+conf_mat &lt;- table(
+  Predicted = pred_class,
+  Actual    = df_test$heart_event
+)
+
+print(conf_mat)
+
+# ============================================================
+# בונוס – AUC, רגישות, סגוליות ו-ROC
+# ============================================================
+
+# חישוב ROC ו-AUC
+roc_obj &lt;- roc(df_test$heart_event, pred_prob)
+auc_value &lt;- auc(roc_obj)
+
+cat(&quot;AUC:&quot;, auc_value, &quot;\n&quot;)
+
+# רגישות וסגוליות מתוך Confusion Matrix
+TP &lt;- conf_mat[&quot;1&quot;, &quot;1&quot;]
+TN &lt;- conf_mat[&quot;0&quot;, &quot;0&quot;]
+FP &lt;- conf_mat[&quot;1&quot;, &quot;0&quot;]
+FN &lt;- conf_mat[&quot;0&quot;, &quot;1&quot;]
+
+sensitivity &lt;- TP / (TP + FN)
+specificity &lt;- TN / (TN + FP)
+
+cat(&quot;Sensitivity (TPR):&quot;, sensitivity, &quot;\n&quot;)
+cat(&quot;Specificity (TNR):&quot;, specificity, &quot;\n&quot;)
+
+# תרשים ROC
+roc_df &lt;- data.frame(
+  fpr = 1 - roc_obj$specificities,
+  tpr = roc_obj$sensitivities
+)
+
+ggplot(roc_df, aes(x = fpr, y = tpr)) +
+  geom_line() +
+  geom_abline(linetype = &quot;dashed&quot;) +
+  labs(
+    title = &quot;ROC Curve – Test Set&quot;,
+    x = &quot;False Positive Rate&quot;,
+    y = &quot;True Positive Rate&quot;
+  ) +
+  theme_minimal()
+</code></pre></div></details></section>
+<nav class="nav"><a href="week-8.html">→ שבוע 8: הצגה גרפית</a><a href="week-10.html">שבוע 10: רגרסיה לינארית ←</a></nav>
+</main></div><footer class="foot"><img class="flogo" src="../assets/tau-logo.png" alt=""><b>קורס R למתחילים</b><span>בית הספר למדעי הפסיכולוגיה · אוניברסיטת תל אביב · תשפ״ז</span><a class="ln" href="../index.html">לאתר הסטודנטים</a></footer>
+</div>
+<script>
+// copy an AI-tutor prompt
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=b.parentNode.querySelector('textarea').value, s=b.querySelector('span');
+    function ok(){ b.classList.add('ok'); s.textContent='הועתק'; setTimeout(function(){b.classList.remove('ok'); s.textContent='העתקה';},1600); }
+    if(navigator.clipboard) navigator.clipboard.writeText(t).then(ok,function(){});
+    else { var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand('copy'); ok();}catch(e){} a.remove(); }
+  });
+});
+// TA sign-in: the password is the name of the staff site's folder.
+document.querySelectorAll('.tlogf').forEach(function(f){
+  f.addEventListener('submit',function(e){ e.preventDefault();
+    var v=f.querySelector('input').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g,''), er=f.querySelector('.terr');
+    if(!v) return;
+    if(location.protocol==='file:'){ location.href=v+'/index.html'; return; }
+    fetch(v+'/index.html',{method:'HEAD',cache:'no-store'}).then(function(r){ if(r.ok) location.href=v+'/'; else er.hidden=false; }).catch(function(){er.hidden=false});
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+{
+ "_הסבר": "תוכן שבוע 6, לפי Notion של תשפ״ו (המקור הגולמי: site/content/notion/week-6.json). units: פרק בספר והיחידות מתוכו (בשמן המדויק בספר). topics: רשימת חומרי הלימוד (למצגת). hw.lines: שורות המטלה (\"1. \" ממוספר, \"- \" תבליט, שני רווחים לכל רמה). hw.files: קבצי נתונים (מזהי Notion, ראו files.json). solution: הפתרון ב-R — מוצג רק באתר המתרגלים.",
+ "intro": "ברוכים הבאים לשבוע השישי של הקורס!\n\nהשבוע נלמד לייעל את הקוד בעזרת בקרת זרימה וכתיבת פונקציות מותאמות אישית.\n\nנתחיל עם בקרת זרימה – נלמד איך לכתוב תנאים בעזרת `if` ו-`else`, כדי שהקוד שלנו יוכל לבצע פעולות שונות בהתאם למצב הנתונים. בהמשך נשתמש בלולאת for כדי לחזור על פעולות על מבני נתונים שלמים – בצורה ברורה, נקייה וחוזרת.\n\nלאחר מכן נלמד איך כותבים פונקציה משלנו: נגדיר לה שם, פרמטרים, וערך חזרה. נשתמש בפונקציה על מבני הנתונים שכבר הכרנו, ונלמד לשמור את התוצאה לעבודה בהמשך.\n\nהשבוע הזה הוא צעד משמעותי בדרך לכתיבה של קוד עצמאי.",
+ "topics": [
+  "בקרת זרימה",
+  "כתיבת תנאים (if-else) לבחירת פעולות",
+  "לולאת for לביצוע פעולות חוזרות על מבנה נתונים",
+  "פונקציות מובנות ותיקון שגיאות",
+  "הגדרת פונקציה (שם, פרמטרים, ערך חזרה)",
+  "הפעלת פונקציה על מבנה נתונים ושמירת התוצאה",
+  "ניפוי שגיאות בתוך פונקציות באמצעות כלי IDE"
+ ],
+ "deck": {
+  "title": "מצגת שבוע 6",
+  "note": "7 שקפים · נפתחת בדפדפן",
+  "url": "decks/W6.html"
+ },
+ "videos": [],
+ "units": [
+  {
+   "ch": 9,
+   "secs": [
+    "לולאות for",
+    "פונקציית ifelse",
+    "פונקציית grepl"
+   ]
+  },
+  {
+   "ch": 1,
+   "secs": [
+    "ניהול שמות קבצים בתיקיית עבודה"
+   ]
+  },
+  {
+   "ch": 10,
+   "secs": [
+    "יצירת פונקציות",
+    "מציאת שגיאות"
+   ]
+  }
+ ],
+ "hw": {
+  "title": "המטלה השבועית (שבוע 6)",
+  "context": [],
+  "lines": [
+   "חלק א - טעינת ואיחוד קבצים.",
+   "1. עשו שימוש בלולאת for על מנת להעלות ולאחד את קבצי הסטרופ של כל הנבדקים לקובץ אחד.",
+   "1. סיפרו את כמות הנבדקים שיש בנתונים, את כמות התנאים שיש במשתנה “condition”",
+   "1. עשו שימוש בפקודות משעורים קודמים כדי לסכם את כמות ואחוז זמני התגובה בהם יש ערכים חסרים",
+   "1. ציירו היסטוגרמה של כלל זמני התגובה לתנאי תואם, וכלל זמני התגובה לתנאי לא תואם",
+   "חלק ב - ניקוי נתונים ואיתור Outliers",
+   "1. צרו פונקציה שלכם שמסמנת זמני תגובה חריגים.",
+   "  - הפונקציה מקבלת כקלט וקטור של  זמני התגובה.",
+   "  - מחשבת ממוצע וס\"ת לזמני התגובה שהוזנו בה.",
+   "  - מייצרת וקטור לוגי שמסמן כTRUE כל זמן תגובה שהוא גדול מממוצע זמני התגובה + 2 סטיות תקן.",
+   "  - פולטת את הוקטור הלוגי שמסמן זמני תגובה חריגים",
+   "1. עברו עם לולאת for על מבנה הנתונים וסמנו ערכים חריגים בעזרת הפונקציה שלכם, שצריכה לחשב ממוצע וס\"ת לכל נבדק. סימו לב שלשם כך עליכם:",
+   "  - להזין לפונקציה שיצרתם רק את זמני התגובה של כל נבדק, לפי הסדר",
+   "  - לשמור את הפלט של הפונקציה",
+   "  - לאחד את הוקטור שמסמן זמני תגובה לאותו נבדק, עם וקטור כללי שמכיל זאת עבור כל הנבדקים.",
+   "  - התוצאה צריכה להיות הוספת עמודה במבנה הנתונים העיקרי, שמסמנת זמני תגובה חריגים לכל נבדק, לפי ממוצע וס”ת האינדוודואלים שלו.",
+   "חלק ג - הצגת הנתונים",
+   "1. ספרו והדפיסו את מספר הערכים שסומנו כאאוטליירים לכל נבדק",
+   "1. חזרו על הדפסת ההיסטוגרמה לתנאי תואם/לא תואם הפעם אחרי ניקוי אאוטליירים"
+  ],
+  "files": [
+   "26fdccfe-d059-801e-ba2b-d13b3b350dc5"
+  ],
+  "submit": [
+   "כותרות הקוד: השתמשו בפורמט הכותרות של הקורס, וכתבו בתחילת הקובץ את שם הקורס, השבוע, מספר תעודת הזהות שלכם ושמכם.",
+   "פורמט ההגשה: קובץ PDF עם הקוד שכתבתם."
+  ],
+  "due": "יום ראשון, 29.11.2026, בשעה 12:00"
+ },
+ "solution": [
+  {
+   "code": "#### LOADING & MERGING FILES ----\n\nlibrary(tidyverse)\n\n# 1. Get list of files\nfile_list = list.files(path = \"stroop_data\", pattern = \"*.csv\", full.names = TRUE)\n\ndf = data.frame()\n\nfor (file in file_list) {\n  df_temp = read_csv(file, show_col_types = FALSE) |> as.data.frame()\n  df      = bind_rows(df, df_temp )\n}\n\n\n# 2. Count subjects and stimulus types\nn_subjects   = df |> pull(subject) |> n_distinct()\nn_conditions = df |> pull(condition) |> n_distinct()\n\ncat(\"Number of subjects:\", n_subjects, \"\\n\")\ncat(\"Number of conditions:\", n_conditions, \"\\n\")\n\n\n# 3. Count and percent of missing RTs\nmissing_summary = df |> \n  summarise(\n    n_missing = sum(is.na(RT)),\n    p_missing = mean(is.na(RT)) * 100\n  )\n\nprint(missing_summary)\n\n\n# 4. Plot RT histograms for congruent vs incongruent\ndf |> \n  filter(type %in% c(\"congruent\", \"incongruent\")) |> \n  ggplot(aes(x = RT, fill = type)) +\n  geom_histogram(bins = 30, position = \"identity\", alpha = 0.5) +\n  facet_wrap(~type) +\n  labs(title = \"RT Histogram by Condition\")\n\n\n#### DEFINE OUTLIER FUNCTION ----\n\n# 1. Define function for outlier detection\nflag_outliers = function(rt) {\n\n  mu     = mean(rt, na.rm = TRUE)\n  sigma  = sd(rt, na.rm = TRUE)\n  index  = rt_vector > (mu + 2 * sigma)\n\n  return(index)\n}\n\n\n# 2. Loop through subjects and flag outliers\noutlier_flags = logical()\n\nfor (s in unique(df$subject)) {\n  rt_subj       = df |> filter(subj == s) |> pull(RT)\n  outliers_subj = flag_outliers(rt_subj)\n  outlier_flags = c(outlier_flags, outliers_subj)\n}\n\ndf$rt_outlier = outlier_flags\n\n#### PRESENT DATA ----\n\n# 1. Count outliers per subject\ndf |> \n  group_by(subj) |> \n  summarise(n_outliers = sum(rt_outlier, na.rm = TRUE)) |> \n  print()\n\n# 2. Plot again without outliers\ndf |> \n  filter(type %in% c(\"congruent\", \"incongruent\"), !rt_outlier) |> \n  ggplot(aes(x = RT, fill = type)) +\n  geom_histogram(bins = 30, position = \"identity\", alpha = 0.5) +\n  facet_wrap(~type) +\n  labs(title = \"RT Histogram by Condition (Outliers Removed)\")\n"
+  },
+  {
+   "code": "# ============================================================\nפתרון נוסף שבוע 6 בR\n# ============================================================\n\nlibrary(dplyr)\nlibrary(ggplot2)\nlibrary(readr)\n\n# ============================================================\n# חלק א – טעינת ואיחוד קבצים\n# ============================================================\n\ndata_path <- \"data/stroop_files/\"\nfiles <- list.files(data_path, pattern = \".csv\", full.names = TRUE)\n\ndf_all <- NULL\n\nfor (i in 1:length(files)) {\n  temp <- read_csv(files[i])\n  df_all <- bind_rows(df_all, temp)\n}\n\n# מספר נבדקים ומספר תנאים\nn_subjects   <- n_distinct(df_all$subject)\nn_conditions <- n_distinct(df_all$condition)\n\ncat(\"Number of subjects:\", n_subjects, \"\\n\")\ncat(\"Number of conditions:\", n_conditions, \"\\n\")\n\n# סיכום ערכים חסרים בזמני תגובה\nmissing_summary <- df_all |>\n  summarise(\n    n_missing = sum(is.na(rt)),\n    percent_missing = mean(is.na(rt)) * 100\n  )\n\nprint(missing_summary)\n\n# היסטוגרמות לפני ניקוי\n\nggplot(df_all |> filter(condition == \"congruent\"),\n       aes(x = rt)) +\n  geom_histogram(bins = 40) +\n  labs(title = \"Congruent – Before cleaning\",\n       x = \"Reaction Time\",\n       y = \"Count\") +\n  theme_minimal()\n\nggplot(df_all |> filter(condition == \"incongruent\"),\n       aes(x = rt)) +\n  geom_histogram(bins = 40) +\n  labs(title = \"Incongruent – Before cleaning\",\n       x = \"Reaction Time\",\n       y = \"Count\") +\n  theme_minimal()\n\n# ============================================================\n# חלק ב – פונקציה ולולאה לזיהוי Outliers\n# ============================================================\n\ndetect_outliers <- function(rt_vector) {\n  m  <- mean(rt_vector, na.rm = TRUE)\n  s  <- sd(rt_vector, na.rm = TRUE)\n  \n  rt_vector > (m + 2 * s)\n}\n\nsubjects <- unique(df_all$subject)\n\noutlier_all <- c()\n\nfor (s in subjects) {\n  \n  rt_subj <- df_all |>\n    filter(subject == s) |>\n    pull(rt)\n  \n  out_subj <- detect_outliers(rt_subj)\n  \n  outlier_all <- c(outlier_all, out_subj)\n}\n\ndf_all <- df_all |>\n  mutate(outlier = outlier_all)\n\n# ============================================================\n# חלק ג – הצגת הנתונים\n# ============================================================\n\n# מספר אאוטליירים לכל נבדק\noutlier_count <- df_all |>\n  group_by(subject) |>\n  summarise(n_outliers = sum(outlier))\n\nprint(outlier_count)\n\n# הסרת אאוטליירים\ndf_clean <- df_all |>\n  filter(!outlier)\n\n# היסטוגרמות אחרי ניקוי\n\nggplot(df_clean |> filter(condition == \"congruent\"),\n       aes(x = rt)) +\n  geom_histogram(bins = 40) +\n  labs(title = \"Congruent – After cleaning\",\n       x = \"Reaction Time\",\n       y = \"Count\") +\n  theme_minimal()\n\nggplot(df_clean |> filter(condition == \"incongruent\"),\n       aes(x = rt)) +\n  geom_histogram(bins = 40) +\n  labs(title = \"Incongruent – After cleaning\",\n       x = \"Reaction Time\",\n       y = \"Count\") +\n  theme_minimal()\n"
+  }
+ ]
+}

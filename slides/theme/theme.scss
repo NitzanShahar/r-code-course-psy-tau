@@ -119,3 +119,33 @@ $presentation-font-size-root: 34px;
 .vs .good div.sourceCode { border-color: #b6dcc8; background: #f8fdfa; }
 
 .reveal .slides section.dense ul { font-size: .86em; }
+
+// ── weekly-deck components (each week's deck follows last year's: intro box, topic box + board, assignment box) ──
+// the week's intro, as in the Notion "חומר הלימוד" box
+.nbox { background: var(--unit-bg); border-radius: 16px; padding: .7em 1.1em; font-size: .66em; line-height: 1.6; max-width: 88%; margin: .2em auto 0; }
+.nbox p { margin: .35em 0; }
+.nbox .nh { font-weight: 700; color: var(--unit); margin-bottom: .3em; }
+// the topic box (Notion's "רשימת חומרי הלימוד") beside a board for the live demo
+.tb { display: grid; grid-template-columns: 34% 1fr; gap: 1em; align-items: start; }
+.tbox { background: var(--panel); border-radius: 14px; padding: .55em .9em; font-size: .62em; line-height: 1.5; }
+.tbox .th { font-weight: 700; color: var(--ink); margin-bottom: .2em; }
+.tbox p { margin: .15em 0; color: var(--ink-soft); }
+.board { border: 10px solid #2b3a42; border-bottom-width: 14px; border-radius: 6px; background: #fff; min-height: 430px; padding: .4em .7em; position: relative; box-shadow: 0 6px 18px rgba(0,26,36,.18); }
+.board::after { content: ""; position: absolute; bottom: -22px; left: 18%; width: 46%; height: 8px; border-radius: 3px; background: linear-gradient(90deg, #2d5aa8 0 22%, #c23b3b 22% 44%, #2e8b57 44% 66%, #1b2028 66% 88%, transparent 88%); }
+.board div.sourceCode, .board pre { border: none !important; background: transparent !important; margin: 0; }
+.board pre code { font-size: .82em; }
+.board pre { background: transparent !important; }
+.board .bnote { font-size: .5em; color: var(--ink-faint); text-align: center; margin-top: .3em; }
+.board table.df { font-size: .48em; margin-top: .4em; }
+.board svg { display: block; margin: .3em auto 0; }
+// code on a plain slide, larger (as in last year's decks)
+.bigcode pre code { font-size: .9em; }
+// the weekly assignment, as in the Notion box
+.hwbox { background: #fbf1e8; border-radius: 16px; padding: .6em 1.1em; font-size: .6em; line-height: 1.55; max-width: 90%; margin: 0 auto; }
+.hwbox p { margin: .3em 0; }
+.hwbox ol, .hwbox ul { margin: .2em 0; }
+.hwbox li { margin-bottom: .15em; line-height: 1.45; }
+.hwbox .due { font-weight: 700; color: var(--warn); margin-top: .5em; }
+// closing slide
+.reveal .slides section.closing > h2 { display: none; }
+.closing-text { margin-top: 250px; text-align: center; font-family: "Frank Ruhl Libre", serif; font-size: 2em; font-weight: 700; color: var(--ink); }

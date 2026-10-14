@@ -1,0 +1,134 @@
+---
+title: "עבודה עם מבנה נתונים ב"
+course-week: "שבוע 3"
+---
+
+## עבודה עם מבנה נתונים ב
+
+::: {.nbox}
+<p class="nh">שבוע 3 · חומר הלימוד</p>
+
+ברוכים הבאים לשבוע השלישי של הקורס!
+
+השבוע נעמיק את היכרותנו עם מבני נתונים, נלמד על סוגים נוספים של אובייקטים, ונשתמש בכלים סטטיסטיים וגרפיים כדי להפיק עוד יותר מידע מהנתונים שלנו.
+
+נתחיל בפעולות שימושיות על מבני נתונים: הדפסת משתנה או תצפית בודדת, הורדת משתנה או שורות, ושינוי של תא בודד. נרחיב את ארגז הכלים עם משתנה לוגי (אמת או שקר) ומשתנה קטגוריאלי, ונשתמש בהם כדי לסנן את מבנה הנתונים.
+
+לבסוף נחשב ונציג סטטיסטיקה תיאורית לפי קבוצה (למשל ממוצע גובה לפי מין), וגם על תת-קבוצה מסוננת של הנתונים.
+:::
+
+## רשימת חומרי הלימוד
+
+::: {.tbox style="max-width:70%;margin:0 auto;font-size:.7em"}
+<p class="th">אובייקטים בסיסיים</p>
+<p>משתנה לוגי</p>
+<p>משתנה קטגוריאלי</p>
+<p class="th" style="margin-top:.6em">מבנה נתונים וסטטיסטיקה תיאורית</p>
+<p>עריכת מבנה נתונים (הדפסה והורדה של משתנה, שורות, תאים בודדים)</p>
+<p>עריכת מבנה הנתונים תוך שימוש בפילטר לוגי</p>
+<p>חישוב והצגת סטטיסטיקה תיאורית לפי קבוצה</p>
+<p>חישוב והצגת סטטיסטיקה תיאורית תוך שימוש בפילטר</p>
+<p class="th" style="margin-top:.6em">גרפיקה</p>
+<p>הצגת סטטיסטיקה תיאורית לפי משתנה קטגוריאלי</p>
+:::
+
+## אובייקטים בסיסיים
+
+::: {.tb}
+::: {.tbox}
+<p class="th">אובייקטים בסיסיים</p>
+<p>משתנה לוגי</p>
+<p>משתנה קטגוריאלי</p>
+:::
+
+::: {.board}
+```r
+#### LOGICAL & FACTOR ####
+
+# 1. Logical
+x = c(1:10)
+x > 5
+x[x > 5]
+
+# 2. Factor
+gender = c('female', 'male', 'female')
+gender = factor(gender)
+levels(gender)
+as.numeric(gender)
+```
+:::
+:::
+
+## מבנה נתונים
+
+::: {.tb}
+::: {.tbox}
+<p class="th">מבנה נתונים וסטטיסטיקה תיאורית</p>
+<p>עריכת מבנה נתונים (הדפסה והורדה של משתנה, שורות, תאים בודדים)</p>
+<p>עריכת מבנה הנתונים תוך שימוש בפילטר לוגי</p>
+<p>חישוב והצגת סטטיסטיקה תיאורית לפי קבוצה</p>
+<p>חישוב והצגת סטטיסטיקה תיאורית תוך שימוש בפילטר</p>
+:::
+
+::: {.board}
+<table class="df">
+<tr><th>subject_id</th><th>age</th><th>gender</th><th>major_depression</th><th>iq</th><th>sleep_duration</th></tr>
+<tr><td>1</td><td>45</td><td>female</td><td>yes</td><td>118.0</td><td>5.4</td></tr>
+<tr><td>2</td><td>21</td><td>female</td><td>yes</td><td>85.3</td><td>7.4</td></tr>
+<tr><td>3</td><td>43</td><td>male</td><td>no</td><td>81.9</td><td>6.8</td></tr>
+</table>
+
+```r
+df[5, ]                      # one observation
+df$age = NULL                # drop a variable
+df[10, 'iq'] = 100           # change one cell
+
+library(dplyr)
+df |> filter(gender == 'female') |> summary()
+df |> group_by(gender) |> summarise(mean_iq = mean(iq))
+```
+:::
+:::
+
+## גרפיקה
+
+::: {.tb}
+::: {.tbox}
+<p class="th">גרפיקה</p>
+<p>הצגת סטטיסטיקה תיאורית לפי משתנה קטגוריאלי</p>
+:::
+
+::: {.board}
+```r
+library(ggplot2)
+ggplot(df, aes(x = major_depression, y = sleep_duration)) +
+  geom_violin(fill = 'lightblue') +
+  geom_boxplot(width = 0.2)
+```
+
+<svg width="360" height="220" viewBox="0 0 360 220" aria-label="violin plot">
+<path d="M110 30 C 150 80, 150 130, 112 190 C 70 130, 70 80, 110 30 Z" fill="#cfe0ee" stroke="#1f5f8b" stroke-width="1.5"/>
+<rect x="98" y="90" width="24" height="45" fill="#fff" stroke="#1f5f8b" stroke-width="1.5"/><line x1="98" y1="110" x2="122" y2="110" stroke="#1f5f8b" stroke-width="2"/>
+<path d="M250 20 C 300 70, 300 150, 252 205 C 200 150, 200 70, 250 20 Z" fill="#e6e9eb" stroke="#56656d" stroke-width="1.5"/>
+<rect x="238" y="80" width="24" height="60" fill="#fff" stroke="#56656d" stroke-width="1.5"/><line x1="238" y1="112" x2="262" y2="112" stroke="#56656d" stroke-width="2"/>
+<text x="110" y="214" text-anchor="middle" font-size="13" fill="#56656d" font-family="JetBrains Mono">no</text>
+<text x="250" y="214" text-anchor="middle" font-size="13" fill="#56656d" font-family="JetBrains Mono">yes</text>
+</svg>
+:::
+:::
+
+## מטלה שבועית
+
+::: {.hwbox}
+**המטלה השבועית (שבוע 3)** — טוענים את קובץ ה-csv מהשבוע הקודם.
+
+**חלק א:** הדפסת משתנה הגיל והשורה החמישית; מחיקת משתנה הדיכאון והשורות 60 ו-72; שינוי התא בשורה 10 בעמודת הגיל; מימדי הטבלה; משתנה לוגי IQ_group (מעל / מתחת לחציון); מגדר כמשתנה קטגוריאלי; מסד נתונים שני של בנות עם IQ גבוה.
+
+**חלק ב:** סטטיסטיקה תיאורית לגיל עבור IQ גבוה, ולפי רמות המגדר (בפקודה אחת); boxplot של החרדה לפי מגדר; שמירה כ-csv.
+
+<p class="due">להגשה עד יום ראשון, 8.11.2026, בשעה 12:00</p>
+:::
+
+## בהצלחה! {.closing}
+
+<p class="closing-text">בהצלחה!</p>

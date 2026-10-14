@@ -1,0 +1,117 @@
+---
+title: "עבודה עם מבנה נתונים ג"
+course-week: "שבוע 4"
+---
+
+## עבודה עם מבנה נתונים ג
+
+::: {.nbox}
+<p class="nh">שבוע 4 · חומר הלימוד</p>
+
+ברוכים הבאים לשבוע הרביעי של הקורס!
+
+השבוע נתחיל לעסוק באחד האתגרים הנפוצים ביותר בניתוח נתונים — ערכים חסרים, ונוסיף היכרות ראשונית עם רגרסיה וגרפיקה מתקדמת יותר.
+
+נלמד להזין ערכים חסרים בטבלת נתונים, לספור אותם, וליצור משתנה שמתעד את קיומם. נפיק סטטיסטיקה תיאורית גם כשיש ערכים חסרים, ונשתמש במשתנה לוגי כדי לסנן אותם.
+
+משם נתקדם לטעימה ראשונה מרגרסיה לא מתוקננת ומתאם פירסון בין שני משתנים רציפים, ונציג את הקשר ביניהם גם בצורה גרפית.
+:::
+
+## ערכים חסרים
+
+::: {.tb}
+::: {.tbox}
+<p class="th">אובייקטים בסיסיים, מבנה נתונים וסטטיסטיקה תיאורית</p>
+<p>הזנת ערך חסר למספר תאים בטבלה</p>
+<p>ספירת מספר הערכים החסרים</p>
+<p>חישוב והצגת סטטיסטיקה תיאורית בנוכחות נתונים חסרים</p>
+<p>יצירת משתנה לוגי אשר יקודד את קיומם של ערכים חסרים</p>
+:::
+
+::: {.board}
+```r
+#### MISSING VALUES ####
+
+# 1. Insert missing values
+df$age[c(3, 17, 42)] = NA
+
+# 2. Count them
+sum(is.na(df$age))
+
+# 3. Describe while ignoring them
+mean(df$age, na.rm = TRUE)
+sd(df$age, na.rm = TRUE)
+
+# 4. A logical variable that marks them
+df$age_missing = is.na(df$age)
+```
+:::
+:::
+
+## רגרסיה
+
+::: {.tb}
+::: {.tbox}
+<p class="th">רגרסיה</p>
+<p>חישוב רגרסיה פשוטה לא מתוקננת</p>
+<p>חישוב מתאם פירסון</p>
+:::
+
+::: {.board}
+```r
+#### REGRESSION ####
+
+# 1. Keep complete observations
+df_complete = df[!is.na(df$age) & !is.na(df$iq), ]
+
+# 2. Unstandardized regression: age predicts iq
+model = lm(iq ~ age, data = df_complete)
+coef(model)
+
+# 3. Pearson correlation
+cor(df_complete$age, df_complete$iq)
+```
+:::
+:::
+
+## גרפיקה
+
+::: {.tb}
+::: {.tbox}
+<p class="th">גרפיקה</p>
+<p>יצירת תרשים פיזור (Scatter plot) בין שני משתנים נומריים רציפים במבנה הנתונים</p>
+:::
+
+::: {.board}
+```r
+plot(df_complete$age, df_complete$iq,
+     xlab = 'age', ylab = 'iq', main = 'IQ by age')
+abline(model)
+```
+
+<svg width="380" height="210" viewBox="0 0 380 210" aria-label="scatter plot">
+<line x1="40" y1="185" x2="360" y2="185" stroke="#56656d"/><line x1="40" y1="15" x2="40" y2="185" stroke="#56656d"/>
+<g fill="#1f5f8b" opacity=".75">
+<circle cx="70" cy="150" r="4"/><circle cx="95" cy="120" r="4"/><circle cx="110" cy="160" r="4"/><circle cx="140" cy="110" r="4"/><circle cx="160" cy="130" r="4"/><circle cx="185" cy="95" r="4"/><circle cx="205" cy="120" r="4"/><circle cx="230" cy="80" r="4"/><circle cx="250" cy="100" r="4"/><circle cx="275" cy="70" r="4"/><circle cx="300" cy="85" r="4"/><circle cx="330" cy="55" r="4"/>
+</g>
+<line x1="55" y1="158" x2="345" y2="58" stroke="#b3541e" stroke-width="2.5"/>
+<text x="200" y="204" text-anchor="middle" font-size="13" fill="#56656d" font-family="JetBrains Mono">age</text>
+</svg>
+:::
+:::
+
+## מטלה שבועית
+
+::: {.hwbox}
+**המטלה השבועית (שבוע 4)** — טוענים את קובץ ה-csv מהשבוע הקודם.
+
+**חלק א:** חמישה ערכים חסרים אקראיים ב-age ושניים ב-iq, וספירתם. **חלק ב:** ממוצע, ס״ת, חציון, מינימום ומקסימום ל-age תוך התעלמות מערכים חסרים.
+
+**חלק ג:** הוצאת תצפיות עם ערכים חסרים; רגרסיה לא מתוקננת (גיל מנבא iq); מתאם פירסון. **חלק ד:** תרשים פיזור age מול iq עם כותרות וטווחי צירים, וקו הרגרסיה — ידנית, ואוטומטית בעזרת פקודה / חבילה.
+
+<p class="due">להגשה עד יום ראשון, 15.11.2026, בשעה 12:00</p>
+:::
+
+## בהצלחה! {.closing}
+
+<p class="closing-text">בהצלחה!</p>

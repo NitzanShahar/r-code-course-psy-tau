@@ -1,0 +1,96 @@
+---
+title: "ניהול גרסאות"
+course-week: "שבוע 7"
+---
+
+## ניהול גרסאות
+
+::: {.nbox}
+<p class="nh">שבוע 7 · חומר הלימוד</p>
+
+השבוע נלמד כיצד לנהל גרסאות בזמן כתיבת קוד.
+
+ניהול גרסאות הוא כלי שמאפשר לצמצם את הטעויות שמצטברות בזמן כתיבת קוד, מאפשר שיתוף יעיל יותר של הקוד עם הסביבה שלנו, ומאפשר להתקדם בכתיבה בצורה מקבילה ולא בהכרח סידרתית.
+:::
+
+## ניהול גרסאות
+
+::: {.cards}
+::: {.card .code}
+<h3>האתגרים</h3>
+
+- מניעת כפילויות
+- שמירה על היסטוריה נגישה
+- ריוויו יעיל
+- כתיבה שיתופית
+:::
+
+::: {.card .r}
+<h3>הפתרונות הקיימים היום</h3>
+
+- שימוש ב-version control
+- האתרים הנפוצים: GitHub / GitLab ודומיהם
+:::
+:::
+
+## ניהול גרסאות
+
+::: {.cards}
+::: {.card .r}
+<h3>מושגים בסיסיים</h3>
+
+- <span class="ltr">repository</span>
+- <span class="ltr">commit · staging</span>
+- <span class="ltr">push / pull</span>
+- <span class="ltr">.gitignore</span>
+:::
+
+::: {.card}
+<h3>מושגים מתקדמים יותר</h3>
+
+רלוונטיים אם יש עוד אנשים איתכם על הפרויקט:
+
+- <span class="ltr">branching</span>
+- <span class="ltr">merging</span>
+- <span class="ltr">pull request</span>
+:::
+:::
+
+## ניהול גרסאות
+
+::: {.tb}
+::: {.tbox}
+<p class="th">עבודה בגיטהאב</p>
+<p>GitHub Desktop (מומלץ למתחילים / משתמשים „קלים״)</p>
+<p>RStudio: לשונית Git</p>
+<p>עבודה מתוך הטרמינל</p>
+:::
+
+::: {.board}
+```bash
+# the same steps, from the terminal
+git clone https://github.com/<user>/<repository>.git
+
+git add analysis.R
+git commit -m "Add descriptive statistics"
+git push
+
+git pull
+```
+:::
+:::
+
+## רשימת יחידות הלימוד
+
+::: {.tbox style="max-width:70%;margin:0 auto;font-size:.72em"}
+<p class="th">עבודה בממשק</p>
+<p>ניהול גרסאות (Version control) — עקרונות בסיסיים ויתרונות</p>
+<p>עבודה עם Git או מערכות ניהול גרסאות אחרות</p>
+<p>היכרות עם סביבת פיתוח משולבת (IDE)</p>
+<p>שימוש נכון ב-AI לכתיבת קוד</p>
+<p>קוד review</p>
+:::
+
+## בהצלחה! {.closing}
+
+<p class="closing-text">בהצלחה!</p>
