@@ -223,7 +223,8 @@ def header(depth, staff, on):
     up = "../" * depth
     nav = ""
     if on is not None:
-        links = [("admin.html", "מנהלות הקורס", "admin"), ("index.html", "השבועות", "weeks"), ("book.html", "ספר היחידות", "book")]
+        # first = rightmost in RTL: the course content is where students spend their time
+        links = [("index.html", "תוכן הקורס", "weeks"), ("book.html", "ספר היחידות", "book"), ("admin.html", "מנהלות הקורס", "admin")]
         nav = '<nav class="gen">' + "".join(
             f'<a href="{h}" class="{"on" if k == on else ""}">{t}</a>' for h, t, k in links) + "</nav>"
     badge = '<span class="staffbadge">גרסת מתרגלים</span>' if staff else ""
