@@ -25,7 +25,12 @@
  "deck": {
   "title": "מצגת שבוע 1",
   "note": "8 שקפים · נפתחת בדפדפן",
-  "url": "decks/W1.html"
+  "url": "decks/W1.html",
+  "recording": {
+   "title": "הקלטה של המצגת",
+   "note": "הסבר על המצגת · 5 דקות",
+   "url": "files/recordings/W1-deck.mp4"
+  }
  },
  "videos": [
   {

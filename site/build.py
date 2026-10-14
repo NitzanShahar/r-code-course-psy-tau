@@ -315,6 +315,10 @@ def week_page(w, c, avail, book, depth, staff):
         d = c["deck"]
         deck.append(f'<a {href(d["url"], depth)} class="deck"><small>מצגת</small>'
                      f'<b>{esc(d["title"])}</b><small>{esc(d.get("note", ""))}</small><code>#### WEEK {n} ----</code></a>')
+        r = d.get("recording")  # a recorded walk-through of the deck, in the site's player
+        if r:
+            deck.append(f'<a {href(r["url"], depth, r["title"])} class="vid"><span class="ic">{ICON["play"]}</span>'
+                        f'<span class="vt">{esc(r["title"])}<span class="vs">{esc(r.get("note", ""))}</span></span></a>')
     for v in c.get("videos", []):
         videos.append(f'<a {href(v["url"], depth, v["title"])} class="vid"><span class="ic">{ICON["play"]}</span>'
                      f'<span class="vt">{esc(v["title"])}<span class="vs">{esc(v.get("note", ""))}</span></span></a>')
