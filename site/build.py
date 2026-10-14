@@ -216,7 +216,14 @@ def rail_weeks(avail, sel):
     return "".join(items)
 
 
-def week_page(w, c, avail, book):
+def href(url, depth):
+    """External links open in a new tab; repo files (e.g. decks/W1.html) are relative to the repo root."""
+    if re.match(r"https?://", url):
+        return f'href="{esc(url)}" target="_blank" rel="noopener"'
+    return f'href="{"../" * depth}{esc(url)}"'
+
+
+def week_page(w, c, avail, book, depth):
     n = w["n"]
     weeks = rail_weeks(avail, n)
     rail = f'<aside class="rail card"><h3>שבועות הקורס</h3>{weeks}</aside>'
@@ -226,26 +233,25 @@ def week_page(w, c, avail, book):
     media = []
     if c.get("deck"):
         d = c["deck"]
-        media.append(f'<a href="{esc(d["url"])}" target="_blank" rel="noopener" class="deck"><small>מצגת</small>'
+        media.append(f'<a {href(d["url"], depth)} class="deck"><small>מצגת</small>'
                      f'<b>{esc(d["title"])}</b><small>{esc(d.get("note", ""))}</small><code>#### WEEK {n} ----</code></a>')
     for v in c.get("videos", []):
-        media.append(f'<a href="{esc(v["url"])}" target="_blank" rel="noopener" class="vid"><span class="ic">{ICON["play"]}</span>'
+        media.append(f'<a {href(v["url"], depth)} class="vid"><span class="ic">{ICON["play"]}</span>'
                      f'<span class="vt">{esc(v["title"])}<span class="vs">{esc(v.get("note", ""))}</span></span></a>')
 
-    topics = "".join(f'<div><h4>{esc(t["h"])}</h4><ul>{"".join(f"<li>{esc(i)}</li>" for i in t["items"])}</ul></div>'
-                     for t in c.get("topics", []))
-
+    # the week's units, grouped by chapter: the same unit component as the book, opening in place
     units = []
     for u in c.get("units", []):
         ch = book[u["ch"] - 1]
-        heads = {s["h"] for s in ch["secs"]}
+        index = {s["h"]: k for k, s in enumerate(ch["secs"], 1)}
         for s in u["secs"]:
-            if s not in heads:
+            if s not in index:
                 print(f"  ! week {n}: section not in chapter {u['ch']}: {s}")
         g = ch["group"] == "code"
         tag = '<span class="tag">כתיבת קוד</span>' if g else ""
-        units.append(f'<a href="book.html?w={n}#ch{ch["n"]}" class="row"><span class="num{" g" if g else ""}">{ch["n"]}</span>'
-                     f'<span><span class="rt">{esc(ch["title"])}{tag}</span><span class="rs">{esc(" · ".join(fix(s) for s in u["secs"]))}</span></span></a>')
+        secs = "".join(book_section(ch, index[s], ch["secs"][index[s] - 1], [], in_week=True) for s in u["secs"] if s in index)
+        units.append(f'<div class="wch{" g" if g else ""}"><span class="num{" g" if g else ""}">{ch["n"]}</span><b>{esc(ch["title"])}</b>{tag}'
+                     f'<a class="tobook" href="book.html?w={n}#ch{ch["n"]}">הפרק המלא בספר ↗</a></div><div class="wunits">{secs}</div>')
     reading = "".join(f'<a href="{esc(r["url"])}" target="_blank" rel="noopener" class="row"><span class="ic">{ICON["book"]}</span>'
                       f'<span><span class="rt ltr" style="display:block;text-align:right">{esc(r["title"])}</span><span class="rs">{esc(r.get("note", ""))}</span></span></a>'
                       for r in c.get("reading", []))
@@ -265,8 +271,7 @@ def week_page(w, c, avail, book):
     main = f"""<main class="card">
 <section class="hero"><p class="eyebrow">שבוע {n}</p><h1>{esc(w['title'])}</h1><p class="intro">{esc(c['intro'])}</p></section>
 <section class="sec"><div class="ch"><h2>מצגת וסרטונים</h2></div><div class="media">{''.join(media)}</div></section>
-<section class="sec"><div class="ch"><h2>חומר היחידה</h2><span>מה נלמד השבוע</span></div><div class="tp">{topics}</div></section>
-<section class="sec"><div class="ch"><h2>חומרי לימוד</h2><span>יחידות מספר היחידות, כל אחת עם הנחיה למתרגל AI</span></div>{''.join(units)}
+<section class="sec"><div class="ch"><h2>מה לומדים השבוע</h2><span>יחידות מספר היחידות · לחצו על יחידה כדי לפתוח אותה</span></div>{''.join(units)}
 <p class="sub">קריאה מומלצת</p>{reading}</section>
 <section class="sec"><div class="ch"><h2>המטלה השבועית</h2></div>{hw_html}</section>
 <nav class="nav">{prev}{nxt}</nav>
@@ -310,7 +315,7 @@ def book_page(book, weeks):
     return f'{mob}<div class="layout">{rail}{main}</div>'
 
 
-def book_section(ch, k, s, wks):
+def book_section(ch, k, s, wks, in_week=False):
     blocks = []
     for it in s["items"]:
         t = fix(it["text"])
@@ -331,12 +336,16 @@ def book_section(ch, k, s, wks):
             blocks.append(f'<div class="prompt ltr" style="padding:14px 16px;font-family:JetBrains Mono,monospace;font-size:13.5px;text-align:left">{esc(t.strip("`").strip())}</div>')
         else:
             blocks.append(f'<div class="prompt" style="padding:14px 16px">{lines_html(t)}</div>')
+    uid = f'ch{ch["n"]}-{k}'
+    if in_week:
+        blocks.append(f'<p class="bsfoot">יחידה {ch["n"]}.{k} בספר היחידות · <a href="book.html#{uid}">לראות אותה בתוך הפרק ↗</a></p>')
     data = f' data-w="{" ".join(map(str, wks))}"' if wks else ""
-    return (f'<details class="bs" id="ch{ch["n"]}-{k}"{data}><summary>{esc(fix(s["h"]))}</summary>'
+    g = " g" if ch["group"] == "code" else ""
+    return (f'<details class="bs{g}" id="{uid}"{data}><summary><span class="un">{ch["n"]}.{k}</span>{esc(fix(s["h"]))}</summary>'
             f'<div class="bsb">{"".join(blocks)}</div></details>')
 
 
-BOOK_JS = """// copy an AI-tutor prompt
+COPY_JS = """// copy an AI-tutor prompt
 document.querySelectorAll('.copy').forEach(function(b){
   b.addEventListener('click',function(){
     var t=b.parentNode.querySelector('textarea').value, s=b.querySelector('span');
@@ -344,7 +353,9 @@ document.querySelectorAll('.copy').forEach(function(b){
     if(navigator.clipboard) navigator.clipboard.writeText(t).then(ok,function(){});
     else { var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand('copy'); ok();}catch(e){} a.remove(); }
   });
-});
+});"""
+
+BOOK_JS = COPY_JS + """
 // book.html?w=N opens (and marks) the sections that week N uses; #chN-K opens one section
 (function(){
   var w=(location.search.match(/[?&]w=(\\d+)/)||[])[1];
@@ -367,12 +378,12 @@ def build_site(prefix, staff, avail, weeks, book):
     depth = 1 if prefix else 0
     title_of = {w["n"]: w for w in CFG["weeks"]}
     for n in avail:
-        body = header(depth, staff, "weeks") + week_page(title_of[n], weeks[n], avail, book) + footer(depth, staff)
-        html_ = page(f"שבוע {n} · {CFG['title']}", body, depth, staff, GATE_JS)
+        body = header(depth, staff, "weeks") + week_page(title_of[n], weeks[n], avail, book, depth) + footer(depth, staff)
+        html_ = page(f"שבוע {n} · {CFG['title']}", body, depth, staff, COPY_JS + "\n" + GATE_JS)
         write(f"{prefix}week-{n}.html", html_)
     home = CFG.get("current") if CFG.get("current") in avail else min(avail)
-    body = header(depth, staff, "weeks") + week_page(title_of[home], weeks[home], avail, book) + footer(depth, staff)
-    write(f"{prefix}index.html", page(CFG["title"], body, depth, staff, GATE_JS))
+    body = header(depth, staff, "weeks") + week_page(title_of[home], weeks[home], avail, book, depth) + footer(depth, staff)
+    write(f"{prefix}index.html", page(CFG["title"], body, depth, staff, COPY_JS + "\n" + GATE_JS))
     body = header(depth, staff, "book") + book_page(book, {n: weeks[n] for n in avail}) + footer(depth, staff)
     write(f"{prefix}book.html", page(f"ספר היחידות · {CFG['title']}", body, depth, staff, BOOK_JS + "\n" + GATE_JS))
 

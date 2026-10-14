@@ -1,0 +1,121 @@
+/*-- scss:defaults --*/
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+$font-family-sans-serif: "Assistant", sans-serif;
+$presentation-font-family: "Assistant", sans-serif;
+$presentation-heading-font: "Frank Ruhl Libre", "Assistant", serif;
+$presentation-heading-font-weight: 700;
+$font-family-monospace: "JetBrains Mono", monospace;
+
+$body-bg: #fcfcfa;
+$body-color: #001a24;
+$link-color: #1f5f8b;
+$presentation-heading-color: #001a24;
+$presentation-font-size-root: 34px;
+
+/*-- scss:rules --*/
+// Same language as the course site: ink #001a24, R blue #1f5f8b, brown for general coding, orange only as a warning.
+:root {
+  --ink: #001a24;
+  --ink-soft: #56656d;
+  --ink-faint: #8a979d;
+  --rule: #d9e1e5;
+  --panel: #f2f5f6;
+  --unit: #1f5f8b;
+  --unit-line: #a9c4d8;
+  --unit-bg: #e6eff5;
+  --code: #8a5a2b;
+  --code-bg: #f3ece4;
+  --warn: #b3541e;
+  --warn-bg: #fdf0e4;
+  --ok: #1f7a52;
+  --ok-bg: #e6f4ed;
+}
+
+// must beat Quarto's own .reveal .slides { text-align: left }
+.reveal, .reveal .slides { direction: rtl; text-align: right; }
+.reveal ul, .reveal ol { direction: rtl; text-align: right; }
+.reveal pre, .reveal code { direction: ltr; text-align: left; }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+
+.reveal h1, .reveal h2, .reveal h3 { letter-spacing: -0.01em; }
+.reveal h2 { font-size: 1.45em; border-bottom: 3px solid var(--unit-line); padding-bottom: .25em; margin-bottom: .7em; }
+.reveal h3 { font-size: 1em; color: var(--unit); margin: 0 0 .3em; }
+.reveal li { margin-bottom: .3em; line-height: 1.45; }
+.reveal li::marker { color: var(--unit); }
+.reveal .progress { color: var(--unit); height: 8px; background: var(--unit-bg); }
+.reveal .controls { color: var(--unit); }
+.reveal .slide-number { color: var(--unit); background: transparent; font-size: 24px; font-weight: 600; bottom: 14px; }
+
+// code
+.reveal pre { box-shadow: none; width: 100%; margin: .3em 0; }
+.reveal div.sourceCode { border: 1px solid var(--rule); border-radius: 12px; background: #fff; }
+.reveal pre code { font-size: .78em; line-height: 1.55; padding: .55em .9em; max-height: none; background: transparent; }
+.reveal code { font-family: "JetBrains Mono", monospace; }
+.reveal p code, .reveal li code { font-size: .82em; background: var(--panel); border-radius: 6px; padding: .05em .3em; color: var(--ink); }
+.out { direction: ltr; text-align: left; font-family: "JetBrains Mono", monospace; font-size: .6em; color: var(--ink-soft); margin: -.1em 0 .4em; padding-inline-start: .9em; }
+.out::before { content: "# "; color: var(--ink-faint); }
+
+// title slide
+.tau-title-logo { display: block; height: 70px; margin: 0 auto 1.2rem; }
+#title-slide { text-align: center; }
+#title-slide .title { font-family: "Frank Ruhl Libre", serif; font-size: 2.1em; }
+#title-slide .subtitle { color: var(--ink-soft); font-size: .62em; font-weight: 400; }
+#title-slide .author { color: var(--ink-soft); font-size: .5em; }
+.reveal .week-label { color: var(--unit); font-size: .55em; font-weight: 700; letter-spacing: .03em; margin: 0 0 .3em; }
+.reveal .title-rule { width: 90px; height: 4px; border-radius: 2px; background: var(--unit); margin: .35em auto .5em; }
+
+// part gate: progress dots, part name and one line
+.reveal .slides section.part-gate > h2 { display: none; }
+.gate { margin-top: 200px; text-align: center; }
+.gate-dots { display: inline-flex; gap: 14px; align-items: center; margin-bottom: 26px; }
+.gate-dots span { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--unit); box-sizing: border-box; }
+.gate-dots span.done { background: var(--unit-bg); }
+.gate-dots span.now { width: 16px; height: 16px; background: var(--unit); }
+.gate-dots span.later { border-color: var(--rule); }
+.gate-title { font-family: "Frank Ruhl Libre", serif; font-size: 1.9em; font-weight: 700; color: var(--ink); line-height: 1.2; }
+.gate-why { margin-top: .6em; font-size: .78em; color: var(--ink-soft); }
+.gate.code .gate-dots span.now { background: var(--code); border-color: var(--code); }
+
+// cards
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: .9em; margin-top: .2em; }
+.cards.three { grid-template-columns: repeat(3, 1fr); }
+.card { background: #fff; border: 1px solid var(--rule); border-radius: 14px; padding: .55em .9em; font-size: .78em; line-height: 1.45; }
+.card h3 { margin-top: 0; }
+.card p { margin: .25em 0; }
+.card.r { border-inline-start: 6px solid var(--unit); }
+.card.code { border-inline-start: 6px solid var(--code); }
+.card.code h3 { color: var(--code); }
+.card.warn { background: var(--warn-bg); border-color: #efc9ad; }
+.card.warn h3 { color: var(--warn); }
+.card.ok { background: var(--ok-bg); border-color: #b6dcc8; }
+.card.ok h3 { color: var(--ok); }
+.big-num { font-family: "Frank Ruhl Libre", serif; font-size: 2.2em; font-weight: 900; color: var(--unit); line-height: 1; }
+.note { font-size: .62em; color: var(--ink-soft); margin-top: .5em; }
+.task { background: var(--unit-bg); border-radius: 12px; padding: .45em .9em; font-size: .74em; margin-top: .5em; }
+.task b { color: var(--unit); }
+
+// RStudio's four panes, drawn as in the program (left-to-right)
+.panes { direction: ltr; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; height: 470px; margin-top: .1em; }
+.pane { direction: rtl; text-align: right; border: 2px solid var(--rule); border-radius: 12px; background: #fff; padding: .4em .7em; font-size: .62em; line-height: 1.35; position: relative; }
+.pane b { display: block; font-size: 1.15em; color: var(--ink); }
+.pane .en { direction: ltr; text-align: left; display: block; font-family: "JetBrains Mono", monospace; font-size: .85em; color: var(--unit); margin-bottom: .25em; }
+.pane .eg { position: absolute; bottom: .5em; left: .7em; direction: ltr; font-family: "JetBrains Mono", monospace; font-size: .85em; color: var(--ink-soft); }
+.pane.src { border-color: var(--unit); background: #f7fbfd; }
+
+// a data frame drawn as a table of columns (vectors)
+.reveal table.df { font-size: .62em; border-collapse: collapse; margin: .2em auto; direction: ltr; }
+.reveal table.df th { background: var(--unit-bg); color: var(--unit); font-family: "JetBrains Mono", monospace; border-bottom: 2px solid var(--unit-line); padding: .3em .9em; }
+.reveal table.df td { font-family: "JetBrains Mono", monospace; padding: .25em .9em; border-bottom: 1px solid var(--rule); text-align: center; }
+.reveal table.df td.rn { color: var(--ink-faint); }
+
+// bad vs. good code, side by side
+// in reading order: "hard to read" on the right, "easy to read" on the left
+.vs { display: grid; grid-template-columns: 1fr 1fr; gap: .8em; }
+.vs .lbl { font-size: .58em; font-weight: 700; margin-bottom: .1em; }
+.vs .bad .lbl { color: var(--warn); }
+.vs .good .lbl { color: var(--ok); }
+.vs .bad div.sourceCode { border-color: #efc9ad; background: #fffaf6; }
+.vs .good div.sourceCode { border-color: #b6dcc8; background: #f8fdfa; }
+
+.reveal .slides section.dense ul { font-size: .86em; }

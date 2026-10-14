@@ -63,10 +63,18 @@ h1{margin:0;font-family:'Frank Ruhl Libre',serif;font-size:54px;font-weight:900;
 .vid:hover{border-color:var(--u);color:inherit}
 .vt{font-weight:600;font-size:16.5px;line-height:1.25}
 .vs{display:block;font-size:13.5px;color:var(--mut);font-weight:400}
-/* topics */
-.tp{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px 28px}
-.tp h4{margin:8px 0 2px;font-size:16px;color:var(--ink)}
-.tp ul{margin:0;padding:0 18px 0 0;color:#3d4c54;font-size:15.5px}
+/* the week's units: grouped by chapter, opening in place (same component as the book) */
+.wch{display:flex;align-items:center;gap:12px;margin:22px 0 2px}
+.wch:first-of-type{margin-top:6px}
+.wch .num{width:34px;height:34px;font-size:16px;border-radius:10px}
+.wch b{font-family:'Frank Ruhl Libre',serif;font-size:20px;font-weight:700;color:var(--u);line-height:1.25}
+.wch.g b{color:var(--g)}
+.wch .tag{margin:0}
+.wch .tobook{margin-inline-start:auto;font-size:13.5px;color:var(--mut);white-space:nowrap}
+.wch .tobook:hover{color:var(--acc)}
+.wunits{padding-inline-start:46px}
+.bsfoot{margin:14px 0 0;padding-top:10px;border-top:1px dashed #dde3e5;font-size:13.5px;color:var(--mut)}
+.bsfoot a{color:var(--u)}
 /* units + reading */
 .row{display:flex;gap:14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--soft)}
 .row:last-child{border-bottom:none}
@@ -104,6 +112,8 @@ a.row:hover .rt{color:var(--acc)}
 .chap.g .ch h2{color:var(--g)}
 .bs{border:1px solid var(--line);border-radius:16px;margin-top:10px;background:#fff;scroll-margin-top:16px}
 .bs[open]{border-color:#c9d6de}
+.bs summary .un{flex:none;min-width:34px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--mut)}
+.bs.g summary .un{color:var(--g)}
 .bs summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 18px;font-family:'Frank Ruhl Libre',serif;font-size:19px;font-weight:500;color:var(--ink)}
 .bs summary::-webkit-details-marker{display:none}
 .bs summary::after{content:"";margin-inline-start:auto;width:10px;height:10px;border-inline-end:2px solid var(--mut);border-bottom:2px solid var(--mut);transform:rotate(45deg);transition:transform .15s}
@@ -170,6 +180,8 @@ a.row:hover .rt{color:var(--acc)}
   .chap{padding:4px 18px 18px}
   .bs summary{font-size:17.5px;padding:8px 14px}
   .bsb{padding:0 14px 14px}
+  .wunits{padding-inline-start:0}
+  .wch .tobook{display:none}
   .prompt{padding:54px 14px 14px}
   .copy{left:auto;right:10px}
   .ch h2{font-size:23px}

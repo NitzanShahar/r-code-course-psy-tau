@@ -1,0 +1,27 @@
+<script>
+// RTL navigation: left always steps forward, right always steps back (fragments included).
+// reveal.js 4.3.1 falls back to linear keyboard mode when a deck has no vertical slides,
+// and its prev() moves forward under rtl. Reveal.left()/right() are the rtl-correct steps.
+(function () {
+  function back(e) { Reveal.right(); }
+  function forward(e) { Reveal.left(); }
+  function apply() {
+    Reveal.configure({
+      keyboard: {
+        37: forward,  // ArrowLeft
+        39: back,     // ArrowRight
+        72: forward,  // H
+        76: back,     // L
+        34: forward,  // PageDown (presentation clickers)
+        33: back,     // PageUp   (presentation clickers)
+        78: forward,  // N
+        80: back,     // P
+        32: function (e) { e.shiftKey ? back(e) : forward(e); } // Space / Shift+Space
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    if (Reveal.isReady()) apply(); else Reveal.on('ready', apply);
+  });
+})();
+</script>

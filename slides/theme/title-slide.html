@@ -1,0 +1,14 @@
+<section id="$idprefix$title-slide"$for(title-slide-attributes/pairs)$ $it.key$="$it.value$"$endfor$ class="quarto-title-block" dir="rtl">
+  <img class="tau-title-logo" src="theme/tau-logo.png" alt="אוניברסיטת תל אביב">
+$if(course-week)$
+  <p class="week-label">$course-week$</p>
+$endif$
+  <h1 class="title">$title$</h1>
+  <div class="title-rule"></div>
+$if(subtitle)$
+  <p class="subtitle">$subtitle$</p>
+$endif$
+$if(author)$
+  <p class="author">$for(author)$$author$$sep$, $endfor$</p>
+$endif$
+</section>

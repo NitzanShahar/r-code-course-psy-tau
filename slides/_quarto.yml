@@ -1,0 +1,31 @@
+project:
+  type: default
+  output-dir: ../decks
+  render:
+    - "W*.qmd"
+
+author: "פרופ' ניצן שחר"
+
+format:
+  revealjs:
+    theme: [default, theme/theme.scss]
+    template-partials:
+      - theme/title-slide.html
+    # RTL navigation: left = forward, right = back (as in the statistics course decks)
+    navigation-mode: vertical
+    include-after-body:
+      - theme/rtl-navigation.html
+    embed-resources: true
+    # "##" starts a slide; "###" is a heading inside a card
+    slide-level: 2
+    slide-number: true
+    transition: slide
+    controls: true
+    progress: true
+    history: true
+    center: false
+    rtl: true
+    lang: he
+    width: 1280
+    height: 720
+    highlight-style: github
