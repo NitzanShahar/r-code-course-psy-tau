@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>סילבוס · קורס R למתחילים · תשפ״ז</title>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&family=Frank+Ruhl+Libre:wght@700;900&display=swap" rel="stylesheet">
+<style>
+/* Syllabus source: tools/build_syllabus.py fills {schedule} and {n_hw} from site/site.json and prints this page to PDF. */
+@page{size:A4;margin:16mm 17mm 16mm}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Assistant',sans-serif;font-size:11.2pt;line-height:1.55;color:#1c2a31}
+header{display:flex;align-items:center;gap:16px;padding-bottom:12px;border-bottom:2px solid #1f5f8b;margin-bottom:14px}
+header img{height:46px}
+h1{margin:0;font-family:'Frank Ruhl Libre',serif;font-size:24pt;font-weight:900;color:#001a24;line-height:1.1}
+.sub{margin:2px 0 0;color:#56656d;font-size:11pt}
+h2{margin:16px 0 4px;font-size:13pt;color:#1f5f8b}
+p{margin:4px 0}
+ol,ul{margin:4px 0;padding-inline-start:22px}
+li{margin-bottom:2px}
+.staff{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;margin:4px 0}
+.staff b{color:#001a24}
+.ltr{direction:ltr;unicode-bidi:isolate}
+table{width:100%;border-collapse:collapse;margin-top:6px;font-size:10.5pt;page-break-inside:avoid}
+th{background:#e6eff5;color:#1f5f8b;text-align:right;padding:5px 8px;border-bottom:2px solid #a9c4d8}
+td{padding:4px 8px;border-bottom:1px solid #e3e8e9}
+td.n{width:42px;text-align:center;font-weight:700;color:#001a24}
+td.d{width:90px;font-variant-numeric:tabular-nums}
+td.hw{width:110px;color:#56656d;font-size:9.8pt}
+tr.brk td{color:#8a979d;font-style:italic;background:#fafbfb}
+tr.empty td{color:#8a979d}
+.note{font-size:9.8pt;color:#56656d;margin-top:6px}
+.box{background:#f5f7f7;border-radius:8px;padding:8px 12px;margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+<img src="{logo}" alt="אוניברסיטת תל אביב">
+<div><h1>סילבוס · קורס R למתחילים</h1><p class="sub">בית הספר למדעי הפסיכולוגיה · אוניברסיטת תל אביב · תשפ״ז, סמסטר א</p></div>
+</header>
+
+<h2>צוות הקורס</h2>
+<div class="staff">
+<b>מרצה</b><span>פרופ׳ ניצן שחר, <span class="ltr">nitzansh@tauex.tau.ac.il</span></span>
+<b>מתרגלים</b><span>{tas}</span>
+</div>
+
+<h2>מטרת הקורס</h2>
+<p>הקורס מיועד לסטודנטים ללא ניסיון בכתיבת קוד, שרוצים לרכוש את הבסיס הראשוני לשימוש בשפת R: עבודה בממשק RStudio, אובייקטים ומבני נתונים, דגימה וסטטיסטיקה תיאורית, בקרת זרימה ופונקציות, הצגה גרפית, ומודלים של רגרסיה. הקורס נעשה במתכונת היברידית, ומורכב מלמידה עצמית, הגשה של מטלת כתיבת קוד שבועית, ומבחן מסכם (עם חומר סגור).</p>
+
+<h2>מפגשים</h2>
+<p>כל שבוע בסמסטר נפתח במפגש זום בימי ראשון ב-16:15. בחצי השעה הראשונה של המפגש נסביר את המטלה השבועית; ההסבר מוקלט, ולכן אין חובה להיות נוכחים. בשעה הנותרת המפגש יהיה בפורמט „שאלות ותשובות״, כדי לאפשר לכם להתייעץ על קשיים או אי-בהירויות מהשבוע החולף. השעה הזו אינה מוקלטת, וגם היא אינה חובה.</p>
+
+<h2>לימוד עצמי</h2>
+<p>הלימוד השבועי נעשה באופן עצמאי, דרך אתר הקורס. לכל שבוע יש מצגת, ויחידות לימוד מתוך „ספר היחידות״ של הקורס: כל יחידה היא שיחה עם מתרגל AI שמאפשרת למידה פעילה של החומר, ולצידה סרטוני עזר וקישורים להעמקה (חומרי רשות). הלימוד העצמי נועד ללמוד את הרכיבים הדרושים כדי להשלים את המטלה השבועית. את המטלה מגישים דרך אתר ה-Moodle לבדיקת המתרגלים.</p>
+
+<h2>דרישות הקורס והרכב הציון</h2>
+<ul>
+<li>הגשת תרגילים שבועיים — 20 נקודות.</li>
+<li>בחינה מסכמת בחומר סגור — 80 נקודות.</li>
+</ul>
+<p>כדי לסיים את הקורס יש להגיש את כל {n_hw} התרגילים השבועיים, שדורשים כתיבת קוד.</p>
+
+<h2>הגשת תרגילים</h2>
+<p>הקורס כולל {n_hw} תרגילים שבועיים, שהגשתם חובה. ההגשה בקובץ PDF עם הקוד (אלא אם נאמר מפורשות אחרת), ובתחילת הקוד כותרת בפורמט הקורס: שם הקורס, השבוע, מספר תעודת זהות ושם. התאריך האחרון להגשה הוא יום ראשון ב-12:00 בצהריים, בשבוע שאחרי קבלת התרגיל. הפתרונות יפורסמו אחרי תאריך ההגשה.</p>
+<ol>
+<li>כדי לקבל ציון בקורס יש להגיש את כל התרגילים (גם אם בהגשה מאוחרת).</li>
+<li>תרגילים שיוגשו באיחור לא יקבלו ניקוד.</li>
+<li>כדי לקבל את הציון המלא (20 נקודות) מספיק להגיש {n_full} תרגילים במועד; כלומר, אפשר להגיש עד שני תרגילים באיחור בלי שהציון ייפגע. במצבים מיוחדים שבהם קשה להגיש את שאר התרגילים במועד, אפשר לפנות בכתב למרצה הקורס.</li>
+</ol>
+
+<h2>שימוש ב-AI</h2>
+<p>דרישות הקורס הן שהלומדים ידעו „קרוא-וכתוב״ של קוד בסיסי ברמה שוטפת: קריאה, הבנה וכתיבה של קוד בלי עזרים חיצוניים כמו כלי AI או מנועי חיפוש. הדרישה נובעת מההבנה ש„ידיעת קוד״ היא הנדבך הבסיסי ביותר של היכולת לכתוב ולפתח קוד באופן עצמאי, גם אם בעבודה היומיומית משתמשים בעזרים כאלה בפועל.</p>
+<ol>
+<li>הצוות מצפה שכל המטלות יוגשו בלי שימוש ב-AI. במקרים שבהם ייעשה שימוש כזה, יינתנו הערות מילוליות בלי פגיעה בציון.</li>
+<li>הצוות מצפה לידיעת „קרוא-וכתוב״ של קוד בלי AI; לכן הבחינה סגורה, ומצפה לעמידה בתנאים אלה.</li>
+</ol>
+
+<h2>מבנה הסמסטר</h2>
+<table>
+<tr><th>שבוע</th><th>תאריך</th><th>נושא</th><th>הגשת המטלה</th></tr>
+{schedule}
+</table>
+<p class="note">התאריכים לפי לוח השנה האקדמי של אוניברסיטת תל אביב, תשפ״ז (סמסטר א: 18.10.2026–18.1.2027). מועד הבחינה יפורסם בהמשך.</p>
+</body>
+</html>

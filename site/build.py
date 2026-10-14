@@ -220,6 +220,8 @@ def header(depth, staff, on):
     nav = ""
     if on is not None:
         links = [("index.html", "השבועות", "weeks"), ("book.html", "ספר היחידות", "book")]
+        if staff and (ROOT / CFG["staff_dir"] / "syllabus.pdf").exists():  # staff site only, for now
+            links.append(("syllabus.pdf", "סילבוס", "syllabus"))
         nav = '<nav class="gen">' + "".join(
             f'<a href="{h}" class="{"on" if k == on else ""}">{t}</a>' for h, t, k in links) + "</nav>"
     badge = '<span class="staffbadge">גרסת מתרגלים</span>' if staff else ""
