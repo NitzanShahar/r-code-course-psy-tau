@@ -33,6 +33,7 @@ ICON = {
 }
 
 esc = html.escape
+CSS_VERSION = __import__("hashlib").md5((SRC / "site.css").read_bytes()).hexdigest()[:8]
 
 
 # ---------- content ----------
@@ -203,7 +204,7 @@ def page(title, body, depth, staff, script=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="{FONTS}" rel="stylesheet">
-<link rel="stylesheet" href="{up}assets/site.css">
+<link rel="stylesheet" href="{up}assets/site.css?v={CSS_VERSION}">
 <link rel="icon" href="{up}assets/tau-logo.png">
 </head>
 <body>
@@ -223,8 +224,6 @@ def header(depth, staff, on):
     nav = ""
     if on is not None:
         links = [("admin.html", "מנהלות הקורס", "admin"), ("index.html", "השבועות", "weeks"), ("book.html", "ספר היחידות", "book")]
-        if staff and (ROOT / CFG["staff_dir"] / "syllabus.pdf").exists():  # staff site only, for now
-            links.append(("syllabus.pdf", "סילבוס", "syllabus"))
         nav = '<nav class="gen">' + "".join(
             f'<a href="{h}" class="{"on" if k == on else ""}">{t}</a>' for h, t, k in links) + "</nav>"
     badge = '<span class="staffbadge">גרסת מתרגלים</span>' if staff else ""
