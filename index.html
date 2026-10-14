@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>קורס R למתחילים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="assets/tau-logo.png">
+</head>
+<body>
+<div class="wrap">
+<main class="solo"><img src="assets/tau-logo.png" alt="אוניברסיטת תל אביב"><h1>קורס R למתחילים</h1><p>בית הספר למדעי הפסיכולוגיה · אוניברסיטת תל אביב · תשפ״ז</p></main><footer class="foot"><img class="flogo" src="assets/tau-logo.png" alt=""><b>קורס R למתחילים</b><span>בית הספר למדעי הפסיכולוגיה · אוניברסיטת תל אביב · תשפ״ז</span><details class="tlog"><summary>כניסת מתרגלים</summary><form class="tlogf"><input type="password" autocomplete="off" aria-label="סיסמה" placeholder="סיסמה"><button type="submit">כניסה</button><span class="terr" hidden>סיסמה שגויה</span></form></details></footer>
+</div>
+<script>
+// TA sign-in: the password is the name of the staff site's folder.
+document.querySelectorAll('.tlogf').forEach(function(f){
+  f.addEventListener('submit',function(e){ e.preventDefault();
+    var v=f.querySelector('input').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g,''), er=f.querySelector('.terr');
+    if(!v) return;
+    if(location.protocol==='file:'){ location.href=v+'/index.html'; return; }
+    fetch(v+'/index.html',{method:'HEAD',cache:'no-store'}).then(function(r){ if(r.ok) location.href=v+'/'; else er.hidden=false; }).catch(function(){er.hidden=false});
+  });
+});
+</script>
+</body>
+</html>

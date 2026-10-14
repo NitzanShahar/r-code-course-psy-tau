@@ -1,0 +1,180 @@
+/* R course site — design "א · גיליון" (chosen 14.10.2026), with the week's parts stacked one under another.
+   Colors: ink #001a24 (TAU logo) · accent #b3541e only for "this week" · unit blue #1f5f8b for headings and icons. */
+:root{--bg:#eef1f1;--ink:#001a24;--txt:#1c2a31;--mut:#56656d;--line:#e3e8e9;--soft:#eef1f2;--acc:#b3541e;--u:#1f5f8b;--ut:#e6eff5;--g:#8a5a2b;--gt:#f3ece4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:'Assistant',system-ui,sans-serif;font-size:17px;line-height:1.5}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--acc)}
+a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:8px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+.card{background:#fff;border-radius:22px;box-shadow:0 1px 2px rgba(0,26,36,.05),0 6px 24px rgba(0,26,36,.04)}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* header */
+.hdr{display:flex;align-items:center;gap:22px;padding:22px 0}
+.hdr .logo{height:50px;width:auto;display:block}
+.sep{width:1px;align-self:stretch;background:#d5dcde}
+.home:hover{color:inherit}
+.t1{display:block;font-size:21px;font-weight:700;color:var(--ink);line-height:1.2}
+.t2{display:block;font-size:14px;color:var(--mut)}
+.gen{display:flex;gap:4px;margin-inline-start:auto;font-size:15px}
+.gen a{min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:10px}
+.gen a:hover{background:#e3e8e9;color:var(--ink)}
+.gen a.on{background:var(--ink);color:#fff}
+.staffbadge{font-size:12.5px;font-weight:700;color:var(--acc);border:1.5px solid var(--acc);border-radius:999px;padding:2px 10px;white-space:nowrap}
+
+/* layout: rail on the right (first column in RTL) */
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:22px;align-items:start}
+.rail{position:sticky;top:16px;padding:18px 12px 14px;max-height:calc(100vh - 32px);overflow:auto}
+.rail h3{margin:0 10px 10px;font-size:13px;font-weight:700;color:var(--mut);letter-spacing:.03em}
+.wk{display:flex;align-items:center;gap:12px;padding:6px 8px;border-radius:14px;color:var(--mut);font-size:15px;line-height:1.25;position:relative}
+.wk+.wk::before{content:"";position:absolute;inset-inline-start:27px;top:-6px;height:12px;border-inline-start:1.5px solid #dfe5e7}
+.c{flex:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;background:#fff;border:1.5px solid #cfd6d9;color:var(--ink);font-variant-numeric:tabular-nums}
+.wk.fut .c{border-style:dashed;color:#8a979d;font-weight:600}
+.wk.fut{color:#8a979d}
+.wk.sel{background:#f2f5f6;color:var(--ink);font-weight:700}
+.wk.sel .c{background:var(--ink);border-color:var(--ink);color:#fff}
+.wk.cur .c{box-shadow:0 0 0 3px #fff,0 0 0 4.5px var(--acc)}
+.now{font-size:12px;color:var(--acc);font-weight:700;display:block}
+.wk.exam .c{border:4px double #b5bfc4;font-size:11px}
+a.wk:hover{background:#f2f5f6;color:var(--ink)}
+.mweeks{display:none}
+
+/* week sheet */
+.hero{padding:38px 44px 30px;border-bottom:1px solid #e9edee}
+.eyebrow{margin:0 0 10px;font-size:15px;font-weight:700;color:var(--acc)}
+h1{margin:0;font-family:'Frank Ruhl Libre',serif;font-size:54px;font-weight:900;line-height:1.05;color:var(--ink)}
+.intro{margin:16px 0 0;color:#33434b;font-size:17.5px;max-width:72ch}
+.sec{padding:8px 44px 30px;border-bottom:1px solid #e9edee}
+.sec:last-of-type{border-bottom:none}
+.ch{display:flex;align-items:baseline;gap:12px;padding:22px 0 10px;border-bottom:2px solid var(--u);margin-bottom:14px}
+.ch h2{margin:0;font-size:26px;font-weight:700;color:var(--u)}
+.ch span{font-size:14.5px;color:var(--mut)}
+.ic{flex:none;width:40px;height:40px;border-radius:11px;background:var(--ut);color:var(--u);display:flex;align-items:center;justify-content:center}
+.ic svg{width:20px;height:20px}
+/* media */
+.media{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.deck{display:flex;flex-direction:column;justify-content:space-between;min-height:132px;border-radius:16px;background:var(--ink);color:#fff;padding:16px 18px;position:relative;overflow:hidden}
+.deck small{opacity:.75;font-size:13px}
+.deck b{font-family:'Frank Ruhl Libre',serif;font-size:22px;line-height:1.2}
+.deck code{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#9cc7e3;direction:ltr;text-align:left}
+.deck:hover{color:#fff;outline:3px solid var(--acc)}
+.vid{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:16px;min-height:132px}
+.vid:hover{border-color:var(--u);color:inherit}
+.vt{font-weight:600;font-size:16.5px;line-height:1.25}
+.vs{display:block;font-size:13.5px;color:var(--mut);font-weight:400}
+/* topics */
+.tp{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px 28px}
+.tp h4{margin:8px 0 2px;font-size:16px;color:var(--ink)}
+.tp ul{margin:0;padding:0 18px 0 0;color:#3d4c54;font-size:15.5px}
+/* units + reading */
+.row{display:flex;gap:14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--soft)}
+.row:last-child{border-bottom:none}
+a.row:hover .rt{color:var(--acc)}
+.num{flex:none;width:40px;height:40px;border-radius:11px;background:var(--ut);color:var(--u);display:flex;align-items:center;justify-content:center;font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:18px}
+.num.g{background:var(--gt);color:var(--g)}
+.rt{display:block;font-family:'Frank Ruhl Libre',serif;font-size:19px;font-weight:500;line-height:1.25}
+.rs{display:block;font-size:14.5px;color:var(--mut)}
+.tag{font-family:'Assistant',sans-serif;font-size:11.5px;font-weight:700;color:var(--g);background:var(--gt);border-radius:6px;padding:1px 6px;margin-inline-start:8px;vertical-align:3px}
+.sub{margin:22px 0 2px;font-size:14px;font-weight:700;color:var(--u)}
+/* assignment */
+.hw{background:#fcfcfb;border:1px solid var(--line);border-radius:18px;padding:18px 22px}
+.hw b.ht{display:block;font-family:'Frank Ruhl Libre',serif;font-size:22px;color:var(--ink);line-height:1.25;padding-bottom:10px;border-bottom:1px solid var(--soft)}
+.hw ol{margin:12px 0 12px;padding:0 22px 0 0;font-size:16px;color:#33434b}
+.hw ol li{margin-bottom:4px}
+.hw p{margin:4px 0 0;font-size:15px;color:var(--mut)}
+.due{display:flex;align-items:center;gap:8px;margin-top:14px!important;padding-top:12px;border-top:1px dashed #dde3e5;color:var(--ink)!important;font-weight:700}
+.due svg{width:18px;height:18px;color:var(--u)}
+.due.tbd{color:var(--mut)!important;font-weight:600}
+/* week navigation */
+.nav{display:flex;justify-content:space-between;gap:10px;padding:12px 24px;background:#f5f7f7;border-top:1px solid #e9edee;border-radius:0 0 22px 22px}
+.nav a,.nav span{min-height:52px;display:flex;align-items:center;padding:0 18px;border-radius:14px;font-size:15px}
+.nav a:hover{box-shadow:0 0 0 1.5px var(--ink) inset;color:var(--ink)}
+.nav span{color:#8a979d;border:1.5px dashed #c6ced2}
+
+/* book of units */
+.bhero{padding:38px 44px 26px;border-bottom:1px solid #e9edee}
+.howto{margin-top:18px;display:flex;gap:14px;align-items:flex-start;background:var(--ut);border-radius:16px;padding:14px 18px;font-size:15.5px;color:#23465f;max-width:80ch}
+.howto svg{flex:none;width:22px;height:22px;margin-top:2px}
+.grp{margin:0;padding:22px 44px 0;font-size:14px;font-weight:700;color:var(--mut);letter-spacing:.03em}
+.chap{padding:4px 44px 24px;scroll-margin-top:16px}
+.chap .ch{scroll-margin-top:16px}
+.chap .ch .num{width:36px;height:36px;font-size:17px;align-self:center}
+.chap.g .ch{border-bottom-color:var(--g)}
+.chap.g .ch h2{color:var(--g)}
+.bs{border:1px solid var(--line);border-radius:16px;margin-top:10px;background:#fff;scroll-margin-top:16px}
+.bs[open]{border-color:#c9d6de}
+.bs summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 18px;font-family:'Frank Ruhl Libre',serif;font-size:19px;font-weight:500;color:var(--ink)}
+.bs summary::-webkit-details-marker{display:none}
+.bs summary::after{content:"";margin-inline-start:auto;width:10px;height:10px;border-inline-end:2px solid var(--mut);border-bottom:2px solid var(--mut);transform:rotate(45deg);transition:transform .15s}
+.bs[open] summary::after{transform:rotate(-135deg)}
+.bs.hl{box-shadow:0 0 0 3px var(--acc)}
+.bsb{padding:0 18px 18px}
+.lbl{display:flex;align-items:center;gap:8px;margin:14px 0 6px;font-size:13.5px;font-weight:700;color:var(--u)}
+.lbl svg{width:17px;height:17px}
+.prompt{position:relative;background:#f7f9fa;border:1px solid var(--line);border-radius:14px;padding:14px 16px 14px 96px;font-size:15.5px;line-height:1.6;color:#26363e}
+.prompt .cl{direction:ltr;text-align:left;white-space:pre-wrap;font-family:'JetBrains Mono',monospace;font-size:13.5px;color:#0f3d5c}
+.prompt code{font-family:'JetBrains Mono',monospace;font-size:13.5px;background:#eaeff1;border-radius:5px;padding:0 4px}
+.copy{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:6px;height:36px;padding:0 12px;border:1px solid #cfd6d9;border-radius:10px;background:#fff;font:inherit;font-size:13.5px;color:var(--ink);cursor:pointer}
+.copy:hover{border-color:var(--ink)}
+.copy svg{width:15px;height:15px}
+.copy.ok{background:var(--ink);color:#fff;border-color:var(--ink)}
+.links{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.links li{font-size:15px}
+.links a{color:var(--u);text-decoration:underline;text-decoration-color:#b9cddb;text-underline-offset:3px;overflow-wrap:anywhere}
+.links .pend{color:var(--mut)}
+.bnav{padding:6px 0}
+.bnav a{display:flex;gap:10px;align-items:center;padding:6px 8px;border-radius:12px;font-size:14.5px;line-height:1.25;color:var(--mut)}
+.bnav a:hover{background:#f2f5f6;color:var(--ink)}
+.bnav .num{width:30px;height:30px;font-size:14px;border-radius:9px}
+.bnav h3{margin:14px 10px 6px}
+
+/* title-only public page */
+.solo{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:62vh;padding:60px 24px}
+.solo img{height:76px;margin-bottom:28px}
+.solo h1{font-size:64px}
+.solo p{margin:14px 0 0;font-size:19px;color:var(--mut)}
+
+/* footer + TA sign-in (the password is the staff folder's name) */
+.foot{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;padding:36px 0 50px;font-size:14.5px;color:var(--mut)}
+.foot .flogo{height:28px}
+.foot b{color:var(--ink)}
+.foot .ln{text-decoration:underline;text-decoration-color:#cfd6d9;text-underline-offset:3px}
+.tlog summary{list-style:none;cursor:pointer;min-height:44px;display:flex;align-items:center;text-decoration:underline;text-decoration-color:#cfd6d9;text-underline-offset:3px}
+.tlog summary::-webkit-details-marker{display:none}
+.tlog summary:hover{color:var(--ink)}
+.tlogf{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:4px}
+.tlogf input{font:inherit;font-size:16px;height:44px;width:160px;padding:0 12px;border:1px solid #cfd6d9;border-radius:10px;background:#fff;color:var(--txt);direction:ltr}
+.tlogf button{font:inherit;font-size:15px;height:44px;padding:0 18px;border:0;border-radius:10px;background:var(--ink);color:#fff;cursor:pointer}
+.terr{color:var(--acc);font-size:14px}
+
+@media (max-width:820px){
+  .wrap{padding:0 12px}
+  .hdr{gap:12px;padding:12px 4px;flex-wrap:wrap}
+  .hdr .logo{height:34px}
+  .sep{display:none}
+  .t1{font-size:17px}.t2{font-size:13px}
+  .gen{width:100%;margin:0;overflow-x:auto}
+  .gen a{padding:0 12px}
+  .layout{grid-template-columns:1fr;gap:12px}
+  .rail{display:none}
+  .mweeks{display:block}
+  .mweeks summary{list-style:none;display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;cursor:pointer}
+  .mweeks summary::-webkit-details-marker{display:none}
+  .mweeks .more{margin-inline-start:auto;color:var(--mut);font-size:14px;white-space:nowrap}
+  .mweeks .list{padding:0 8px 10px}
+  .hero,.bhero{padding:22px 18px}
+  h1{font-size:36px}
+  .sec{padding:4px 18px 22px}
+  .grp{padding:18px 18px 0}
+  .chap{padding:4px 18px 18px}
+  .bs summary{font-size:17.5px;padding:8px 14px}
+  .bsb{padding:0 14px 14px}
+  .prompt{padding:54px 14px 14px}
+  .copy{left:auto;right:10px}
+  .ch h2{font-size:23px}
+  .nav{flex-direction:column;gap:4px;padding:8px}
+  .nav a,.nav span{justify-content:center}
+  .foot{justify-content:center;text-align:center}
+  .solo h1{font-size:40px}
+}
