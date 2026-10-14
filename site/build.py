@@ -305,7 +305,7 @@ def week_page(w, c, avail, book, depth, staff):
     n = w["n"]
     DEPTH[0] = depth
     weeks = rail_weeks(avail, n)
-    rail = f'<aside class="rail card">{ADMIN_LINK}<h3>שבועות הקורס</h3>{weeks}</aside>'
+    rail = f'<aside class="rail card"><h3>שבועות הקורס</h3>{weeks}</aside>'
     mob = (f'<details class="mweeks card"><summary><span class="c" style="background:var(--ink);color:#fff;border-color:var(--ink)">{n}</span>'
            f'<span><b>שבוע {n}</b> · {esc(w["title"])}</span><span class="more">כל השבועות ▾</span></summary><div class="list">{weeks}</div></details>')
 
@@ -411,7 +411,7 @@ def book_page(book, weeks):
             body.append(f'<section class="chap{g}" id="ch{ch["n"]}"><div class="ch"><span class="num chn{g}">פרק {ch["n"]}</span>'
                         f'<h2>{esc(ch["title"])}</h2><span>{len(ch["secs"])} יחידות</span></div>{"".join(secs)}</section>')
 
-    rail = f'<aside class="rail card">{ADMIN_LINK}<h3>פרקי הספר</h3><nav class="bnav">{"".join(nav)}</nav></aside>'
+    rail = f'<aside class="rail card"><h3>פרקי הספר</h3><nav class="bnav">{"".join(nav)}</nav></aside>'
     mob = (f'<details class="mweeks card"><summary><span class="ic">{ICON["book"]}</span><span><b>ספר היחידות</b></span>'
            f'<span class="more">כל הפרקים ▾</span></summary><div class="list bnav">{"".join(nav)}</div></details>')
     main = f"""<main class="card">
@@ -497,7 +497,7 @@ def admin_page(prefix, avail):
                     f'<span><span class="rt">{esc(l["title"])}</span><span class="rs">{esc(l.get("note", ""))}</span></span></a>'
                     for l in a.get("links", []) if (ROOT / prefix / l["url"]).exists())
     weeks = rail_weeks(avail, None)
-    rail = f'<aside class="rail card">{ADMIN_LINK.replace("adminlink", "adminlink on")}<h3>שבועות הקורס</h3>{weeks}</aside>'
+    rail = f'<aside class="rail card"><h3>שבועות הקורס</h3>{weeks}</aside>'
     mob = (f'<details class="mweeks card"><summary><span class="ic">{ICON["book"]}</span><span><b>מנהלות הקורס</b></span>'
            f'<span class="more">כל השבועות ▾</span></summary><div class="list">{weeks}</div></details>')
     docs = f'<section class="sec"><div class="ch"><h2>מסמכים</h2></div>{links}</section>' if links else ""

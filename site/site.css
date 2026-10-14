@@ -17,10 +17,10 @@ a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var
 .home:hover{color:inherit}
 .t1{display:block;font-size:21px;font-weight:700;color:var(--ink);line-height:1.2}
 .t2{display:block;font-size:14px;color:var(--mut)}
-.gen{display:flex;gap:4px;margin-inline-start:auto;font-size:15px}
-.gen a{min-height:44px;display:flex;align-items:center;padding:0 14px;border-radius:10px}
-.gen a:hover{background:#e3e8e9;color:var(--ink)}
-.gen a.on{background:var(--ink);color:#fff}
+.gen{display:flex;gap:6px;margin-inline-start:auto;font-size:15.5px}
+.gen a{min-height:44px;display:flex;align-items:center;padding:0 12px;color:var(--mut);box-shadow:inset 0 -2px 0 transparent;transition:box-shadow .15s,color .15s}
+.gen a:hover{color:var(--ink);box-shadow:inset 0 -2px 0 #c6ced2}
+.gen a.on{color:var(--ink);font-weight:700;box-shadow:inset 0 -2.5px 0 var(--ink)}
 .staffbadge{font-size:12.5px;font-weight:700;color:var(--acc);border:1.5px solid var(--acc);border-radius:999px;padding:2px 10px;white-space:nowrap}
 
 /* layout: rail on the right (first column in RTL) */
