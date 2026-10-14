@@ -223,3 +223,7 @@ a.row:hover .rt{color:var(--acc)}
   .foot{justify-content:center;text-align:center}
   .solo h1{font-size:40px}
 }
+
+/* chapter badge: "פרק N" (wins over the fixed-size number boxes above) */
+.num.chn,.wch .num.chn,.chap .ch .num.chn,.bnav .num.chn{width:auto;min-width:0;padding:0 10px;font-family:'Assistant',sans-serif;font-size:14px;font-weight:700;white-space:nowrap}
+.bnav .num.chn{font-size:12.5px;padding:0 8px}

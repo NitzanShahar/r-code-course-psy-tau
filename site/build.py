@@ -315,7 +315,7 @@ def week_page(w, c, avail, book, depth, staff):
         g = ch["group"] == "code"
         tag = '<span class="tag">כתיבת קוד</span>' if g else ""
         secs = "".join(book_section(ch, index[s], ch["secs"][index[s] - 1], [], in_week=True) for s in u["secs"] if s in index)
-        units.append(f'<div class="wch{" g" if g else ""}"><span class="num{" g" if g else ""}">{ch["n"]}</span><b>{esc(ch["title"])}</b>{tag}'
+        units.append(f'<div class="wch{" g" if g else ""}"><span class="num chn{" g" if g else ""}">פרק {ch["n"]}</span><b>{esc(ch["title"])}</b>{tag}'
                      f'<a class="tobook" href="book.html?w={n}#ch{ch["n"]}">הפרק המלא בספר ↗</a></div><div class="wunits">{secs}</div>')
     reading = "".join(f'<a href="{esc(r["url"])}" target="_blank" rel="noopener" class="row"><span class="ic">{ICON["book"]}</span>'
                       f'<span><span class="rt ltr" style="display:block;text-align:right">{esc(r["title"])}</span><span class="rs">{esc(r.get("note", ""))}</span></span></a>'
@@ -386,11 +386,11 @@ def book_page(book, weeks):
         body.append(f'<p class="grp">{"פרקי R" if grp == "r" else "כתיבת קוד — לכל שפה"}</p>')
         for ch in chs:
             g = " g" if grp == "code" else ""
-            nav.append(f'<a href="#ch{ch["n"]}"><span class="num{g}">{ch["n"]}</span>{esc(ch["title"])}</a>')
+            nav.append(f'<a href="#ch{ch["n"]}"><span class="num chn{g}">פרק {ch["n"]}</span>{esc(ch["title"])}</a>')
             secs = []
             for k, s in enumerate(ch["secs"], 1):
                 secs.append(book_section(ch, k, s, used.get((ch["n"], s["h"]), [])))
-            body.append(f'<section class="chap{g}" id="ch{ch["n"]}"><div class="ch"><span class="num{g}">{ch["n"]}</span>'
+            body.append(f'<section class="chap{g}" id="ch{ch["n"]}"><div class="ch"><span class="num chn{g}">פרק {ch["n"]}</span>'
                         f'<h2>{esc(ch["title"])}</h2><span>{len(ch["secs"])} יחידות</span></div>{"".join(secs)}</section>')
 
     rail = f'<aside class="rail card"><h3>פרקי הספר</h3><nav class="bnav">{"".join(nav)}</nav></aside>'
