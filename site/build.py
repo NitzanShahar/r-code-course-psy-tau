@@ -12,6 +12,7 @@ import html
 import json
 import re
 import shutil
+import urllib.parse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -135,7 +136,9 @@ def link_lines(s):
             name, fid = m.group(1).strip(), m.group(2)
             path = FILES.get(fid or "", {}).get("path")
             label = FILES.get(fid or "", {}).get("label") or re.sub(r"\.(mp4|mov|pdf)$", "", name) or "סרטון"
-            if path:
+            if path and path.lower().endswith(".mp4"):
+                items.append(f'<a href="{esc(player(path, label))}">{esc(label)}</a>')
+            elif path:
                 items.append(f'<a href="{"../" * DEPTH[0]}{esc(path)}" target="_blank" rel="noopener">{esc(label)}</a>')
             elif name:
                 items.append(f'<span class="pend">{esc(name)} — יועלה בהמשך</span>')
@@ -219,7 +222,7 @@ def header(depth, staff, on):
     up = "../" * depth
     nav = ""
     if on is not None:
-        links = [("index.html", "השבועות", "weeks"), ("book.html", "ספר היחידות", "book")]
+        links = [("admin.html", "מנהלות הקורס", "admin"), ("index.html", "השבועות", "weeks"), ("book.html", "ספר היחידות", "book")]
         if staff and (ROOT / CFG["staff_dir"] / "syllabus.pdf").exists():  # staff site only, for now
             links.append(("syllabus.pdf", "סילבוס", "syllabus"))
         nav = '<nav class="gen">' + "".join(
@@ -256,6 +259,11 @@ document.querySelectorAll('.tlogf').forEach(function(f){
 });"""
 
 
+ADMIN_LINK = ('<a class="adminlink" href="admin.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+              'stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>'
+              '<b>מנהלות הקורס</b><span>סרטון הסבר, צוות, סילבוס</span></a>')
+
+
 # ---------- week pages ----------
 
 def rail_weeks(avail, sel):
@@ -280,10 +288,17 @@ def rail_weeks(avail, sel):
     return "".join(items)
 
 
-def href(url, depth):
-    """External links open in a new tab; repo files (e.g. decks/W1.html) are relative to the repo root."""
+def player(url, title):
+    """Local videos open in the site's own player page (no download button)."""
+    return "play.html?" + urllib.parse.urlencode({"v": url, "t": title})
+
+
+def href(url, depth, title=""):
+    """External links open in a new tab; local videos open in the player; other repo files are relative to the repo root."""
     if re.match(r"https?://", url):
         return f'href="{esc(url)}" target="_blank" rel="noopener"'
+    if url.lower().endswith(".mp4"):
+        return f'href="{esc(player(url, title))}"'
     return f'href="{"../" * depth}{esc(url)}"'
 
 
@@ -291,7 +306,7 @@ def week_page(w, c, avail, book, depth, staff):
     n = w["n"]
     DEPTH[0] = depth
     weeks = rail_weeks(avail, n)
-    rail = f'<aside class="rail card"><h3>שבועות הקורס</h3>{weeks}</aside>'
+    rail = f'<aside class="rail card">{ADMIN_LINK}<h3>שבועות הקורס</h3>{weeks}</aside>'
     mob = (f'<details class="mweeks card"><summary><span class="c" style="background:var(--ink);color:#fff;border-color:var(--ink)">{n}</span>'
            f'<span><b>שבוע {n}</b> · {esc(w["title"])}</span><span class="more">כל השבועות ▾</span></summary><div class="list">{weeks}</div></details>')
 
@@ -301,7 +316,7 @@ def week_page(w, c, avail, book, depth, staff):
         deck.append(f'<a {href(d["url"], depth)} class="deck"><small>מצגת</small>'
                      f'<b>{esc(d["title"])}</b><small>{esc(d.get("note", ""))}</small><code>#### WEEK {n} ----</code></a>')
     for v in c.get("videos", []):
-        videos.append(f'<a {href(v["url"], depth)} class="vid"><span class="ic">{ICON["play"]}</span>'
+        videos.append(f'<a {href(v["url"], depth, v["title"])} class="vid"><span class="ic">{ICON["play"]}</span>'
                      f'<span class="vt">{esc(v["title"])}<span class="vs">{esc(v.get("note", ""))}</span></span></a>')
 
     # the week's units, grouped by chapter: the same unit component as the book, opening in place
@@ -393,7 +408,7 @@ def book_page(book, weeks):
             body.append(f'<section class="chap{g}" id="ch{ch["n"]}"><div class="ch"><span class="num chn{g}">פרק {ch["n"]}</span>'
                         f'<h2>{esc(ch["title"])}</h2><span>{len(ch["secs"])} יחידות</span></div>{"".join(secs)}</section>')
 
-    rail = f'<aside class="rail card"><h3>פרקי הספר</h3><nav class="bnav">{"".join(nav)}</nav></aside>'
+    rail = f'<aside class="rail card">{ADMIN_LINK}<h3>פרקי הספר</h3><nav class="bnav">{"".join(nav)}</nav></aside>'
     mob = (f'<details class="mweeks card"><summary><span class="ic">{ICON["book"]}</span><span><b>ספר היחידות</b></span>'
            f'<span class="more">כל הפרקים ▾</span></summary><div class="list bnav">{"".join(nav)}</div></details>')
     main = f"""<main class="card">
@@ -464,6 +479,54 @@ BOOK_JS = COPY_JS + """
 })();"""
 
 
+# ---------- course admin + player ----------
+
+def admin_page(prefix, avail):
+    a = json.loads((SRC / "content" / "admin.json").read_text(encoding="utf-8"))
+    v = a["video"]
+    video = (f'<a href="{esc(player(v["url"], v["title"]))}" class="vid guide"><span class="ic">{ICON["play"]}</span>'
+             f'<span class="vt">{esc(v["title"])}<span class="vs">{esc(v.get("note", ""))}</span></span></a>')
+    people = "".join(f'<div class="person"><b>{esc(p["role"])}</b><span>{esc(p["name"])}</span>'
+                     f'<a class="ltr" href="mailto:{esc(p["email"])}">{esc(p["email"])}</a></div>' for p in a["staff"])
+    secs = "".join(f'<section class="sec"><div class="ch"><h2>{esc(x["h"])}</h2></div><div class="adm">{md_lines(x["lines"])}</div></section>'
+                   for x in a["sections"])
+    links = "".join(f'<a href="{esc(l["url"])}" class="row" target="_blank" rel="noopener"><span class="ic">{ICON["book"]}</span>'
+                    f'<span><span class="rt">{esc(l["title"])}</span><span class="rs">{esc(l.get("note", ""))}</span></span></a>'
+                    for l in a.get("links", []) if (ROOT / prefix / l["url"]).exists())
+    weeks = rail_weeks(avail, None)
+    rail = f'<aside class="rail card">{ADMIN_LINK.replace("adminlink", "adminlink on")}<h3>שבועות הקורס</h3>{weeks}</aside>'
+    mob = (f'<details class="mweeks card"><summary><span class="ic">{ICON["book"]}</span><span><b>מנהלות הקורס</b></span>'
+           f'<span class="more">כל השבועות ▾</span></summary><div class="list">{weeks}</div></details>')
+    docs = f'<section class="sec"><div class="ch"><h2>מסמכים</h2></div>{links}</section>' if links else ""
+    main = (f'<main class="card"><section class="hero"><p class="eyebrow">מנהלות הקורס</p><h1>מנהלות הקורס</h1>'
+            f'<p class="intro">{esc(a["intro"])}</p></section>'
+            f'<section class="sec"><div class="ch"><h2>איך עובדים עם האתר</h2></div><div class="media">{video}</div></section>'
+            f'<section class="sec"><div class="ch"><h2>צוות הקורס</h2></div><div class="people">{people}</div></section>'
+            f'{secs}{docs}</main>')
+    return f'{mob}<div class="layout">{rail}{main}</div>'
+
+
+PLAYER_JS = """// the site's player: a local video, no download button, no right-click menu (makes saving harder, not impossible)
+(function(){
+  var q=new URLSearchParams(location.search), v=q.get('v')||'', t=q.get('t')||'';
+  var vid=document.getElementById('vid');
+  if(/^files\\/[^?#]+\\.mp4$/i.test(v) && v.indexOf('..')<0){ vid.src='__UP__'+v; }
+  document.getElementById('ptitle').textContent=t;
+  if(t) document.title=t+' · '+document.title;
+  vid.addEventListener('contextmenu',function(e){e.preventDefault();});
+  var b=document.getElementById('back');
+  if(document.referrer && document.referrer.indexOf(location.host)>=0){ b.href=document.referrer; }
+})();"""
+
+
+def player_page(depth, staff):
+    body = (header(depth, staff, None) + '<main class="card player"><a class="back" href="index.html" id="back">→ חזרה</a>'
+            '<h1 class="ptitle" id="ptitle"></h1>'
+            '<video id="vid" controls controlsList="nodownload" disablePictureInPicture playsinline preload="metadata"></video>'
+            '</main>' + footer(depth, staff))
+    return page(CFG["title"], body, depth, staff, PLAYER_JS.replace("__UP__", "../" * depth))
+
+
 # ---------- build ----------
 
 def write(rel, text):
@@ -486,6 +549,9 @@ def build_site(prefix, staff, avail, weeks, book):
     DEPTH[0] = depth
     body = header(depth, staff, "book") + book_page(book, {n: weeks[n] for n in avail}) + footer(depth, staff)
     write(f"{prefix}book.html", page(f"ספר היחידות · {CFG['title']}", body, depth, staff, BOOK_JS + "\n" + GATE_JS))
+    body = header(depth, staff, "admin") + admin_page(prefix, avail) + footer(depth, staff)
+    write(f"{prefix}admin.html", page(f"מנהלות הקורס · {CFG['title']}", body, depth, staff, GATE_JS))
+    write(f"{prefix}play.html", player_page(depth, staff))
 
 
 def build_solo():
@@ -505,7 +571,7 @@ def main():
 
     # clear generated pages from previous builds
     for d in (ROOT, ROOT / staff):
-        for f in list(d.glob("week-*.html")) + [d / "book.html"]:
+        for f in list(d.glob("week-*.html")) + [d / "book.html", d / "admin.html", d / "play.html"]:
             if f.exists():
                 f.unlink()
 
