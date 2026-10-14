@@ -293,13 +293,13 @@ def week_page(w, c, avail, book, depth, staff):
     mob = (f'<details class="mweeks card"><summary><span class="c" style="background:var(--ink);color:#fff;border-color:var(--ink)">{n}</span>'
            f'<span><b>שבוע {n}</b> · {esc(w["title"])}</span><span class="more">כל השבועות ▾</span></summary><div class="list">{weeks}</div></details>')
 
-    media = []
+    deck, videos = [], []
     if c.get("deck"):
         d = c["deck"]
-        media.append(f'<a {href(d["url"], depth)} class="deck"><small>מצגת</small>'
+        deck.append(f'<a {href(d["url"], depth)} class="deck"><small>מצגת</small>'
                      f'<b>{esc(d["title"])}</b><small>{esc(d.get("note", ""))}</small><code>#### WEEK {n} ----</code></a>')
     for v in c.get("videos", []):
-        media.append(f'<a {href(v["url"], depth)} class="vid"><span class="ic">{ICON["play"]}</span>'
+        videos.append(f'<a {href(v["url"], depth)} class="vid"><span class="ic">{ICON["play"]}</span>'
                      f'<span class="vt">{esc(v["title"])}<span class="vs">{esc(v.get("note", ""))}</span></span></a>')
 
     # the week's units, grouped by chapter: the same unit component as the book, opening in place
@@ -342,9 +342,10 @@ def week_page(w, c, avail, book, depth, staff):
 
     main = f"""<main class="card">
 <section class="hero"><p class="eyebrow">שבוע {n} · יום ראשון {w.get('date', '')}</p><h1>{esc(w['title'])}</h1>{''.join(f'<p class="intro">{inline(p)}</p>' for p in c['intro'].split(chr(10) + chr(10)) if p.strip())}</section>
-<section class="sec"><div class="ch"><h2>מצגת וסרטונים</h2></div><div class="media">{''.join(media)}</div></section>
+<section class="sec"><div class="ch"><h2>מצגת</h2></div><div class="media">{''.join(deck)}</div></section>
 <section class="sec"><div class="ch"><h2>מה לומדים השבוע</h2><span>יחידות מספר היחידות · לחצו על יחידה כדי לפתוח אותה</span></div>{''.join(units)}
 {('<p class="sub">קריאה מומלצת</p>' + reading) if reading else ''}</section>
+{f'<section class="sec"><div class="ch"><h2>סרטוני עזר מהרשת</h2></div><div class="media">{"".join(videos)}</div></section>' if videos else ''}
 <section class="sec"><div class="ch"><h2>המטלה השבועית</h2></div>{hw_html}{solution_html(c, staff)}</section>
 <nav class="nav">{prev}{nxt}</nav>
 </main>"""
