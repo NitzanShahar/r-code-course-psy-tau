@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>קורס R למתחילים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=b9a97be5">
+<link rel="icon" href="assets/tau-logo.png">
+</head>
+<body>
+<div class="wrap">
+<header class="hdr">
+<img class="logo" src="assets/tau-logo.png" alt="אוניברסיטת תל אביב">
+<span class="sep"></span>
+<a class="home" href="index.html"><span class="t1">קורס R למתחילים</span><span class="t2">בית הספר למדעי הפסיכולוגיה · אוניברסיטת תל אביב · תשפ״ז</span></a>
+
+</header><main class="card player"><a class="back" href="index.html" id="back">→ חזרה</a><h1 class="ptitle" id="ptitle"></h1><video id="vid" controls controlsList="nodownload" disablePictureInPicture playsinline preload="metadata"></video></main><footer class="foot"><img class="flogo" src="assets/tau-logo.png" alt=""><b>קורס R למתחילים</b><span>בית הספר למדעי הפסיכולוגיה · אוניברסיטת תל אביב · תשפ״ז</span><details class="tlog"><summary>כניסת מתרגלים</summary><form class="tlogf"><input type="password" autocomplete="off" aria-label="סיסמה" placeholder="סיסמה"><button type="submit">כניסה</button><span class="terr" hidden>סיסמה שגויה</span></form></details></footer>
+</div>
+<script>
+// the site's player: a local video, no download button, no right-click menu (makes saving harder, not impossible)
+(function(){
+  var q=new URLSearchParams(location.search), v=q.get('v')||'', t=q.get('t')||'';
+  var vid=document.getElementById('vid');
+  if(/^files\/[^?#]+\.mp4$/i.test(v) && v.indexOf('..')<0){ vid.src=''+v; }
+  document.getElementById('ptitle').textContent=t;
+  if(t) document.title=t+' · '+document.title;
+  vid.addEventListener('contextmenu',function(e){e.preventDefault();});
+  var b=document.getElementById('back');
+  if(document.referrer && document.referrer.indexOf(location.host)>=0){ b.href=document.referrer; }
+})();
+</script>
+</body>
+</html>

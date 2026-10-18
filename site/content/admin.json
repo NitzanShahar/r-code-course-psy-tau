@@ -1,10 +1,22 @@
 {
   "_הסבר": "תוכן עמוד \"מנהלות הקורס\" (admin.html). video נפתח בנגן של האתר (play.html, בלי כפתור הורדה). links: קישורים חיצוניים; קובץ מקומי (למשל syllabus.pdf) יחסי לתיקיית האתר.",
   "intro": "כל מה שצריך לדעת על התנהלות הקורס: איך עובדים עם האתר, מי הצוות, מתי נפגשים, ואיך מגישים.",
-  "video": { "title": "איך עובדים עם האתר ועם מתרגל ה-AI", "note": "סרטון הסבר · 6 דקות", "url": "files/admin/site-guide.mp4" },
+  "video": {
+    "title": "איך עובדים עם האתר ועם מתרגל ה-AI",
+    "note": "סרטון הסבר · 6 דקות",
+    "url": "files/admin/site-guide.mp4"
+  },
   "staff": [
-    { "role": "מרצה", "name": "פרופ׳ ניצן שחר", "email": "nitzansh@tauex.tau.ac.il" },
-    { "role": "מתרגל", "name": "עידו בן-ארצי", "email": "ido.iba@gmail.com" }
+    {
+      "role": "מרצה",
+      "name": "פרופ׳ ניצן שחר",
+      "email": "nitzansh@tauex.tau.ac.il"
+    },
+    {
+      "role": "מתרגל",
+      "name": "עידו בן-ארצי",
+      "email": "ido.iba@gmail.com"
+    }
   ],
   "sections": [
     {
@@ -40,6 +52,15 @@
     }
   ],
   "links": [
-    { "title": "סילבוס הקורס", "note": "PDF", "url": "syllabus.pdf" }
+    {
+      "title": "סילבוס הקורס",
+      "note": "PDF",
+      "url": "syllabus.pdf"
+    },
+    {
+      "title": "בדיקת התחברות לסקר הקורס",
+      "note": "מתחברים עם כתובת המייל של האוניברסיטה (mail.tau.ac.il)",
+      "url": "https://socialtau.qualtrics.com/jfe/form/SV_8itCEhKcHHisBqC"
+    }
   ]
 }

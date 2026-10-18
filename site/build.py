@@ -61,7 +61,19 @@ def load_files():
 
 
 FILES = load_files()
+CURRENT = None  # set in main(): the week marked "השבוע"
 DEPTH = [0]  # depth of the page being built (for links to files/)
+
+
+def current_week():
+    cur = CFG.get("current")
+    if cur != "auto":
+        return cur
+    import datetime
+    today = datetime.date.today()
+    started = [w["n"] for w in CFG["weeks"]
+               if w.get("date") and datetime.date(*map(int, reversed(w["date"].split(".")))) <= today]
+    return max(started) if started else None
 
 
 def short_date(d):
@@ -272,9 +284,9 @@ def rail_weeks(avail, sel):
         cls = "wk"
         if w["n"] == sel:
             cls += " sel"
-        if w["n"] == CFG.get("current"):
+        if w["n"] == CURRENT:
             cls += " cur"
-        now = '<span class="now">השבוע</span>' if w["n"] == CFG.get("current") else ""
+        now = '<span class="now">השבוע</span>' if w["n"] == CURRENT else ""
         name = esc(w["title"]) if w["title"] else '<span class="empty">—</span>'
         inner = f'<span class="c">{w["n"]}</span><span>{name}<small class="wd">{short_date(w.get("date", ""))}</small>{now}</span>'
         if w["n"] in avail:
@@ -390,7 +402,8 @@ def solution_html(c, staff):
 
 # ---------- book of units ----------
 
-def book_page(book, weeks):
+def book_page(book, weeks, only_used=False):
+    """only_used (public site): just the units of the published weeks, keeping their numbers in the book."""
     # which weeks use each section (to open them from a week's link: book.html?w=N)
     used = {}
     for n, c in weeks.items():
@@ -400,7 +413,10 @@ def book_page(book, weeks):
 
     nav, body = [], []
     for grp, label in (("r", "R"), ("code", "כתיבת קוד")):
-        chs = [c for c in book if c["group"] == grp]
+        chs = [c for c in book if c["group"] == grp
+               and (not only_used or any((c["n"], s["h"]) in used for s in c["secs"]))]
+        if not chs:
+            continue
         nav.append(f"<h3>{label}</h3>")
         body.append(f'<p class="grp">{"פרקי R" if grp == "r" else "כתיבת קוד — לכל שפה"}</p>')
         for ch in chs:
@@ -408,9 +424,11 @@ def book_page(book, weeks):
             nav.append(f'<a href="#ch{ch["n"]}"><span class="num chn{g}">פרק {ch["n"]}</span>{esc(ch["title"])}</a>')
             secs = []
             for k, s in enumerate(ch["secs"], 1):
+                if only_used and (ch["n"], s["h"]) not in used:
+                    continue
                 secs.append(book_section(ch, k, s, used.get((ch["n"], s["h"]), [])))
             body.append(f'<section class="chap{g}" id="ch{ch["n"]}"><div class="ch"><span class="num chn{g}">פרק {ch["n"]}</span>'
-                        f'<h2>{esc(ch["title"])}</h2><span>{len(ch["secs"])} יחידות</span></div>{"".join(secs)}</section>')
+                        f'<h2>{esc(ch["title"])}</h2><span>{len(secs)} יחידות</span></div>{"".join(secs)}</section>')
 
     rail = f'<aside class="rail card"><h3>פרקי הספר</h3><nav class="bnav">{"".join(nav)}</nav></aside>'
     mob = (f'<details class="mweeks card"><summary><span class="ic">{ICON["book"]}</span><span><b>ספר היחידות</b></span>'
@@ -494,14 +512,16 @@ def admin_page(prefix, avail):
                      f'<a class="ltr" href="mailto:{esc(p["email"])}">{esc(p["email"])}</a></div>' for p in a["staff"])
     secs = "".join(f'<section class="sec"><div class="ch"><h2>{esc(x["h"])}</h2></div><div class="adm">{md_lines(x["lines"])}</div></section>'
                    for x in a["sections"])
-    links = "".join(f'<a href="{esc(l["url"])}" class="row" target="_blank" rel="noopener"><span class="ic">{ICON["book"]}</span>'
+    # external links always; local files only where they exist (the syllabus is on the staff site only, for now)
+    ext = lambda u: re.match(r"https?://", u)
+    links = "".join(f'<a href="{esc(l["url"])}" class="row" target="_blank" rel="noopener"><span class="ic">{ICON["link" if ext(l["url"]) else "book"]}</span>'
                     f'<span><span class="rt">{esc(l["title"])}</span><span class="rs">{esc(l.get("note", ""))}</span></span></a>'
-                    for l in a.get("links", []) if (ROOT / prefix / l["url"]).exists())
+                    for l in a.get("links", []) if ext(l["url"]) or (ROOT / prefix / l["url"]).exists())
     weeks = rail_weeks(avail, None)
     rail = f'<aside class="rail card"><h3>שבועות הקורס</h3>{weeks}</aside>'
     mob = (f'<details class="mweeks card"><summary><span class="ic">{ICON["book"]}</span><span><b>מנהלות הקורס</b></span>'
            f'<span class="more">כל השבועות ▾</span></summary><div class="list">{weeks}</div></details>')
-    docs = f'<section class="sec"><div class="ch"><h2>מסמכים</h2></div>{links}</section>' if links else ""
+    docs = f'<section class="sec"><div class="ch"><h2>מסמכים וקישורים</h2></div>{links}</section>' if links else ""
     main = (f'<main class="card"><section class="hero"><p class="eyebrow">מנהלות הקורס</p><h1>מנהלות הקורס</h1>'
             f'<p class="intro">{esc(a["intro"])}</p></section>'
             f'<section class="sec"><div class="ch"><h2>איך עובדים עם האתר</h2></div><div class="media">{video}</div></section>'
@@ -547,11 +567,11 @@ def build_site(prefix, staff, avail, weeks, book):
         body = header(depth, staff, "weeks") + week_page(title_of[n], weeks[n], avail, book, depth, staff) + footer(depth, staff)
         html_ = page(f"שבוע {n} · {CFG['title']}", body, depth, staff, COPY_JS + "\n" + GATE_JS)
         write(f"{prefix}week-{n}.html", html_)
-    home = CFG.get("current") if CFG.get("current") in avail else min(avail)
+    home = CURRENT if CURRENT in avail else min(avail)
     body = header(depth, staff, "weeks") + week_page(title_of[home], weeks[home], avail, book, depth, staff) + footer(depth, staff)
     write(f"{prefix}index.html", page(CFG["title"], body, depth, staff, COPY_JS + "\n" + GATE_JS))
     DEPTH[0] = depth
-    body = header(depth, staff, "book") + book_page(book, {n: weeks[n] for n in avail}) + footer(depth, staff)
+    body = header(depth, staff, "book") + book_page(book, {n: weeks[n] for n in avail}, only_used=not staff) + footer(depth, staff)
     write(f"{prefix}book.html", page(f"ספר היחידות · {CFG['title']}", body, depth, staff, BOOK_JS + "\n" + GATE_JS))
     body = header(depth, staff, "admin") + admin_page(prefix, avail) + footer(depth, staff)
     write(f"{prefix}admin.html", page(f"מנהלות הקורס · {CFG['title']}", body, depth, staff, GATE_JS))
@@ -565,6 +585,8 @@ def build_solo():
 
 
 def main():
+    global CURRENT
+    CURRENT = current_week()
     book = load_book()
     weeks = load_weeks()
     staff = CFG["staff_dir"].strip("/")
