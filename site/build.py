@@ -527,7 +527,8 @@ def admin_page(prefix, avail):
     up = "../" * (1 if prefix else 0)
 
     def rows(links):
-        return "".join(f'<a href="{esc(l["url"] if ext(l["url"]) else up + l["url"])}" class="row" target="_blank" rel="noopener">'
+        ver = lambda u: "?v=" + __import__("hashlib").md5((ROOT / u).read_bytes()).hexdigest()[:8]
+        return "".join(f'<a href="{esc(l["url"] if ext(l["url"]) else up + l["url"] + ver(l["url"]))}" class="row" target="_blank" rel="noopener">'
                        f'<span class="ic">{ICON["link" if ext(l["url"]) else "book"]}</span>'
                        f'<span><span class="rt">{esc(l["title"])}</span><span class="rs">{esc(l.get("note", ""))}</span></span></a>'
                        for l in links if ext(l["url"]) or (ROOT / l["url"]).exists())
