@@ -29,6 +29,9 @@ def main():
         if f.exists():
             d = json.loads(f.read_text(encoding="utf-8"))
             hw[w["n"]] = bool(d.get("hw", {}).get("title"))
+    # the syllabus lists one assignment per week with a topic (the user: 12), even where the site has none yet (week 7)
+    if cfg.get("syllabus_all_weeks_hw"):
+        hw = {w["n"]: True for w in weeks if w["title"]}
     rows = []
     for i, w in enumerate(weeks):
         nxt = weeks[i + 1]["date"] if i + 1 < len(weeks) else ""

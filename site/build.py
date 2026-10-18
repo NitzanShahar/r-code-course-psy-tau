@@ -522,24 +522,26 @@ def admin_page(prefix, avail):
                     f'<span class="vt">{esc(v["title"])}<span class="vs">{esc(v.get("note", ""))}</span></span></a>' for v in vids)
     people = "".join(f'<div class="person"><b>{esc(p["role"])}</b><span>{esc(p["name"])}</span>'
                      f'<a class="ltr" href="mailto:{esc(p["email"])}">{esc(p["email"])}</a></div>' for p in a["staff"])
-    secs = "".join(f'<section class="sec"><div class="ch"><h2>{esc(x["h"])}</h2></div><div class="adm">{md_lines(x["lines"])}</div></section>'
-                   for x in a["sections"])
-    # external links as they are; local files are repo-relative (files/...) and shown only if they exist
+    # each section: text lines, then its links (external as they are; local files are repo-relative and shown only if they exist)
     ext = lambda u: re.match(r"https?://", u)
     up = "../" * (1 if prefix else 0)
-    links = "".join(f'<a href="{esc(l["url"] if ext(l["url"]) else up + l["url"])}" class="row" target="_blank" rel="noopener"><span class="ic">{ICON["link" if ext(l["url"]) else "book"]}</span>'
-                    f'<span><span class="rt">{esc(l["title"])}</span><span class="rs">{esc(l.get("note", ""))}</span></span></a>'
-                    for l in a.get("links", []) if ext(l["url"]) or (ROOT / l["url"]).exists())
+
+    def rows(links):
+        return "".join(f'<a href="{esc(l["url"] if ext(l["url"]) else up + l["url"])}" class="row" target="_blank" rel="noopener">'
+                       f'<span class="ic">{ICON["link" if ext(l["url"]) else "book"]}</span>'
+                       f'<span><span class="rt">{esc(l["title"])}</span><span class="rs">{esc(l.get("note", ""))}</span></span></a>'
+                       for l in links if ext(l["url"]) or (ROOT / l["url"]).exists())
+    secs = "".join(f'<section class="sec"><div class="ch"><h2>{esc(x["h"])}</h2></div><div class="adm">{md_lines(x.get("lines", []))}</div>'
+                   f'{rows(x.get("links", []))}</section>' for x in a["sections"])
     weeks = rail_weeks(avail, None)
     rail = f'<aside class="rail card"><h3>שבועות הקורס</h3>{weeks}</aside>'
     mob = (f'<details class="mweeks card"><summary><span class="ic">{ICON["book"]}</span><span><b>מנהלות הקורס</b></span>'
            f'<span class="more">כל השבועות ▾</span></summary><div class="list">{weeks}</div></details>')
-    docs = f'<section class="sec"><div class="ch"><h2>מסמכים וקישורים</h2></div>{links}</section>' if links else ""
     main = (f'<main class="card"><section class="hero"><p class="eyebrow">מנהלות הקורס</p><h1>מנהלות הקורס</h1>'
             f'<p class="intro">{esc(a["intro"])}</p></section>'
             f'<section class="sec"><div class="ch"><h2>סרטונים</h2></div><div class="media">{video}</div></section>'
             f'<section class="sec"><div class="ch"><h2>צוות הקורס</h2></div><div class="people">{people}</div></section>'
-            f'{secs}{docs}</main>')
+            f'{secs}</main>')
     return f'{mob}<div class="layout">{rail}{main}</div>'
 
 

@@ -115,5 +115,6 @@
     ]
   ],
   "syllabus_tas": "עידו בן-ארצי",
-  "ai_tutor_url": "https://gemini.google.com/gem/1nq0Wqoqj4sZMn4VWQ4vZnsmFNgBDS4Tu?usp=sharing"
+  "ai_tutor_url": "https://gemini.google.com/gem/1nq0Wqoqj4sZMn4VWQ4vZnsmFNgBDS4Tu?usp=sharing",
+  "syllabus_all_weeks_hw": true
 }
