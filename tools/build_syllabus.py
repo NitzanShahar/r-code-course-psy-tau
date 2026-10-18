@@ -1,9 +1,9 @@
-"""Build the syllabus PDF (staff site only for now) from site/syllabus.html and site/site.json.
+"""Build the detailed syllabus PDF from site/syllabus.html and site/site.json.
 
 The schedule (weeks, Sunday dates, the Hanukkah break, due dates) and the number of assignments come from
 site.json and the week files, so the PDF always matches the site. Printed with headless Edge/Chrome.
 
-Usage: python tools/build_syllabus.py   ->  <staff_dir>/syllabus.pdf
+Usage: python tools/build_syllabus.py   ->  files/admin/syllabus-detailed.pdf
 """
 import html
 import json
@@ -49,7 +49,7 @@ def main():
                 .replace("{logo}", "img/tau-logo.png"))
     tmp = ROOT / "site" / "_syllabus_print.html"
     tmp.write_text(page, encoding="utf-8")
-    out = ROOT / cfg["staff_dir"] / "syllabus.pdf"
+    out = ROOT / "files" / "admin" / "syllabus-detailed.pdf"  # linked from the course-admin page
     browser = next(b for b in BROWSERS if Path(b).exists())
     # served over http (file:// paths with spaces fail in headless Chrome); a separate profile so a running browser
     # doesn't take the job

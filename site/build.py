@@ -524,11 +524,12 @@ def admin_page(prefix, avail):
                      f'<a class="ltr" href="mailto:{esc(p["email"])}">{esc(p["email"])}</a></div>' for p in a["staff"])
     secs = "".join(f'<section class="sec"><div class="ch"><h2>{esc(x["h"])}</h2></div><div class="adm">{md_lines(x["lines"])}</div></section>'
                    for x in a["sections"])
-    # external links always; local files only where they exist (the syllabus is on the staff site only, for now)
+    # external links as they are; local files are repo-relative (files/...) and shown only if they exist
     ext = lambda u: re.match(r"https?://", u)
-    links = "".join(f'<a href="{esc(l["url"])}" class="row" target="_blank" rel="noopener"><span class="ic">{ICON["link" if ext(l["url"]) else "book"]}</span>'
+    up = "../" * (1 if prefix else 0)
+    links = "".join(f'<a href="{esc(l["url"] if ext(l["url"]) else up + l["url"])}" class="row" target="_blank" rel="noopener"><span class="ic">{ICON["link" if ext(l["url"]) else "book"]}</span>'
                     f'<span><span class="rt">{esc(l["title"])}</span><span class="rs">{esc(l.get("note", ""))}</span></span></a>'
-                    for l in a.get("links", []) if ext(l["url"]) or (ROOT / prefix / l["url"]).exists())
+                    for l in a.get("links", []) if ext(l["url"]) or (ROOT / l["url"]).exists())
     weeks = rail_weeks(avail, None)
     rail = f'<aside class="rail card"><h3>שבועות הקורס</h3>{weeks}</aside>'
     mob = (f'<details class="mweeks card"><summary><span class="ic">{ICON["book"]}</span><span><b>מנהלות הקורס</b></span>'
