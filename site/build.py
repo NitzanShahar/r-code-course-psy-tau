@@ -376,7 +376,7 @@ def week_page(w, c, avail, book, depth, staff):
     main = f"""<main class="card">
 <section class="hero"><p class="eyebrow">שבוע {n} · יום ראשון {w.get('date', '')}</p><h1>{esc(w['title'])}</h1>{''.join(f'<p class="intro">{inline(p)}</p>' for p in c['intro'].split(chr(10) + chr(10)) if p.strip())}</section>
 <section class="sec"><div class="ch"><h2>מצגת</h2></div><div class="media">{''.join(deck)}</div></section>
-<section class="sec"><div class="ch"><h2>מה לומדים השבוע</h2><span>יחידות מספר היחידות · לחצו על יחידה כדי לפתוח אותה</span></div>{''.join(units)}
+<section class="sec"><div class="ch"><h2>מה לומדים השבוע</h2><span>יחידות מספר היחידות · לחצו על יחידה כדי לפתוח אותה</span>{tutor_button()}</div>{''.join(units)}
 {('<p class="sub">קריאה מומלצת</p>' + reading) if reading else ''}</section>
 {f'<section class="sec"><div class="ch"><h2>סרטוני עזר מהרשת</h2></div><div class="media">{"".join(videos)}</div></section>' if videos else ''}
 <section class="sec"><div class="ch"><h2>המטלה השבועית</h2></div>{hw_html}{solution_html(c, staff)}</section>
@@ -436,11 +436,19 @@ def book_page(book, weeks, only_used=False):
     main = f"""<main class="card">
 <section class="bhero"><p class="eyebrow">ספר היחידות</p><h1>ספר היחידות של הקורס</h1>
 <p class="intro">כל יחידה היא שיחה קצרה עם מתרגל AI: מעתיקים את ההנחיה, מדביקים אותה בצ׳אט, ומתקדמים איתו שלב אחר שלב. ליד כל יחידה יש גם סרטונים וקישורים להעמקה.</p>
-<div class="howto">{ICON["spark"]}<span>לחצו על „העתקה״, הדביקו בצ׳אט של מתרגל ה-AI, וענו לו כשהוא עוצר ושואל. אם נתקעים — אפשר לבקש ממנו רמז, ורק בסוף את הפתרון.</span></div>
+<div class="howto">{ICON["spark"]}<span>לחצו על „העתקה״, הדביקו בצ׳אט של מתרגל ה-AI, וענו לו כשהוא עוצר ושואל. אם נתקעים — אפשר לבקש ממנו רמז, ורק בסוף את הפתרון.</span>{tutor_button()}</div>
 {books_html()}</section>
 {''.join(body)}
 </main>"""
     return f'{mob}<div class="layout">{rail}{main}</div>'
+
+
+def tutor_button():
+    """A link to the course's AI tutor (a Gemini gem), opening in a new tab."""
+    url = CFG.get("ai_tutor_url")
+    if not url:
+        return ""
+    return f'<a class="tutor" href="{esc(url)}" target="_blank" rel="noopener">{ICON["spark"]}פתיחת מתרגל ה-AI ↗</a>'
 
 
 def books_html():
