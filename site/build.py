@@ -29,6 +29,7 @@ ICON = {
     "link": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>',
     "copy": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>',
     "clock": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    "pencil": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 3.5l4 4L8 20H4v-4z"/><path d="M14 6l4 4"/></svg>',
     "spark": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>',
 }
 
@@ -364,8 +365,11 @@ def week_page(w, c, avail, book, depth, staff):
             f'<a class="dfile" href="{"../" * depth}{esc(FILES[fid]["path"])}" download>{ICON["link"]}{esc(Path(FILES[fid]["path"]).name.split("-", 1)[-1] if "-" in Path(FILES[fid]["path"]).name else FILES[fid]["label"])}</a>'
             for fid in hw.get("files", []) if fid in FILES)
         dl = f'<p class="dfiles">קובצי נתונים: {dl}</p>' if dl else ""
+        # the submission form (hw.submit_url): a large button at the end of the assignment
+        go = (f'<a class="submit" href="{esc(hw["submit_url"])}" target="_blank" rel="noopener">{ICON["pencil"]}'
+              f'<span><b>להגשת המטלה</b><small>טופס ההגשה של שבוע {n}</small></span><i>←</i></a>' if hw.get("submit_url") else "")
         hw_html = (f'<div class="hw"><b class="ht">{esc(hw["title"])}</b>{ctx}{dl}<div class="hwb">{body}</div>'
-                   + "".join(f'<p class="sm">{esc(p)}</p>' for p in hw.get("submit", [])) + due + "</div>")
+                   + "".join(f'<p class="sm">{esc(p)}</p>' for p in hw.get("submit", [])) + due + go + "</div>")
 
     prev_n = next((m for m in sorted(avail, reverse=True) if m < n), None)
     next_n = next((m for m in sorted(avail) if m > n), None)
