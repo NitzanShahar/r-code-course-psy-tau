@@ -517,9 +517,9 @@ BOOK_JS = COPY_JS + """
 
 def admin_page(prefix, avail):
     a = json.loads((SRC / "content" / "admin.json").read_text(encoding="utf-8"))
-    v = a["video"]
-    video = (f'<a href="{esc(player(v["url"], v["title"]))}" class="vid guide"><span class="ic">{ICON["play"]}</span>'
-             f'<span class="vt">{esc(v["title"])}<span class="vs">{esc(v.get("note", ""))}</span></span></a>')
+    vids = a.get("videos") or [a["video"]]
+    video = "".join(f'<a href="{esc(player(v["url"], v["title"]))}" class="vid guide"><span class="ic">{ICON["play"]}</span>'
+                    f'<span class="vt">{esc(v["title"])}<span class="vs">{esc(v.get("note", ""))}</span></span></a>' for v in vids)
     people = "".join(f'<div class="person"><b>{esc(p["role"])}</b><span>{esc(p["name"])}</span>'
                      f'<a class="ltr" href="mailto:{esc(p["email"])}">{esc(p["email"])}</a></div>' for p in a["staff"])
     secs = "".join(f'<section class="sec"><div class="ch"><h2>{esc(x["h"])}</h2></div><div class="adm">{md_lines(x["lines"])}</div></section>'
@@ -536,7 +536,7 @@ def admin_page(prefix, avail):
     docs = f'<section class="sec"><div class="ch"><h2>מסמכים וקישורים</h2></div>{links}</section>' if links else ""
     main = (f'<main class="card"><section class="hero"><p class="eyebrow">מנהלות הקורס</p><h1>מנהלות הקורס</h1>'
             f'<p class="intro">{esc(a["intro"])}</p></section>'
-            f'<section class="sec"><div class="ch"><h2>איך עובדים עם האתר</h2></div><div class="media">{video}</div></section>'
+            f'<section class="sec"><div class="ch"><h2>סרטונים</h2></div><div class="media">{video}</div></section>'
             f'<section class="sec"><div class="ch"><h2>צוות הקורס</h2></div><div class="people">{people}</div></section>'
             f'{secs}{docs}</main>')
     return f'{mob}<div class="layout">{rail}{main}</div>'
