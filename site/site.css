@@ -270,3 +270,15 @@ a.row:hover .rt{color:var(--acc)}
 .submit small{display:block;font-size:13.5px;opacity:.85}
 .submit i{margin-inline-start:auto;font-style:normal;font-size:26px}
 .submit:hover{color:#fff;background:#9a4718}
+
+/* a released solution (site.json solutions_released): a link after the assignment, and a page of its own */
+.sollink{display:flex;align-items:center;gap:14px;margin-top:14px;padding:14px 20px;border:1.5px solid var(--line);border-radius:16px;background:#fff;color:var(--ink)}
+.sollink svg{flex:none;width:22px;height:22px;color:var(--u)}
+.sollink b{display:block;font-size:18px;line-height:1.2}
+.sollink small{display:block;font-size:13.5px;color:var(--mut)}
+.sollink i{margin-inline-start:auto;font-style:normal;font-size:22px}
+.sollink:hover{border-color:var(--ink);color:var(--ink)}
+.solpage .eyebrow{margin:6px 0 2px}
+.solpage .ptitle{margin-bottom:18px}
+.solwrap{position:relative}
+.solwrap .solcode{padding-top:56px}

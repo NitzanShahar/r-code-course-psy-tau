@@ -383,23 +383,36 @@ def week_page(w, c, avail, book, depth, staff):
 <section class="sec"><div class="ch"><h2>מה לומדים השבוע</h2><span>יחידות מספר היחידות · לחצו על יחידה כדי לפתוח אותה</span>{tutor_button()}</div>{''.join(units)}
 {('<p class="sub">קריאה מומלצת</p>' + reading) if reading else ''}</section>
 {f'<section class="sec"><div class="ch"><h2>סרטוני עזר מהרשת</h2></div><div class="media">{"".join(videos)}</div></section>' if videos else ''}
-<section class="sec"><div class="ch"><h2>המטלה השבועית</h2></div>{hw_html}{solution_html(c, staff)}</section>
+<section class="sec"><div class="ch"><h2>המטלה השבועית</h2></div>{hw_html}{solution_html(n, c, staff)}</section>
 <nav class="nav">{prev}{nxt}</nav>
 </main>"""
     return f'{mob}<div class="layout">{rail}{main}</div>'
 
 
-def solution_html(c, staff):
-    """Staff site only: the solution, after the assignment (released to students later)."""
-    sol = c.get("solution")
-    if not staff or not sol:
-        return ""
+def released(n, c):
+    """The solution of week n is out (site.json solutions_released) — on both sites, as a page of its own."""
+    return bool(c.get("solution")) and n in CFG.get("solutions_released", [])
+
+
+def solution_blocks(sol):
     parts = []
     for blk in sol:
         if blk.get("code") is not None:
             parts.append(f'<pre class="solcode ltr"><code>{esc(blk["code"])}</code></pre>')
         else:
             parts.append(f'<p>{inline(blk["text"])}</p>')
+    return parts
+
+
+def solution_html(n, c, staff):
+    """After the assignment: a link to the solution page once released; until then, the solution itself on the staff site only."""
+    sol = c.get("solution")
+    if released(n, c):
+        return (f'<a class="sollink" href="solution-{n}.html">{ICON["spark"]}'
+                f'<span><b>פתרון המטלה</b><small>פתרון לדוגמה למטלה של שבוע {n}</small></span><i>←</i></a>')
+    if not staff or not sol:
+        return ""
+    parts = solution_blocks(sol)
     return (f'<details class="sol"><summary>{ICON["spark"]}פתרון <span>(באתר המתרגלים בלבד · ישוחרר לסטודנטים אחרי מועד ההגשה)</span></summary>'
             f'<div class="solb">{"".join(parts)}</div></details>')
 
@@ -559,6 +572,17 @@ PLAYER_JS = """// the site's player: a local video, no download button, no right
 })();"""
 
 
+def solution_page(w, c, depth, staff):
+    n = w["n"]
+    code = "\n\n".join(b["code"] for b in c["solution"] if b.get("code") is not None)
+    blocks = solution_blocks(c["solution"])
+    body = (header(depth, staff, "weeks") + f'<main class="card player solpage"><a class="back" href="week-{n}.html">→ חזרה לשבוע {n}</a>'
+            f'<p class="eyebrow">שבוע {n} · {esc(w["title"])}</p><h1 class="ptitle">פתרון המטלה</h1>'
+            + f'<div class="solwrap"><button class="copy" type="button">{ICON["copy"]}<span>העתקה</span></button>'
+            f'{"".join(blocks)}<textarea hidden>{esc(code)}</textarea></div></main>' + footer(depth, staff))
+    return page(f"פתרון שבוע {n} · {CFG['title']}", body, depth, staff, COPY_JS + "\n" + GATE_JS)
+
+
 def player_page(depth, staff):
     body = (header(depth, staff, None) + '<main class="card player"><a class="back" href="index.html" id="back">→ חזרה</a>'
             '<h1 class="ptitle" id="ptitle"></h1>'
@@ -583,6 +607,8 @@ def build_site(prefix, staff, avail, weeks, book):
         body = header(depth, staff, "weeks") + week_page(title_of[n], weeks[n], avail, book, depth, staff) + footer(depth, staff)
         html_ = page(f"שבוע {n} · {CFG['title']}", body, depth, staff, COPY_JS + "\n" + GATE_JS)
         write(f"{prefix}week-{n}.html", html_)
+        if released(n, weeks[n]):
+            write(f"{prefix}solution-{n}.html", solution_page(title_of[n], weeks[n], depth, staff))
     home = CURRENT if CURRENT in avail else min(avail)
     body = header(depth, staff, "weeks") + week_page(title_of[home], weeks[home], avail, book, depth, staff) + footer(depth, staff)
     write(f"{prefix}index.html", page(CFG["title"], body, depth, staff, COPY_JS + "\n" + GATE_JS))
@@ -613,7 +639,7 @@ def main():
 
     # clear generated pages from previous builds
     for d in (ROOT, ROOT / staff):
-        for f in list(d.glob("week-*.html")) + [d / "book.html", d / "admin.html", d / "play.html"]:
+        for f in list(d.glob("week-*.html")) + list(d.glob("solution-*.html")) + [d / "book.html", d / "admin.html", d / "play.html"]:
             if f.exists():
                 f.unlink()
 

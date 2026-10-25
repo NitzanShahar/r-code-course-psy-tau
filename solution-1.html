@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>פתרון שבוע 1 · קורס R למתחילים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=a9b72c26">
+<link rel="icon" href="assets/tau-logo.png">
+</head>
+<body>
+<div class="wrap">
+<header class="hdr">
+<img class="logo" src="assets/tau-logo.png" alt="אוניברסיטת תל אביב">
+<span class="sep"></span>
+<a class="home" href="index.html"><span class="t1">קורס R למתחילים</span><span class="t2">בית הספר למדעי הפסיכולוגיה · אוניברסיטת תל אביב · תשפ״ז</span></a>
+<nav class="gen"><a href="index.html" class="on">תוכן הקורס</a><a href="book.html" class="">ספר היחידות</a><a href="admin.html" class="">מנהלות הקורס</a></nav>
+</header><main class="card player solpage"><a class="back" href="week-1.html">→ חזרה לשבוע 1</a><p class="eyebrow">שבוע 1 · היכרות וקובץ נתונים ראשון</p><h1 class="ptitle">פתרון המטלה</h1><div class="solwrap"><button class="copy" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg><span>העתקה</span></button><pre class="solcode ltr"><code># R course for beginners
+# Week 1
+# assignment by &lt; First Name &gt; &lt; Last Name &gt;, id &lt; 123456789 &gt;
+
+
+#### CREATE DATAFRAME ####
+
+# 1. Generate data
+subj       = c(1, 2, 3, 4, 5, 6)
+gender     = c(&quot;male&quot;, &quot;male&quot;, &quot;female&quot;, &quot;female&quot;, &quot;female&quot;, &quot;male&quot;)
+age        = c(15, 29, 31, 28, 20, 35)
+depression = c(0, 1, 0, 0, 1, 1)
+
+# 2. Combine into a data frame
+df = data.frame(
+  subj       = subj,
+  gender     = gender,
+  age        = age,
+  depression = depression
+)
+
+# 3. Save data frame to CSV
+write.csv(df, &quot;data.csv&quot;, row.names = FALSE)
+</code></pre><textarea hidden># R course for beginners
+# Week 1
+# assignment by &lt; First Name &gt; &lt; Last Name &gt;, id &lt; 123456789 &gt;
+
+
+#### CREATE DATAFRAME ####
+
+# 1. Generate data
+subj       = c(1, 2, 3, 4, 5, 6)
+gender     = c(&quot;male&quot;, &quot;male&quot;, &quot;female&quot;, &quot;female&quot;, &quot;female&quot;, &quot;male&quot;)
+age        = c(15, 29, 31, 28, 20, 35)
+depression = c(0, 1, 0, 0, 1, 1)
+
+# 2. Combine into a data frame
+df = data.frame(
+  subj       = subj,
+  gender     = gender,
+  age        = age,
+  depression = depression
+)
+
+# 3. Save data frame to CSV
+write.csv(df, &quot;data.csv&quot;, row.names = FALSE)
+</textarea></div></main><footer class="foot"><img class="flogo" src="assets/tau-logo.png" alt=""><b>קורס R למתחילים</b><span>בית הספר למדעי הפסיכולוגיה · אוניברסיטת תל אביב · תשפ״ז</span><details class="tlog"><summary>כניסת מתרגלים</summary><form class="tlogf"><input type="password" autocomplete="off" aria-label="סיסמה" placeholder="סיסמה"><button type="submit">כניסה</button><span class="terr" hidden>סיסמה שגויה</span></form></details></footer>
+</div>
+<script>
+// copy an AI-tutor prompt
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=b.parentNode.querySelector('textarea').value, s=b.querySelector('span');
+    function ok(){ b.classList.add('ok'); s.textContent='הועתק'; setTimeout(function(){b.classList.remove('ok'); s.textContent='העתקה';},1600); }
+    if(navigator.clipboard) navigator.clipboard.writeText(t).then(ok,function(){});
+    else { var a=document.createElement('textarea'); a.value=t; document.body.appendChild(a); a.select(); try{document.execCommand('copy'); ok();}catch(e){} a.remove(); }
+  });
+});
+// TA sign-in: the password is the name of the staff site's folder.
+document.querySelectorAll('.tlogf').forEach(function(f){
+  f.addEventListener('submit',function(e){ e.preventDefault();
+    var v=f.querySelector('input').value.trim().toLowerCase().replace(/[^a-z0-9_-]/g,''), er=f.querySelector('.terr');
+    if(!v) return;
+    if(location.protocol==='file:'){ location.href=v+'/index.html'; return; }
+    fetch(v+'/index.html',{method:'HEAD',cache:'no-store'}).then(function(r){ if(r.ok) location.href=v+'/'; else er.hidden=false; }).catch(function(){er.hidden=false});
+  });
+});
+</script>
+</body>
+</html>
