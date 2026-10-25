@@ -357,7 +357,9 @@ def week_page(w, c, avail, book, depth, staff):
     if not hw.get("title"):
         hw_html = '<div class="hw"><p class="none">אין מטלה להגשה השבוע.</p></div>'
     else:
-        due = (f'<p class="due">{ICON["clock"]}להגשה עד {esc(hw["due"])}</p>' if hw.get("due")
+        # hw.due_note replaces the deadline line (e.g. once the deadline has passed and late submission is open)
+        due = (f'<p class="due">{ICON["clock"]}{esc(hw["due_note"])}</p>' if hw.get("due_note")
+               else f'<p class="due">{ICON["clock"]}להגשה עד {esc(hw["due"])}</p>' if hw.get("due")
                else f'<p class="due tbd">{ICON["clock"]}תאריך ההגשה יפורסם בהמשך</p>')
         body = md_lines(hw["lines"]) if "lines" in hw else f'<ol>{"".join(f"<li>{esc(s)}</li>" for s in hw["steps"])}</ol>'
         ctx = f'<div class="ctx">{md_lines(hw["context"])}</div>' if hw.get("context") else ""
@@ -367,7 +369,7 @@ def week_page(w, c, avail, book, depth, staff):
         dl = f'<p class="dfiles">קובצי נתונים: {dl}</p>' if dl else ""
         # the submission form (hw.submit_url): a large button at the end of the assignment
         go = (f'<a class="submit" href="{esc(hw["submit_url"])}" target="_blank" rel="noopener">{ICON["pencil"]}'
-              f'<span><b>להגשת המטלה</b><small>טופס ההגשה של שבוע {n}</small></span><i>←</i></a>' if hw.get("submit_url") else "")
+              f'<span><b>{esc(hw.get("submit_label", "להגשת המטלה"))}</b><small>טופס ההגשה של שבוע {n}</small></span><i>←</i></a>' if hw.get("submit_url") else "")
         hw_html = (f'<div class="hw"><b class="ht">{esc(hw["title"])}</b>{ctx}{dl}<div class="hwb">{body}</div>'
                    + "".join(f'<p class="sm">{esc(p)}</p>' for p in hw.get("submit", [])) + due + go + "</div>")
 

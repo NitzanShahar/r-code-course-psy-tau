@@ -117,7 +117,9 @@
    "כותרות הקוד: השתמשו בפורמט הכותרות של הקורס, וכתבו בתחילת הקובץ את שם הקורס, השבוע, מספר תעודת הזהות שלכם ושמכם."
   ],
   "due": "יום ראשון, 25.10.2026, בשעה 12:00",
-  "submit_url": "https://socialtau.qualtrics.com/jfe/form/SV_42AHUyoa1AG4Tau"
+  "submit_url": "https://socialtau.qualtrics.com/jfe/form/SV_42AHUyoa1AG4Tau",
+  "submit_label": "להגשת מטלה (הגשה מאוחרת)",
+  "due_note": "מועד ההגשה האחרון חלף. ניתן להגיש הגשה מאוחרת באמצעות הלינק."
  },
  "solution": [
   {
