@@ -16,7 +16,12 @@
  "deck": {
   "title": "מצגת שבוע 3",
   "note": "8 שקפים · נפתחת בדפדפן",
-  "url": "decks/W3.html"
+  "url": "decks/W3.html",
+  "recording": {
+   "title": "הקלטה של המצגת",
+   "note": "הסבר על המצגת · 3.5 דקות",
+   "url": "files/recordings/W3-deck.mp4"
+  }
  },
  "videos": [],
  "units": [
